@@ -1,0 +1,150 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { races } from "../../data/schedule.js";
+---
+
+<BaseLayout
+  title="Schedule | LRAC"
+  description="Lower Raritan Athletic Club race and competition schedule."
+>
+  <section class="page-hero">
+    <div class="section-inner">
+      <p class="eyebrow">2026 COMPETITION</p>
+      <h1>Schedule</h1>
+    </div>
+  </section>
+
+  <section class="schedule-section">
+    <div class="section-inner">
+      <div class="schedule-header">
+        <span>Date</span>
+        <span>Event</span>
+        <span>Athlete</span>
+        <span>Status</span>
+      </div>
+
+      <div class="race-list">
+        {
+          races.map((race) => (
+            <article class="race-row">
+              <div class="date">
+                <strong>{race.date}</strong>
+                <span>{race.year}</span>
+              </div>
+
+              <div class="event">
+                <p class="discipline">{race.discipline}</p>
+                <h2>{race.event}</h2>
+                <p class="location">{race.location}</p>
+              </div>
+
+              <div class="athlete">
+                {race.athlete}
+              </div>
+
+              <div class="status">
+                <span>{race.status}</span>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .schedule-section {
+    padding: 90px 0 110px;
+  }
+
+  .schedule-header,
+  .race-row {
+    display: grid;
+    grid-template-columns: 150px 1fr 220px 130px;
+    gap: 28px;
+  }
+
+  .schedule-header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .schedule-header span {
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+  }
+
+  .race-row {
+    padding: 30px 0;
+    align-items: center;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .date strong {
+    display: block;
+    font-size: 18px;
+  }
+
+  .date span {
+    display: block;
+    margin-top: 4px;
+    color: var(--gray);
+    font-size: 12px;
+  }
+
+  .discipline {
+    margin: 0 0 6px;
+    color: var(--mint-dark);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .event h2 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -1.3px;
+  }
+
+  .location {
+    margin: 7px 0 0;
+    color: var(--gray);
+    font-size: 13px;
+  }
+
+  .athlete {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .status span {
+    display: inline-block;
+    padding: 7px 10px;
+    border: 1px solid var(--black);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 850px) {
+    .schedule-header {
+      display: none;
+    }
+
+    .race-row {
+      grid-template-columns: 90px 1fr;
+    }
+
+    .athlete,
+    .status {
+      grid-column: 2;
+    }
+  }
+</style>

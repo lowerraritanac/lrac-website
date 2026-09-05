@@ -1,0 +1,169 @@
+:root {
+  --mint: #a8e6cf;
+  --mint-dark: #4f8f78;
+
+  --black: #111111;
+  --white: #ffffff;
+
+  --beige: #eee8dc;
+  --beige-light: #f8f5ef;
+
+  --gray: #666666;
+  --gray-light: #999999;
+
+  --max-width: 1380px;
+  --page-padding: 34px;
+
+  --border: 1px solid var(--black);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+
+  background: var(--beige);
+  color: var(--black);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.section-inner {
+  width: 100%;
+  max-width: var(--max-width);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-left: var(--page-padding);
+  padding-right: var(--page-padding);
+}
+
+.page-hero {
+  padding: 90px 0 70px;
+  background: var(--mint);
+  border-bottom: var(--border);
+}
+
+.eyebrow,
+.section-label {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+}
+
+.page-hero h1 {
+  margin: 32px 0 0;
+  max-width: 100%;
+
+  font-size: clamp(80px, 12vw, 170px);
+  line-height: 0.8;
+  letter-spacing: -8px;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3,
+p {
+  max-width: 100%;
+}
+
+.text-link {
+  display: inline-block;
+
+  color: var(--black);
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 3px;
+}
+
+.text-link:hover {
+  opacity: 0.5;
+}
+
+.button {
+  display: inline-block;
+
+  padding: 14px 20px;
+
+  border: 1px solid var(--black);
+
+  color: var(--black);
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+}
+
+.button-dark {
+  background: var(--black);
+  color: var(--white);
+}
+
+.button:hover {
+  background: var(--mint);
+  color: var(--black);
+}
+
+@media (max-width: 850px) {
+  :root {
+    --page-padding: 20px;
+  }
+
+  .section-inner {
+    width: 100%;
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+  }
+
+  .page-hero {
+    padding: 65px 0 55px;
+    overflow: hidden;
+  }
+
+  .page-hero h1 {
+    margin-top: 24px;
+
+    font-size: clamp(52px, 17vw, 76px);
+    line-height: 0.88;
+    letter-spacing: -4px;
+
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+}

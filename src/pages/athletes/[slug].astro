@@ -1,0 +1,225 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { athletes } from "../../../data/athletes.js";
+
+export function getStaticPaths() {
+  return athletes.map((athlete) => ({
+    params: {
+      slug: athlete.slug,
+    },
+    props: {
+      athlete,
+    },
+  }));
+}
+
+const { athlete } = Astro.props;
+
+const [firstName, ...rest] = athlete.name.split(" ");
+const lastName = rest.join(" ");
+---
+
+<BaseLayout
+  title={`${athlete.name} | LRAC`}
+  description={`${athlete.name} — ${athlete.sport} athlete with Lower Raritan Athletic Club.`}
+>
+  <section class="athlete-hero">
+    <div class="photo-wrap">
+      <img src={athlete.image} alt={athlete.name} />
+    </div>
+
+    <div class="athlete-heading">
+      <p class="athlete-meta">
+        {athlete.sport} / {athlete.location}
+      </p>
+
+      <h1>
+        {firstName}
+        <br />
+        {lastName}
+      </h1>
+
+      <p class="background">
+        {athlete.background}
+      </p>
+    </div>
+  </section>
+
+  <section class="profile-section">
+    <div class="section-inner profile-grid">
+      <p class="section-label">Personal Bests</p>
+
+      <div class="prs">
+        {
+          athlete.prs.map(([event, time]) => (
+            <div class="pr-row">
+              <span>{event}</span>
+              <strong>{time}</strong>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bio-section">
+    <div class="section-inner bio-grid">
+      <p class="section-label">Profile</p>
+
+      <div class="bio-content">
+        <h2>{athlete.sport}</h2>
+        <p>{athlete.bio}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="back-section">
+    <div class="section-inner">
+      <a class="text-link" href="/athletes">
+        ← Back to athletes
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .athlete-hero {
+    min-height: calc(100vh - 70px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--mint);
+    border-bottom: 1px solid var(--black);
+  }
+
+  .photo-wrap {
+    min-height: 700px;
+    overflow: hidden;
+    background: var(--black);
+    border-right: 1px solid var(--black);
+  }
+
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: saturate(0.85) contrast(1.04);
+  }
+
+  .athlete-heading {
+    padding: 55px 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .athlete-meta {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 35px 0 0;
+    font-size: clamp(75px, 10vw, 150px);
+    line-height: 0.78;
+    letter-spacing: -7px;
+    text-transform: uppercase;
+  }
+
+  .background {
+    max-width: 500px;
+    margin: 45px 0 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .profile-section {
+    padding: 100px 0;
+  }
+
+  .profile-grid,
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 60px;
+  }
+
+  .prs {
+    border-top: 1px solid var(--black);
+  }
+
+  .pr-row {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .pr-row span {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+
+  .pr-row strong {
+    font-size: 32px;
+  }
+
+  .bio-section {
+    padding: 100px 0;
+    background: var(--beige-light);
+    border-top: 1px solid var(--black);
+  }
+
+  .bio-content h2 {
+    max-width: 800px;
+    margin: 0;
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+  }
+
+  .bio-content p {
+    max-width: 700px;
+    margin: 28px 0 0;
+    font-size: 18px;
+    line-height: 1.65;
+  }
+
+  .back-section {
+    padding: 60px 0 90px;
+  }
+
+  @media (max-width: 850px) {
+    .athlete-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .photo-wrap {
+      min-height: 500px;
+      border-right: none;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .athlete-heading {
+      min-height: 460px;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      letter-spacing: -4px;
+    }
+
+    .profile-grid,
+    .bio-grid {
+      grid-template-columns: 1fr;
+      gap: 35px;
+    }
+  }
+</style>
