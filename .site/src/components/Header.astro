@@ -1,0 +1,218 @@
+---
+const { transparent = false } = Astro.props;
+---
+
+<header class:list={["site-header", { transparent }]}>
+  <div class="nav-wrap">
+    <a class="brand" href="/">
+      <span class="brand-mark">LRAC</span>
+      <span class="brand-name">Lower Raritan Athletic Club</span>
+    </a>
+
+    <nav class="desktop-nav">
+      <a href="/athletes">Athletes</a>
+      <a href="/schedule">Schedule</a>
+      <a href="/training">Training</a>
+      <a href="/about">About</a>
+    </nav>
+
+    <details class="mobile-menu">
+      <summary>
+        <span class="menu-open">Menu</span>
+        <span class="menu-close">Close</span>
+      </summary>
+
+      <nav class="mobile-links">
+        <a href="/athletes">Athletes</a>
+        <a href="/schedule">Schedule</a>
+        <a href="/training">Training</a>
+        <a href="/about">About</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+    background: var(--beige);
+    border-bottom: 1px solid var(--black);
+  }
+
+  .nav-wrap {
+    width: 100%;
+    max-width: var(--max-width);
+    min-height: 70px;
+    margin: 0 auto;
+    padding: 0 var(--page-padding);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+  }
+
+  .brand-name {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .desktop-nav a {
+    color: var(--black);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+  }
+
+  .desktop-nav a:hover {
+    opacity: 0.5;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu summary {
+    cursor: pointer;
+    list-style: none;
+    color: var(--black);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+  }
+
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu-open {
+    display: inline-block;
+  }
+
+  .menu-close {
+    display: none;
+  }
+
+  .mobile-menu[open] .menu-open {
+    display: none;
+  }
+
+  .mobile-menu[open] .menu-close {
+    display: inline-block;
+  }
+
+  .site-header.transparent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .site-header.transparent .brand,
+  .site-header.transparent .desktop-nav a {
+    color: var(--white);
+  }
+
+  @media (max-width: 850px) {
+    .site-header,
+    .site-header.transparent {
+      position: sticky;
+      top: 0;
+      background: var(--beige);
+      border-bottom: 1px solid var(--black);
+    }
+
+    .site-header.transparent .brand {
+      color: var(--black);
+    }
+
+    .brand-name {
+      display: none;
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .mobile-menu {
+      display: block;
+      position: static;
+    }
+
+    .mobile-menu summary,
+    .site-header.transparent .mobile-menu summary {
+      color: var(--black);
+    }
+
+    .mobile-links {
+      position: absolute;
+      top: 70px;
+      left: 0;
+      right: 0;
+      z-index: 2000;
+
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--beige);
+      border-bottom: 1px solid var(--black);
+    }
+
+    .mobile-links a {
+      display: flex;
+      align-items: center;
+      min-height: 56px;
+      padding: 0 var(--page-padding);
+
+      color: var(--black);
+      background: var(--beige);
+
+      text-decoration: none;
+      text-transform: uppercase;
+
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+
+      border-bottom: 1px solid var(--black);
+    }
+
+    .mobile-links a:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-links a:hover {
+      background: var(--mint);
+    }
+  }
+</style>

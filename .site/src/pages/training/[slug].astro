@@ -1,0 +1,250 @@
+---
+import { trainingPosts } from "../../../data/training.js";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+export function getStaticPaths() {
+  return trainingPosts.map((post) => ({
+    params: {
+      slug: post.slug,
+    },
+    props: {
+      post,
+    },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content={post.description}
+    />
+
+    <title>{post.title} | LRAC</title>
+  </head>
+
+  <body>
+<Header />
+
+    <main>
+      <section class="article-hero">
+        <div class="section-inner">
+          <p class="type">{post.type}</p>
+
+          <h1>{post.title}</h1>
+
+          <p class="description">{post.description}</p>
+        </div>
+      </section>
+
+      <section class="article-body">
+        <div class="section-inner article-grid">
+          <div class="article-label">
+            TRAINING NOTES
+          </div>
+
+          <div class="article-content">
+            <p>
+              This article is being built as part of the LRAC training archive.
+            </p>
+
+            <p>
+              Longer-form workout notes, training context, session breakdowns,
+              and athlete observations will live here.
+            </p>
+
+            <p>
+              For now, this page confirms that individual training posts are
+              working correctly.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+<Footer />
+  </body>
+</html>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eee8dc;
+    color: #111;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .section-inner,
+  .nav-wrap {
+    max-width: 1380px;
+    margin: auto;
+    padding-left: 34px;
+    padding-right: 34px;
+  }
+
+  .site-header {
+    background: #eee8dc;
+    border-bottom: 1px solid #111;
+  }
+
+  .nav-wrap {
+    min-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+  }
+
+  .brand-name {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  nav {
+    display: flex;
+    gap: 30px;
+  }
+
+  nav a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.3px;
+  }
+
+  .article-hero {
+    background: #a8e6cf;
+    padding: 100px 0 90px;
+    border-bottom: 1px solid #111;
+  }
+
+  .type {
+    margin: 0 0 30px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2.4px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 1100px;
+    margin: 0;
+    font-size: clamp(64px, 10vw, 140px);
+    line-height: 0.84;
+    letter-spacing: -6px;
+    text-transform: uppercase;
+  }
+
+  .description {
+    max-width: 760px;
+    margin: 40px 0 0;
+    font-size: 20px;
+    line-height: 1.55;
+  }
+
+  .article-body {
+    padding: 100px 0 120px;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 70px;
+  }
+
+  .article-label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+  }
+
+  .article-content {
+    max-width: 760px;
+  }
+
+  .article-content p {
+    margin: 0 0 28px;
+    font-size: 19px;
+    line-height: 1.75;
+  }
+
+  footer {
+    background: #111;
+    color: #fff;
+    padding: 48px 0;
+  }
+
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  footer strong {
+    font-size: 34px;
+  }
+
+  footer p {
+    margin: 7px 0 0;
+    color: #999;
+  }
+
+  footer a {
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 850px) {
+    .brand-name,
+    nav {
+      display: none;
+    }
+
+    h1 {
+      letter-spacing: -4px;
+    }
+
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+  }
+</style>
