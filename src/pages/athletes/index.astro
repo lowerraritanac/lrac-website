@@ -13,79 +13,18 @@ const trainingSlugs = new Set(["liam-tilton", "aaron-wysocki"]);
   <section class="page-hero athletes-hero">
     <div class="section-inner">
       <p class="eyebrow">{site.name}</p>
-      <div class="hero-row">
-        <h1>Athletes</h1>
-        <span>{String(athletes.length).padStart(2, "0")}</span>
-      </div>
+      <div class="hero-row"><h1>Athletes</h1><span>{String(athletes.length).padStart(2, "0")}</span></div>
     </div>
   </section>
 
-  <section class="athletes-section">
-    <div class="section-inner athlete-grid">
-      {athletes.map((athlete) => (
-        <div class="athlete-wrap">
-          <AthleteCard athlete={athlete} />
-          {trainingSlugs.has(athlete.slug) && <a class="training-link" href={`/training/${athlete.slug}`}>Training data →</a>}
-        </div>
-      ))}
-    </div>
-  </section>
+  <section class="athletes-section"><div class="section-inner athlete-grid">{athletes.map((athlete) => (<div class="athlete-wrap"><AthleteCard athlete={athlete} />{trainingSlugs.has(athlete.slug) && <a class="training-link" href={`/training/${athlete.slug}`}>Training data →</a>}</div>))}</div></section>
 
-  {recentResults.length > 0 && (
-    <section class="results-section">
-      <div class="section-inner results-grid">
-        <div><p class="section-label">Recent Results</p><h2>Results</h2></div>
-        <div class="results-list">
-          {recentResults.map((race) => (
-            <div class="result-row">
-              <span>{race.date} {race.year}</span>
-              <strong>{race.event}</strong>
-              <span>{race.athletes.join(" · ")}</span>
-              <span>{race.result}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
+  {recentResults.length > 0 && (<section class="results-section"><div class="section-inner results-grid"><div><p class="section-label">Recent Results</p><h2>Results</h2></div><div class="results-list">{recentResults.map((race) => (<div class="result-row"><span>{race.date} {race.year}</span><strong>{race.event}</strong><span>{race.athletes.join(" · ")}</span><span>{race.result}</span></div>))}</div></div></section>)}
 
-  <section class="join-section">
-    <div class="section-inner join-grid">
-      <p class="section-label">Join LRAC</p>
-      <a class="join-email" href={`mailto:${site.email}`}>{site.email} ↗</a>
-    </div>
-  </section>
+  <section class="join-section"><div class="section-inner join-grid"><p class="section-label">Join LRAC</p><a class="join-email" href={`mailto:${site.email}`}>{site.email} ↗</a></div></section>
 </BaseLayout>
 
 <style>
-  .athletes-hero { background: var(--paper); }
-  .hero-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
-  .hero-row span { padding-bottom: 7px; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 2px; }
-  .athletes-section { padding: 68px 0 92px; background: var(--paper); }
-  .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: start; }
-  .athlete-wrap { min-width: 0; }
-  .training-link { display: inline-block; margin-top: 12px; font-family: var(--mono); font-size: 8px; font-weight: 600; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
-
-  .results-section { padding: 58px 0 68px; background: var(--beige); border-top: 1px solid var(--ink); }
-  .results-grid { display: grid; grid-template-columns: 180px 1fr; gap: 52px; }
-  .results-grid h2 { margin: 14px 0 0; font-size: clamp(42px, 5vw, 62px); line-height: .95; }
-  .results-list { border-top: 1px solid var(--ink); }
-  .result-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) 180px 150px; gap: 20px; align-items: center; padding: 17px 0; border-bottom: 1px solid var(--ink); }
-  .result-row span { font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-  .result-row strong { font-family: var(--editorial); font-size: 24px; font-weight: 600; line-height: 1; }
-  .result-row span:last-child { text-align: right; font-weight: 700; }
-
-  .join-section { padding: 34px 0; background: var(--mint); border-top: 1px solid var(--ink); }
-  .join-grid { display: flex; justify-content: space-between; gap: 30px; align-items: center; }
-  .join-email { font-family: var(--mono); font-size: 11px; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
-
-  @media (max-width: 850px) {
-    .athlete-grid { grid-template-columns: 1fr; gap: 48px; }
-    .results-grid { grid-template-columns: 1fr; gap: 22px; }
-    .result-row { grid-template-columns: 1fr auto; gap: 7px 14px; align-items: start; }
-    .result-row strong { grid-column: 1 / -1; font-size: 24px; }
-    .result-row span:nth-of-type(2) { grid-column: 1; }
-    .result-row span:last-child { grid-column: 2; grid-row: 3; }
-    .join-grid { align-items: flex-start; flex-direction: column; gap: 14px; }
-  }
+.athletes-hero{background:var(--paper)}.hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px}.hero-row span{padding-bottom:7px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:2px}.athletes-section{padding:68px 0 92px;background:var(--paper)}.athlete-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;align-items:start}.athlete-wrap{min-width:0}.training-link{display:inline-block;margin-top:12px;font-family:var(--mono);font-size:8px;font-weight:600;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:2px}.results-section{padding:58px 0 68px;background:var(--beige);border-top:1px solid var(--ink)}.results-grid{display:grid;grid-template-columns:180px 1fr;gap:52px}.results-grid h2{margin:14px 0 0;font-size:clamp(42px,5vw,62px);line-height:.95}.results-list{border-top:1px solid var(--ink)}.result-row{display:grid;grid-template-columns:110px minmax(0,1fr) 180px 150px;gap:20px;align-items:center;padding:17px 0;border-bottom:1px solid var(--ink)}.result-row span{font-family:var(--mono);font-size:9px;text-transform:uppercase}.result-row strong{font-family:var(--editorial);font-size:24px;font-weight:600;line-height:1}.result-row span:last-child{text-align:right;font-weight:700}.join-section{padding:34px 0;background:var(--mint);border-top:1px solid var(--ink)}.join-grid{display:flex;justify-content:space-between;gap:30px;align-items:center}.join-email{font-family:var(--mono);font-size:11px;font-weight:600;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:3px}
+@media(max-width:850px){.athletes-hero{padding-top:38px;padding-bottom:34px}.hero-row{align-items:baseline}.hero-row span{padding-bottom:0}.athletes-section{padding:38px 0 54px}.athlete-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 12px}.training-link{margin-top:8px;font-size:7px}.results-section{padding:46px 0 54px}.results-grid{grid-template-columns:1fr;gap:20px}.result-row{grid-template-columns:1fr auto;gap:7px 14px;align-items:start}.result-row strong{grid-column:1/-1;font-size:22px}.result-row span:nth-of-type(2){grid-column:1}.result-row span:last-child{grid-column:2;grid-row:3}.join-grid{align-items:flex-start;flex-direction:column;gap:12px}.join-email{font-size:9px}}
 </style>
