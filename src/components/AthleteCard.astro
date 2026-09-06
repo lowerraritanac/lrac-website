@@ -1,0 +1,135 @@
+---
+const { athlete, showBackground = false } = Astro.props;
+const previewPrs = athlete.prs.slice(0, 3);
+---
+
+<a class="athlete-card" href={`/athletes/${athlete.slug}`}>
+  <div class="athlete-image">
+    <img src={athlete.image} alt={athlete.name} loading="lazy" />
+  </div>
+
+  <div class="athlete-meta">
+    <div class="athlete-kicker">
+      <span>{athlete.sport}</span>
+      <span>{athlete.location}</span>
+    </div>
+
+    <h3>{athlete.name}</h3>
+
+    {showBackground && <p class="background">{athlete.background}</p>}
+
+    {previewPrs.length > 0 && (
+      <div class="pr-grid">
+        {previewPrs.map(([event, mark]) => (
+          <div class="pr-item">
+            <span>{event}</span>
+            <strong>{mark}</strong>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</a>
+
+<style>
+  .athlete-card {
+    display: block;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .athlete-image {
+    overflow: hidden;
+    background: var(--black);
+  }
+
+  .athlete-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(.86) contrast(1.02);
+    transition: transform .2s ease;
+  }
+
+  .athlete-card:hover .athlete-image img {
+    transform: scale(1.015);
+  }
+
+  .athlete-meta {
+    padding-top: 14px;
+  }
+
+  .athlete-kicker {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin: 8px 0 0;
+    font-size: clamp(30px, 3vw, 40px);
+    line-height: .92;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+  }
+
+  .background {
+    margin: 12px 0 0;
+    color: var(--gray);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .pr-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 16px;
+    border-top: 1px solid var(--black);
+  }
+
+  .pr-item {
+    min-width: 0;
+    padding: 10px 10px 0 0;
+  }
+
+  .pr-item + .pr-item {
+    padding-left: 10px;
+    border-left: 1px solid var(--black);
+  }
+
+  .pr-item span,
+  .pr-item strong {
+    display: block;
+  }
+
+  .pr-item span {
+    min-height: 20px;
+    color: var(--gray);
+    font-size: 8px;
+    line-height: 1.15;
+    letter-spacing: .7px;
+    text-transform: uppercase;
+  }
+
+  .pr-item strong {
+    margin-top: 4px;
+    font-size: 15px;
+    line-height: 1;
+  }
+
+  @media (max-width: 850px) {
+    .athlete-kicker {
+      font-size: 8px;
+    }
+
+    h3 {
+      font-size: 34px;
+    }
+  }
+</style>
