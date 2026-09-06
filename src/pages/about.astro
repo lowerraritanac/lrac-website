@@ -27,6 +27,29 @@ import { site } from "../../data/site.js";
     </div>
   </section>
 
+  <section class="story-section">
+    <div class="section-inner story-grid">
+      <div class="story-heading">
+        <p class="section-label">About LRAC</p>
+        <span>Sep 6, 2026</span>
+      </div>
+
+      <article class="story-copy">
+        <p>There are often signs that the dream is done, gone, or dead. As if the spark has finally dimmed, graduation- whether from high school, college, a 5th year, or a 6th- is a reasonable sign that it is time to put the dream to rest. Yet, we believe that the spark was still alive for many of our peers, stomped out under the guise of growing up.</p>
+
+        <p>This idea really isn’t about sport, but for us it is. This problem led us to each address the end of athletic dreams in our life’s blueprint and to answer: what does an athlete do when there is still a burning dream?</p>
+
+        <p>When deep down, you know that there is more to give. Whether it be the Olympic Games, the Olympic Trials, the Boston Marathon, or a local 5k, it doesn’t really matter, but we found the solution: you don’t need to stop. So we’ve kept training. Our mission is to prove to ourselves that growing up doesn’t mean killing your dreams.</p>
+
+        <p>The idea of the Lower Raritan Athletic Club is to maintain the benefits of a team while accepting some of the responsibilities associated with age. The name is inspired by the watershed that encompasses the land of Central Jersey where our club was founded. It represents New Jersey, but more importantly, it looks vague and tough on a singlet. So we’ll run with it.</p>
+
+        <p>The difference between the LRAC and others is that we’re not pretending to be something we’re not. We’re not sponsored. We’re not creatives. We just want to train really hard and go fast.</p>
+
+        <p>If you’ve read this far, hopefully a dream is alive within you. If it is, follow along.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="members-section">
     <div class="section-inner members-grid">
       <div class="members-heading">
@@ -61,6 +84,13 @@ import { site } from "../../data/site.js";
   .identity-facts strong, .identity-facts a { font-size: 11px; line-height: 1.35; overflow-wrap: anywhere; }
   .identity-facts a { text-decoration: none; }
 
+  .story-section { padding: 82px 0 94px; background: var(--paper); border-bottom: 1px solid var(--ink); }
+  .story-grid { display: grid; grid-template-columns: 220px minmax(0, 760px); gap: 58px; align-items: start; }
+  .story-heading { position: sticky; top: 92px; }
+  .story-heading span { display: block; margin-top: 12px; color: var(--gray); font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
+  .story-copy p { margin: 0 0 26px; font-family: var(--editorial); font-size: clamp(21px, 2vw, 28px); line-height: 1.42; letter-spacing: -.012em; }
+  .story-copy p:last-child { margin-bottom: 0; }
+
   .members-section { padding: 72px 0 86px; background: var(--paper); }
   .members-grid { display: grid; grid-template-columns: 220px 1fr; gap: 58px; }
   .members-heading h2 { margin: 16px 0 0; font-size: clamp(48px, 5.5vw, 72px); line-height: .95; letter-spacing: -.035em; }
@@ -74,10 +104,14 @@ import { site } from "../../data/site.js";
 
   @media (max-width: 850px) {
     .identity-section, .members-section { padding: 54px 0 62px; }
-    .identity-grid, .members-grid { grid-template-columns: 1fr; gap: 28px; }
+    .identity-grid, .members-grid, .story-grid { grid-template-columns: 1fr; gap: 28px; }
     .identity-facts { grid-template-columns: repeat(2, 1fr); }
     .identity-facts > div:nth-child(3) { border-left: 0; border-top: 1px solid var(--ink); padding-left: 0; }
     .identity-facts > div:nth-child(4) { border-top: 1px solid var(--ink); }
+    .story-section { padding: 50px 0 58px; }
+    .story-heading { position: static; display: flex; justify-content: space-between; gap: 20px; align-items: baseline; }
+    .story-heading span { margin-top: 0; }
+    .story-copy p { margin-bottom: 22px; font-size: 20px; line-height: 1.5; }
     .member-row { grid-template-columns: 34px 1fr auto; gap: 7px 14px; align-items: start; }
     .member-row strong { font-size: 28px; }
     .sport { grid-column: 2; }
