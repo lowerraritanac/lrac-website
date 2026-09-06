@@ -4,7 +4,7 @@ import { athletes } from "../../data/athletes.js";
 import { site } from "../../data/site.js";
 ---
 
-<BaseLayout title="About | LRAC" description="Work in progress.">
+<BaseLayout title="About | LRAC" description="Lower Raritan Athletic Club — New Jersey, established 2026.">
   <section class="page-hero">
     <div class="section-inner">
       <p class="eyebrow">{site.name}</p>
@@ -12,18 +12,18 @@ import { site } from "../../data/site.js";
     </div>
   </section>
 
-  <section class="statement-section">
-    <div class="section-inner statement-grid">
-      <p class="section-label">The Club</p>
-      <p class="statement">Work in progress.</p>
-    </div>
-  </section>
-
-  <section class="identity-strip">
-    <div class="section-inner identity-line">
-      <span>{site.location}</span>
-      <span>Est. {site.founded}</span>
-      <a href={`mailto:${site.email}`}>{site.email} ↗</a>
+  <section class="identity-section">
+    <div class="section-inner identity-grid">
+      <div>
+        <p class="section-label">Club</p>
+        <h2>LRAC</h2>
+      </div>
+      <div class="identity-facts">
+        <div><span>Location</span><strong>{site.location}</strong></div>
+        <div><span>Established</span><strong>{site.founded}</strong></div>
+        <div><span>Members</span><strong>{String(athletes.length).padStart(2, "0")}</strong></div>
+        <div><span>Contact</span><a href={`mailto:${site.email}`}>{site.email} ↗</a></div>
+      </div>
     </div>
   </section>
 
@@ -35,11 +35,13 @@ import { site } from "../../data/site.js";
       </div>
 
       <div class="member-list">
-        {athletes.map((athlete) => (
+        {athletes.map((athlete, index) => (
           <a class="member-row" href={`/athletes/${athlete.slug}`}>
-            <span class="sport">{athlete.sport}</span>
+            <span class="member-number">{String(index + 1).padStart(2, "0")}</span>
             <strong>{athlete.name}</strong>
-            <span>{athlete.location}</span>
+            <span class="sport">{athlete.sport}</span>
+            <span class="location">{athlete.location}</span>
+            <span class="arrow">→</span>
           </a>
         ))}
       </div>
@@ -48,29 +50,38 @@ import { site } from "../../data/site.js";
 </BaseLayout>
 
 <style>
-  .statement-section { padding: 72px 0 82px; background: var(--paper); }
-  .statement-grid { display: grid; grid-template-columns: 180px 1fr; gap: 58px; }
-  .statement { margin: 0; max-width: 760px; color: var(--gray); font-family: var(--editorial); font-size: clamp(28px, 3.8vw, 48px); line-height: 1.08; letter-spacing: -.025em; }
-
-  .identity-strip { background: var(--beige); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-  .identity-line { display: flex; justify-content: space-between; gap: 24px; padding-top: 16px; padding-bottom: 16px; }
-  .identity-line span, .identity-line a { font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
-  .identity-line a { text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .identity-section { padding: 66px 0 74px; background: var(--beige); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .identity-grid { display: grid; grid-template-columns: 220px 1fr; gap: 58px; }
+  .identity-grid h2 { margin: 16px 0 0; font-size: clamp(48px, 5.5vw, 72px); line-height: .95; letter-spacing: -.035em; }
+  .identity-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .identity-facts > div { min-width: 0; padding: 18px 16px 17px 0; }
+  .identity-facts > div + div { padding-left: 16px; border-left: 1px solid var(--ink); }
+  .identity-facts span, .identity-facts strong, .identity-facts a { display: block; font-family: var(--mono); }
+  .identity-facts span { margin-bottom: 8px; color: var(--gray); font-size: 8px; text-transform: uppercase; }
+  .identity-facts strong, .identity-facts a { font-size: 11px; line-height: 1.35; overflow-wrap: anywhere; }
+  .identity-facts a { text-decoration: none; }
 
   .members-section { padding: 72px 0 86px; background: var(--paper); }
   .members-grid { display: grid; grid-template-columns: 220px 1fr; gap: 58px; }
   .members-heading h2 { margin: 16px 0 0; font-size: clamp(48px, 5.5vw, 72px); line-height: .95; letter-spacing: -.035em; }
   .member-list { border-top: 1px solid var(--ink); }
-  .member-row { display: grid; grid-template-columns: 150px 1fr 180px; gap: 22px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
-  .member-row .sport, .member-row > span:last-child { font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  .member-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) 150px 170px auto; gap: 20px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .member-number, .sport, .location, .arrow { font-family: var(--mono); font-size: 8px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+  .sport, .location { color: var(--gray); }
   .member-row strong { font-family: var(--editorial); font-size: 30px; font-weight: 600; line-height: 1; }
-  .member-row:hover strong { color: var(--mint-dark); }
+  .arrow { font-size: 13px; }
+  .member-row:hover strong, .member-row:hover .arrow { color: var(--mint-dark); }
 
   @media (max-width: 850px) {
-    .statement-section, .members-section { padding: 54px 0 62px; }
-    .statement-grid, .members-grid { grid-template-columns: 1fr; gap: 26px; }
-    .identity-line { align-items: flex-start; flex-direction: column; gap: 7px; }
-    .member-row { grid-template-columns: 1fr; gap: 6px; }
+    .identity-section, .members-section { padding: 54px 0 62px; }
+    .identity-grid, .members-grid { grid-template-columns: 1fr; gap: 28px; }
+    .identity-facts { grid-template-columns: repeat(2, 1fr); }
+    .identity-facts > div:nth-child(3) { border-left: 0; border-top: 1px solid var(--ink); padding-left: 0; }
+    .identity-facts > div:nth-child(4) { border-top: 1px solid var(--ink); }
+    .member-row { grid-template-columns: 34px 1fr auto; gap: 7px 14px; align-items: start; }
     .member-row strong { font-size: 28px; }
+    .sport { grid-column: 2; }
+    .location { grid-column: 2; }
+    .arrow { grid-column: 3; grid-row: 1 / span 3; align-self: center; }
   }
 </style>
