@@ -4,28 +4,97 @@ import { site } from "../../data/site.js";
 
 <footer>
   <div class="footer-inner">
-    <div>
+    <div class="footer-brand">
       <strong>{site.shortName}</strong>
       <p>{site.name}</p>
     </div>
 
-    <div class="footer-links">
-      <a href="/">Home</a>
-      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    <div class="footer-groups">
+      <div class="footer-links">
+        <a href="/">Home</a>
+        {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+
+      <div class="footer-social">
+        <a href={site.social.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
+        <a href={site.social.strava} target="_blank" rel="noreferrer">Strava ↗</a>
+      </div>
     </div>
   </div>
 </footer>
 
 <style>
-  footer { background: var(--black); color: var(--white); padding: 48px 0; }
-  .footer-inner { max-width: var(--max-width); margin: auto; padding: 0 var(--page-padding); display: flex; justify-content: space-between; align-items: flex-end; }
-  footer strong { font-size: 34px; }
-  footer p { margin: 7px 0 0; color: #999; }
-  .footer-links { display: flex; gap: 24px; }
-  .footer-links a { color: var(--white); text-decoration: none; font-size: 10px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; }
+  footer {
+    background: var(--black);
+    color: var(--white);
+    padding: 48px 0;
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: auto;
+    padding: 0 var(--page-padding);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 48px;
+  }
+
+  footer strong {
+    font-size: 34px;
+  }
+
+  footer p {
+    margin: 7px 0 0;
+    color: #999;
+    font-size: 12px;
+  }
+
+  .footer-groups {
+    display: flex;
+    gap: 42px;
+    align-items: flex-end;
+  }
+
+  .footer-links,
+  .footer-social {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a,
+  .footer-social a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+  }
+
+  .footer-social a {
+    color: var(--mint);
+  }
+
+  .footer-links a:hover,
+  .footer-social a:hover {
+    opacity: .55;
+  }
 
   @media (max-width: 850px) {
-    .footer-inner { flex-direction: column; align-items: flex-start; gap: 30px; }
-    .footer-links { flex-wrap: wrap; }
+    .footer-inner,
+    .footer-groups {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-inner {
+      gap: 30px;
+    }
+
+    .footer-groups {
+      gap: 18px;
+    }
   }
 </style>
