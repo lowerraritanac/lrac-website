@@ -4,6 +4,7 @@ export const site = {
   founded: "2026",
   location: "New Jersey",
   description: "Work in progress.",
+  email: "lowerraritanac@gmail.com",
   nav: [
     { label: "Athletes", href: "/athletes" },
     { label: "Racing", href: "/racing" },
