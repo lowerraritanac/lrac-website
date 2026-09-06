@@ -20,10 +20,9 @@ import { site } from "../../data/site.js";
   </section>
 
   <section class="facts-section">
-    <div class="section-inner facts-grid">
-      <div><strong>{String(athletes.length).padStart(2, "0")}</strong><span>Athletes</span></div>
-      <div><strong>{site.founded}</strong><span>Founded</span></div>
-      <div><strong>NJ</strong><span>Roots</span></div>
+    <div class="section-inner facts-line">
+      <span>New Jersey</span>
+      <span>Est. {site.founded}</span>
     </div>
   </section>
 
@@ -53,12 +52,8 @@ import { site } from "../../data/site.js";
   .statement { margin: 0; font-family: var(--display-font); font-size: clamp(48px, 7vw, 92px); line-height: .9; letter-spacing: -3px; text-transform: uppercase; }
 
   .facts-section { background: var(--mint); border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
-  .facts-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .facts-grid > div { padding: 34px 0; border-right: 1px solid var(--black); }
-  .facts-grid > div:not(:first-child) { padding-left: 24px; }
-  .facts-grid > div:last-child { border-right: 0; }
-  .facts-grid strong { display: block; font-family: var(--display-font); font-size: 44px; line-height: 1; }
-  .facts-grid span { display: block; margin-top: 5px; font-size: 9px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; }
+  .facts-line { display: flex; justify-content: space-between; gap: 24px; padding-top: 18px; padding-bottom: 18px; }
+  .facts-line span { font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; }
 
   .members-section { padding: 88px 0 104px; background: var(--beige); }
   .section-heading { margin-bottom: 34px; }
@@ -72,9 +67,7 @@ import { site } from "../../data/site.js";
   @media (max-width: 850px) {
     .statement-section, .members-section { padding: 64px 0 74px; }
     .statement-grid { grid-template-columns: 1fr; gap: 28px; }
-    .facts-grid { grid-template-columns: 1fr; }
-    .facts-grid > div, .facts-grid > div:not(:first-child) { padding: 22px 0; border-right: 0; border-bottom: 1px solid var(--black); }
-    .facts-grid > div:last-child { border-bottom: 0; }
+    .facts-line { align-items: flex-start; flex-direction: column; gap: 6px; }
     .member-row { grid-template-columns: 1fr; gap: 7px; }
     .member-row strong { font-size: 30px; }
   }
