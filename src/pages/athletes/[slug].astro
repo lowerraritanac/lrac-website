@@ -14,7 +14,7 @@ export function getStaticPaths() {
 const { athlete } = Astro.props;
 
 const athleteRaces = races
-  .filter((race) => race.athlete === athlete.name)
+  .filter((race) => race.athleteSlug === athlete.slug)
   .slice(0, 4);
 
 const athletePosts = trainingPosts
