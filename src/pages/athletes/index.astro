@@ -8,6 +8,10 @@ import { site } from "../../../data/site.js";
 const upcomingRaces = races.filter((race) => race.status === "Upcoming" || race.status === "Tentative").slice(0, 4);
 const recentResults = races.filter((race) => race.status === "Completed").slice(0, 3);
 const trainingSlugs = new Set(["liam-tilton", "aaron-wysocki"]);
+const resultHref = (race) => {
+  const slug = race.athleteSlugs?.find((athleteSlug) => trainingSlugs.has(athleteSlug));
+  return slug ? `/training/${slug}` : "/racing";
+};
 ---
 
 <BaseLayout title="Athletes | LRAC" description="Athletes of Lower Raritan Athletic Club.">
@@ -57,7 +61,7 @@ const trainingSlugs = new Set(["liam-tilton", "aaron-wysocki"]);
         <div><p class="section-label">Recent Results</p><h2>Results</h2><a class="section-link" href="/racing">All results →</a></div>
         <div class="results-list">
           {recentResults.map((race) => (
-            <a class="result-row" href="/racing">
+            <a class="result-row" href={resultHref(race)}>
               <span>{race.date} {race.year}</span>
               <strong>{race.event}</strong>
               <span>{race.athletes.join(" · ")}</span>
