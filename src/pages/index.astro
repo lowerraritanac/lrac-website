@@ -28,7 +28,10 @@ const featuredPosts = [...posts]
 
       <div class="hero-bottom">
         <p>{site.description}</p>
-        <span>LRAC / 2026</span>
+        <div class="hero-links">
+          <a href={site.social.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
+          <a href={site.social.strava} target="_blank" rel="noreferrer">Strava ↗</a>
+        </div>
       </div>
     </div>
   </section>
@@ -55,6 +58,29 @@ const featuredPosts = [...posts]
             <strong>ATHLETES</strong>
           </div>
         </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="activity-section">
+    <div class="section-inner activity-grid">
+      <div class="activity-heading">
+        <p class="section-label">CLUB ACTIVITY</p>
+        <h2>Strava</h2>
+        <a class="text-link" href={site.social.strava} target="_blank" rel="noreferrer">Open club ↗</a>
+      </div>
+
+      <div class="strava-frame-wrap">
+        <iframe
+          title="Lower Raritan Athletic Club latest Strava activity"
+          allowtransparency="true"
+          frameborder="0"
+          height="454"
+          scrolling="no"
+          src={site.social.stravaEmbed}
+          width="300"
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   </section>
@@ -127,15 +153,24 @@ const featuredPosts = [...posts]
   .hero h1 { max-width: 900px; margin: 0; font-size: clamp(48px, 5.6vw, 78px); line-height: 1.05; letter-spacing: -2.2px; text-transform: uppercase; }
   .hero-bottom { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--black); }
   .hero-bottom p { margin: 0; font-size: 14px; }
-  .hero-bottom span { font-size: 9px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+  .hero-links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+  .hero-links a { color: var(--black); text-decoration: none; font-size: 9px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .hero-links a:hover { opacity: .5; }
 
-  .athletes-section, .racing-section, .training-section, .about-section { padding: 86px 0 100px; }
+  .athletes-section, .activity-section, .racing-section, .training-section, .about-section { padding: 86px 0 100px; }
   .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
-  .section-header h2 { margin: 7px 0 0; font-size: clamp(54px, 6vw, 84px); line-height: .94; letter-spacing: -2.8px; text-transform: uppercase; }
+  .section-header h2, .activity-heading h2 { margin: 7px 0 0; font-size: clamp(54px, 6vw, 84px); line-height: .94; letter-spacing: -2.8px; text-transform: uppercase; }
 
   .athletes-section { background: var(--beige-light); }
   .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
   .roster-tile { display: none; }
+
+  .activity-section { background: var(--mint); border-top: 1px solid var(--black); border-bottom: 1px solid var(--black); }
+  .activity-grid { display: grid; grid-template-columns: 1fr minmax(300px, 430px); gap: 72px; align-items: start; }
+  .activity-heading { position: sticky; top: 96px; }
+  .activity-heading .text-link { margin-top: 26px; }
+  .strava-frame-wrap { justify-self: end; width: 100%; max-width: 430px; padding: 22px; background: var(--beige-light); border: 1px solid var(--black); }
+  .strava-frame-wrap iframe { display: block; width: 100%; max-width: 300px; margin: 0 auto; }
 
   .racing-section { background: var(--black); color: var(--white); }
   .light-link { color: var(--white); }
@@ -165,10 +200,11 @@ const featuredPosts = [...posts]
     .hero-inner { padding-top: 42px; padding-bottom: 42px; }
     .hero-kicker { margin-bottom: 22px; }
     .hero h1 { max-width: 100%; font-size: clamp(34px, 9.6vw, 44px); line-height: 1.08; letter-spacing: -1.2px; }
-    .hero-bottom { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
-    .athletes-section, .racing-section, .training-section, .about-section { padding: 58px 0 68px; }
+    .hero-bottom { grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+    .hero-links { justify-content: flex-start; }
+    .athletes-section, .activity-section, .racing-section, .training-section, .about-section { padding: 58px 0 68px; }
     .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-    .section-header h2 { font-size: 42px; line-height: 1; letter-spacing: -1.5px; }
+    .section-header h2, .activity-heading h2 { font-size: 42px; line-height: 1; letter-spacing: -1.5px; }
     .desktop-roster-link { display: none; }
     .athlete-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; align-items: start; }
     .athlete-grid > * { min-width: 0; }
@@ -185,36 +221,14 @@ const featuredPosts = [...posts]
       text-decoration: none;
       text-transform: uppercase;
     }
-    .roster-tile-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--black);
-    }
-    .roster-count,
-    .roster-label {
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .roster-arrow {
-      font-size: 18px;
-      line-height: 1;
-    }
-    .roster-tile-bottom {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .roster-tile-bottom strong {
-      max-width: 100%;
-      font-size: clamp(18px, 5vw, 24px);
-      line-height: 1;
-      letter-spacing: -.8px;
-      overflow-wrap: anywhere;
-    }
+    .roster-tile-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--black); }
+    .roster-count, .roster-label { font-size: 8px; font-weight: 700; letter-spacing: 1px; }
+    .roster-arrow { font-size: 18px; line-height: 1; }
+    .roster-tile-bottom { display: flex; flex-direction: column; gap: 5px; }
+    .roster-tile-bottom strong { max-width: 100%; font-size: clamp(18px, 5vw, 24px); line-height: 1; letter-spacing: -.8px; overflow-wrap: anywhere; }
+    .activity-grid { grid-template-columns: 1fr; gap: 30px; }
+    .activity-heading { position: static; }
+    .strava-frame-wrap { justify-self: stretch; max-width: none; padding: 14px; }
     .race-row, .post-row { grid-template-columns: 78px 1fr; gap: 16px; }
     .race-athletes, .post-meta { grid-column: 2; }
     .post-type { align-self: start; }
