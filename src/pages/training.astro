@@ -28,17 +28,14 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
   <section class="analytics-section">
     <div class="section-inner analytics-grid">
       <div class="analytics-heading">
-        <p class="section-label">Training Analytics</p>
+        <p class="section-label">Athlete Training</p>
         <h2>Volume</h2>
       </div>
 
       <div class="athlete-training-list">
         <a class="athlete-training" href="/training/liam-tilton">
           <div class="athlete-number">01</div>
-          <div class="athlete-name">
-            <h3>Liam Tilton</h3>
-            <span>Distance Running</span>
-          </div>
+          <div class="athlete-name"><h3>Liam Tilton</h3><span>Distance Running</span></div>
           <div class="athlete-stats">
             <div><strong>{liamLatest.totalMiles}</strong><span>Latest miles</span></div>
             <div><strong>{liamLatest.totalHours.toFixed(1)}</strong><span>Latest hours</span></div>
@@ -50,10 +47,7 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
 
         <a class="athlete-training" href="/training/aaron-wysocki">
           <div class="athlete-number">02</div>
-          <div class="athlete-name">
-            <h3>Aaron Wysocki</h3>
-            <span>Distance Running</span>
-          </div>
+          <div class="athlete-name"><h3>Aaron Wysocki</h3><span>Distance Running</span></div>
           <div class="athlete-stats">
             <div><strong>{aaronLatest.totalMiles}</strong><span>Latest miles</span></div>
             <div><strong>{aaronLatest.totalHours.toFixed(1)}</strong><span>Latest hours</span></div>
@@ -66,12 +60,12 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
     </div>
   </section>
 
-  {writing.length > 0 && (
-    <section class="index-section">
+  {trainingReports.length > 0 && (
+    <section class="index-section alt">
       <div class="section-inner index-grid">
-        <div class="index-heading"><p class="section-label">01 / Writing</p><h2>Essays</h2></div>
+        <div class="index-heading"><p class="section-label">Training Reports</p><h2>Reports</h2></div>
         <div class="entries">
-          {writing.map((post) => (
+          {trainingReports.map((post) => (
             <a class="entry" href={`/training/${post.id}`}>
               <div class="entry-date">{post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</div>
               <div><h3>{post.data.title}</h3>{post.data.description && <p>{post.data.description}</p>}</div>
@@ -83,12 +77,12 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
     </section>
   )}
 
-  {trainingReports.length > 0 && (
-    <section class="index-section alt">
+  {writing.length > 0 && (
+    <section class="index-section">
       <div class="section-inner index-grid">
-        <div class="index-heading"><p class="section-label">02 / Training Reports</p><h2>Training Reports</h2></div>
+        <div class="index-heading"><p class="section-label">Writing</p><h2>Essays</h2></div>
         <div class="entries">
-          {trainingReports.map((post) => (
+          {writing.map((post) => (
             <a class="entry" href={`/training/${post.id}`}>
               <div class="entry-date">{post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</div>
               <div><h3>{post.data.title}</h3>{post.data.description && <p>{post.data.description}</p>}</div>
@@ -103,7 +97,7 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
   {raceReports.length > 0 && (
     <section class="index-section dark">
       <div class="section-inner index-grid">
-        <div class="index-heading"><p class="section-label">03 / Race Reports</p><h2>Race Reports</h2></div>
+        <div class="index-heading"><p class="section-label">Race Reports</p><h2>Races</h2></div>
         <div class="entries">
           {raceReports.map((post) => (
             <a class="entry" href={`/training/${post.id}`}>
@@ -122,22 +116,23 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
   .journal-intro { padding: 62px 0 54px; border-bottom: 1px solid var(--ink); }
   .intro-grid { display: grid; grid-template-columns: 1fr; }
   .journal-intro h1 { margin: 16px 0 0; max-width: 820px; font-size: clamp(54px, 7vw, 96px); line-height: .92; letter-spacing: -.045em; }
-  .analytics-section { padding: 56px 0 62px; background: var(--paper); border-bottom: 1px solid var(--ink); }
+  .analytics-section { padding: 60px 0 68px; background: var(--paper); border-bottom: 1px solid var(--ink); }
   .analytics-grid { display: grid; grid-template-columns: 260px 1fr; gap: 58px; }
   .analytics-heading h2 { margin: 18px 0 0; font-size: clamp(44px, 5vw, 66px); line-height: .95; letter-spacing: -.035em; }
   .athlete-training-list { border-top: 1px solid var(--ink); }
-  .athlete-training { display: grid; grid-template-columns: 44px 220px 1fr auto; gap: 24px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .athlete-training { display: grid; grid-template-columns: 44px 220px 1fr auto; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
   .athlete-number, .athlete-name span, .arrow { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
   .athlete-name h3 { margin: 0 0 5px; font-size: clamp(27px, 2.8vw, 38px); line-height: 1; }
   .athlete-name span { color: var(--gray); }
   .athlete-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .athlete-stats > div { padding: 0 16px; border-left: 1px solid var(--ink); }
+  .athlete-stats > div { padding: 2px 16px; border-left: 1px solid var(--ink); }
   .athlete-stats strong, .athlete-stats span { display: block; font-family: var(--mono); }
   .athlete-stats strong { font-size: 18px; line-height: 1; }
   .athlete-stats span { margin-top: 5px; color: var(--gray); font-size: 7px; text-transform: uppercase; }
-  .athlete-training:hover h3 { color: var(--mint-dark); }
-  .index-section { padding: 66px 0 78px; }
-  .index-section.alt { background: var(--beige); border-top: 1px solid var(--ink); }
+  .arrow { font-size: 14px; }
+  .athlete-training:hover h3, .athlete-training:hover .arrow { color: var(--mint-dark); }
+  .index-section { padding: 66px 0 78px; border-top: 1px solid var(--ink); }
+  .index-section.alt { background: var(--beige); }
   .index-section.dark { background: var(--ink); color: var(--white); }
   .index-grid { display: grid; grid-template-columns: 260px 1fr; gap: 58px; }
   .index-heading h2 { margin: 18px 0 0; font-size: clamp(44px, 5vw, 66px); line-height: .95; letter-spacing: -.035em; }
