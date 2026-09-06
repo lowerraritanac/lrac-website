@@ -9,10 +9,11 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const isTrainingReport = post.data.category === "Training Report";
 ---
 
 <BaseLayout title={`${post.data.title} | LRAC`} description={post.data.description}>
-  <article>
+  <article class:list={{ "training-report": isTrainingReport }}>
     <section class="article-hero">
       <div class="section-inner article-head-grid">
         <div class="article-index">
@@ -22,7 +23,7 @@ const { Content } = await render(post);
         </div>
         <div>
           <h1>{post.data.title}</h1>
-          <p class="dek">{post.data.description}</p>
+          {post.data.description && <p class="dek">{post.data.description}</p>}
         </div>
       </div>
     </section>
@@ -37,32 +38,38 @@ const { Content } = await render(post);
 </BaseLayout>
 
 <style>
-  .article-hero { padding: 82px 0 70px; background: var(--paper); border-bottom: 1px solid var(--ink); }
-  .article-head-grid { display: grid; grid-template-columns: 220px 1fr; gap: 72px; align-items: start; }
+  .article-hero { padding: 70px 0 62px; background: var(--paper); border-bottom: 1px solid var(--ink); }
+  .article-head-grid { display: grid; grid-template-columns: 190px 1fr; gap: 58px; align-items: start; }
   .article-index { padding-top: 8px; font-family: var(--mono); font-size: 9px; line-height: 1.6; text-transform: uppercase; }
   .article-index p { margin: 0 0 7px; }
   .category { color: var(--mint-dark); font-weight: 700; }
-  .article-hero h1 { max-width: 980px; margin: 0; font-family: var(--editorial); font-size: clamp(64px, 8vw, 112px); font-weight: 600; line-height: .92; letter-spacing: -.045em; }
-  .dek { max-width: 700px; margin: 28px 0 0; color: var(--gray); font-size: 20px; line-height: 1.45; }
-  .article-body { padding: 86px 0 120px; background: var(--paper); }
-  .article-layout { width: calc(100% - 68px); max-width: var(--max-width); margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, var(--reading-width)) 1fr; gap: 72px; }
+  .article-hero h1 { max-width: 940px; margin: 0; font-family: var(--editorial); font-size: clamp(56px, 7vw, 96px); font-weight: 600; line-height: .94; letter-spacing: -.04em; }
+  .dek { max-width: 760px; margin: 24px 0 0; color: var(--gray); font-family: var(--mono); font-size: 11px; line-height: 1.55; }
+  .article-body { padding: 72px 0 100px; background: var(--paper); }
+  .article-layout { width: calc(100% - 68px); max-width: var(--max-width); margin: 0 auto; display: grid; grid-template-columns: 190px minmax(0, var(--reading-width)) 1fr; gap: 58px; }
   aside { padding-top: 8px; border-top: 1px solid var(--ink); font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
-  .article-inner :global(p) { margin: 0 0 26px; font-family: var(--editorial); font-size: 20px; line-height: 1.68; }
-  .article-inner :global(h2) { margin: 64px 0 22px; font-family: var(--editorial); font-size: 42px; font-weight: 600; line-height: 1; letter-spacing: -.025em; }
-  .article-inner :global(h3) { margin: 46px 0 16px; font-family: var(--mono); font-size: 16px; line-height: 1.25; text-transform: uppercase; }
-  .article-inner :global(hr) { margin: 54px 0; border: 0; border-top: 1px solid var(--ink); }
+  .article-inner :global(p) { margin: 0 0 24px; font-family: var(--editorial); font-size: 20px; line-height: 1.68; }
+  .training-report .article-inner :global(p:first-child) { margin-bottom: 34px; padding: 14px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 11px; line-height: 1.6; }
+  .article-inner :global(h2) { margin: 58px 0 20px; font-family: var(--editorial); font-size: 38px; font-weight: 600; line-height: 1; letter-spacing: -.025em; }
+  .article-inner :global(h3) { margin: 44px 0 15px; font-family: var(--mono); font-size: 15px; line-height: 1.25; text-transform: uppercase; }
+  .article-inner :global(hr) { margin: 50px 0; border: 0; border-top: 1px solid var(--ink); }
   .article-inner :global(strong) { font-weight: 700; }
-  .article-inner :global(blockquote) { margin: 44px 0; padding: 0 0 0 22px; border-left: 4px solid var(--mint); font-size: 28px; line-height: 1.25; }
+  .training-report .article-inner :global(h2 + p),
+  .training-report .article-inner :global(h2 + p + p) { font-family: var(--mono); font-size: 11px; line-height: 1.6; }
+  .article-inner :global(blockquote) { margin: 40px 0; padding: 0 0 0 20px; border-left: 3px solid var(--mint); font-size: 26px; line-height: 1.28; }
 
   @media (max-width: 850px) {
-    .article-hero { padding: 56px 0 50px; }
-    .article-head-grid { grid-template-columns: 1fr; gap: 28px; }
-    .article-hero h1 { font-size: clamp(52px, 15vw, 76px); }
-    .dek { font-size: 18px; }
-    .article-body { padding: 58px 0 82px; }
-    .article-layout { width: calc(100% - 40px); grid-template-columns: 1fr; gap: 30px; }
-    aside { max-width: 160px; }
+    .article-hero { padding: 48px 0 44px; }
+    .article-head-grid { grid-template-columns: 1fr; gap: 24px; }
+    .article-hero h1 { font-size: clamp(46px, 13vw, 66px); }
+    .dek { font-size: 10px; }
+    .article-body { padding: 50px 0 72px; }
+    .article-layout { width: calc(100% - 40px); grid-template-columns: 1fr; gap: 26px; }
+    aside { max-width: 140px; }
     .article-inner :global(p) { font-size: 18px; line-height: 1.65; }
-    .article-inner :global(h2) { font-size: 34px; }
+    .training-report .article-inner :global(p:first-child),
+    .training-report .article-inner :global(h2 + p),
+    .training-report .article-inner :global(h2 + p + p) { font-size: 10px; }
+    .article-inner :global(h2) { font-size: 32px; }
   }
 </style>
