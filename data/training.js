@@ -12,13 +12,13 @@ export const weeklyMileage = [
   { weekEnding: "2026-08-16", miles: 117.2 },
   { weekEnding: "2026-08-23", miles: 77.2 },
   { weekEnding: "2026-08-30", miles: 120.4 },
-  { weekEnding: "2026-09-06", miles: 108.1 },
+  { weekEnding: "2026-09-06", miles: 123.1 },
 ];
 
 export const latestWeek = {
   label: "Week of August 31",
   weekEnding: "2026-09-06",
-  totalMiles: 108.1,
+  totalMiles: 123.1,
   dailyMiles: [
     ["Mon", 23.6],
     ["Tue", 17.4],
@@ -26,7 +26,7 @@ export const latestWeek = {
     ["Thu", 17.1],
     ["Fri", 17.1],
     ["Sat", 9.2],
-    ["Sun", 6.3],
+    ["Sun", 21.3],
   ],
 };
 
