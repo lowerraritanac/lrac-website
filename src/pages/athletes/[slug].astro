@@ -2,7 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { athletes } from "../../../data/athletes.js";
 import { races } from "../../../data/schedule.js";
-import { weeklyMileage, latestWeek } from "../../../data/training.js";
+import { weeklyMileage as liamWeekly, latestWeek as liamLatest } from "../../../data/training.js";
+import { weeklyMileage as aaronWeekly, latestWeek as aaronLatest } from "../../../data/training-aaron.js";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -17,9 +18,13 @@ const athletePosts = trainingPosts
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 4);
 
-const hasTrainingData = athlete.slug === "liam-tilton";
-const rolling4Miles = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4 : null;
-const rolling4Hours = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4 : null;
+const trainingByAthlete = {
+  "liam-tilton": { weekly: liamWeekly, latest: liamLatest },
+  "aaron-wysocki": { weekly: aaronWeekly, latest: aaronLatest },
+};
+const athleteTraining = trainingByAthlete[athlete.slug];
+const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4 : null;
+const rolling4Hours = athleteTraining ? athleteTraining.weekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4 : null;
 ---
 
 <BaseLayout title={`${athlete.name} | LRAC`} description="Work in progress.">
@@ -28,10 +33,10 @@ const rolling4Hours = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, wee
       <div class="photo-wrap"><img src={athlete.image} alt={athlete.name} /></div>
       <div class="identity">
         <div class="identity-meta"><span>{athlete.sport}</span><span>{athlete.location}</span></div>
-        {hasTrainingData && (
+        {athleteTraining && (
           <a class="training-strip" href={`/training/${athlete.slug}`}>
-            <div><span>Latest volume</span><strong>{latestWeek.totalMiles} mi</strong></div>
-            <div><span>Latest time</span><strong>{latestWeek.totalHours.toFixed(1)} hr</strong></div>
+            <div><span>Latest volume</span><strong>{athleteTraining.latest.totalMiles} mi</strong></div>
+            <div><span>Latest time</span><strong>{athleteTraining.latest.totalHours.toFixed(1)} hr</strong></div>
             <div><span>4-week avg</span><strong>{rolling4Miles?.toFixed(1)} mi</strong></div>
             <div><span>4-week avg</span><strong>{rolling4Hours?.toFixed(1)} hr</strong></div>
             <span class="training-link">Training →</span>
@@ -120,7 +125,6 @@ const rolling4Hours = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, wee
   .bio { max-width: 620px; margin: 28px 0 0; color: var(--gray); font-size: 18px; line-height: 1.5; }
   .socials { display: flex; gap: 18px; margin-top: 24px; }
   .socials a { font-family: var(--mono); font-size: 9px; font-weight: 600; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
-
   .marks-section, .details-section, .racing-section, .content-section { padding: 72px 0 86px; }
   .marks-section { background: var(--beige); }
   .details-section { background: var(--paper); border-top: 1px solid var(--ink); }
@@ -149,7 +153,6 @@ const rolling4Hours = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, wee
   .post-meta { margin: 0 0 6px; font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
   .post-row h3 { margin: 0; font-size: 30px; line-height: .98; }
   .post-row > span { font-family: var(--mono); }
-
   @media (max-width: 850px) {
     .athlete-hero { padding: 34px 0 50px; }
     .athlete-grid, .section-grid, .details-grid { grid-template-columns: 1fr; gap: 32px; }
