@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TrainingDeepDive from "../../components/TrainingDeepDive.astro";
-import { weeklyMileage, latestWeek, trainingDataSource } from "../../../data/training.js";
+import { weeklyMileage, plannedMileage, latestWeek, trainingDataSource } from "../../../data/training.js";
 import { races } from "../../../data/schedule.js";
 
 const athleteRaces = races.filter((race) => race.athleteSlugs.includes("liam-tilton"));
@@ -12,6 +12,7 @@ const athleteRaces = races.filter((race) => race.athleteSlugs.includes("liam-til
     athleteName="Liam Tilton"
     athleteSlug="liam-tilton"
     {weeklyMileage}
+    {plannedMileage}
     {latestWeek}
     {trainingDataSource}
     races={athleteRaces}
