@@ -112,11 +112,21 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
 
   @media (max-width: 850px) {
     .hero-row { align-items: flex-end; }
-    .racing-section, .archive-section, .results-section { padding: 56px 0 66px; }
-    .section-heading h2, .results-head h2 { font-size: 52px; }
-    .race-row, .result-row { grid-template-columns: 72px minmax(0, 1fr); gap: 14px 16px; align-items: start; }
-    .athletes, .status, .result-athletes, .result-mark { grid-column: 2; }
+    .hero-count { padding-bottom: 2px; }
+    .hero-count span { font-size: 16px; }
+    .hero-count small { font-size: 7px; }
+    .racing-section, .archive-section, .results-section { padding: 40px 0 52px; }
+    .section-heading { display: block; margin-bottom: 18px; }
+    .section-heading h2, .results-head h2 { margin-top: 8px; font-size: 42px; line-height: .92; }
+    .race-row, .result-row { grid-template-columns: 62px minmax(0, 1fr); gap: 12px 14px; align-items: start; padding: 20px 0; }
+    .date strong { font-size: 14px; }
+    .date span { font-size: 8px; }
+    .discipline { font-size: 7px; }
+    .event h3 { font-size: 25px; line-height: .96; }
+    .location { font-size: 8px; }
+    .athletes, .status, .result-athletes { grid-column: 2; font-size: 8px; }
     .status, .result-mark { text-align: left; }
-    .result-mark { font-size: 22px; }
+    .result-mark { grid-column: 2; font-size: 19px; }
+    .results-head { margin-bottom: 20px; }
   }
 </style>
