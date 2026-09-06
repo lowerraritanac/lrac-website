@@ -34,6 +34,13 @@ const athletePosts = trainingPosts
         </div>
         <h1>{athlete.name}</h1>
         <p class="bio">{athlete.bio}</p>
+
+        {athlete.social && (
+          <div class="athlete-socials">
+            <a href={athlete.social.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
+            <a href={athlete.social.strava} target="_blank" rel="noreferrer">Strava ↗</a>
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -118,17 +125,20 @@ const athletePosts = trainingPosts
   .athlete-hero-grid { display: grid; grid-template-columns: minmax(320px, 42%) 1fr; gap: 58px; align-items: end; }
   .athlete-photo-wrap { overflow: hidden; background: #d9d4ca; }
   .athlete-photo { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.74) contrast(1.04); }
-  .athlete-kicker { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 16px; padding-bottom: 11px; border-bottom: 1px solid var(--black); font-size: 9px; font-weight: 900; letter-spacing: 1.45px; text-transform: uppercase; }
-  .athlete-heading h1 { margin: 0; font-size: clamp(82px, 9vw, 136px); line-height: .75; letter-spacing: -5px; text-transform: uppercase; }
+  .athlete-kicker { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 16px; padding-bottom: 11px; border-bottom: 1px solid var(--black); font-size: 9px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; }
+  .athlete-heading h1 { margin: 0; font-size: clamp(64px, 7vw, 104px); line-height: .92; letter-spacing: -2.8px; text-transform: uppercase; }
   .bio { max-width: 620px; margin: 26px 0 0; color: var(--gray); font-size: 15px; line-height: 1.5; }
+  .athlete-socials { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--black); }
+  .athlete-socials a { color: var(--black); text-decoration: none; font-size: 9px; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .athlete-socials a:hover { opacity: .5; }
 
   .marks-section { padding: 78px 0 90px; background: var(--beige); }
   .marks-grid { display: grid; grid-template-columns: 250px 1fr; gap: 68px; }
-  .section-heading h2 { margin: 7px 0 0; font-size: clamp(50px, 6vw, 82px); line-height: .82; letter-spacing: -3px; text-transform: uppercase; }
+  .section-heading h2 { margin: 7px 0 0; font-size: clamp(46px, 5vw, 72px); line-height: .95; letter-spacing: -2px; text-transform: uppercase; }
   .pr-list { border-top: 1px solid var(--black); }
   .pr-row { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: baseline; padding: 16px 0; border-bottom: 1px solid var(--black); }
-  .pr-row span { font-size: 11px; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; }
-  .pr-row strong { font-family: var(--display-font); font-size: 34px; line-height: 1; letter-spacing: -1px; }
+  .pr-row span { font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+  .pr-row strong { font-family: var(--display-font); font-size: 30px; line-height: 1; letter-spacing: -.7px; }
 
   .details-section { padding: 72px 0 84px; background: var(--beige-light); }
   .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
@@ -146,12 +156,12 @@ const athletePosts = trainingPosts
   .race-date span { margin-top: 2px; color: #999; font-size: 9px; }
   .race-event h3 { margin: 0; font-size: 25px; line-height: .95; text-transform: uppercase; }
   .race-event p { margin: 5px 0 0; color: #aaa; font-size: 11px; }
-  .race-result { font-size: 12px; font-weight: 900; }
+  .race-result { font-size: 12px; font-weight: 700; }
 
   .content-section { padding: 78px 0 90px; background: var(--mint); }
   .post-list { border-top: 1px solid var(--black); }
   .post-row { display: flex; justify-content: space-between; gap: 30px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--black); color: var(--black); text-decoration: none; }
-  .post-meta { margin: 0 0 6px; font-size: 8px; font-weight: 900; letter-spacing: 1.4px; text-transform: uppercase; }
+  .post-meta { margin: 0 0 6px; font-size: 8px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
   .post-row h3 { margin: 0; font-size: 29px; line-height: .94; text-transform: uppercase; }
   .post-row > span { font-size: 24px; }
 
@@ -159,10 +169,11 @@ const athletePosts = trainingPosts
     .athlete-hero { padding: 34px 0 52px; }
     .athlete-hero-grid, .marks-grid, .details-grid { grid-template-columns: 1fr; gap: 32px; }
     .athlete-photo-wrap { max-width: 520px; }
-    .athlete-heading h1 { font-size: 64px; letter-spacing: -3px; }
+    .athlete-heading h1 { font-size: clamp(42px, 11vw, 58px); line-height: .98; letter-spacing: -1.5px; }
+    .athlete-socials { margin-top: 20px; }
     .marks-section, .details-section, .racing-section, .content-section { padding: 60px 0 70px; }
     .race-row { grid-template-columns: 80px 1fr; gap: 16px; }
     .race-result { grid-column: 2; }
-    .section-heading h2 { font-size: 50px; }
+    .section-heading h2 { font-size: 44px; }
   }
 </style>
