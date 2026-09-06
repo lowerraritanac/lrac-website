@@ -10,8 +10,12 @@ const upcomingRaces = races
 
 const posts = await getCollection("training");
 const latestPosts = [...posts]
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 3);
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const writing = latestPosts.filter((post) => post.data.category === "Writing").slice(0, 1);
+const trainingReports = latestPosts.filter((post) => post.data.category === "Training Report").slice(0, 1);
+const raceReports = latestPosts.filter((post) => post.data.category === "Race Report").slice(0, 1);
+const featuredPosts = [...writing, ...trainingReports, ...raceReports];
 ---
 
 <BaseLayout
@@ -20,14 +24,16 @@ const latestPosts = [...posts]
   transparentHeader={true}
 >
   <section class="hero">
-    <img class="hero-image" src="/images/hero.jpg" alt="Lower Raritan Athletic Club" />
-    <div class="hero-overlay"></div>
+    <div class="section-inner hero-grid">
+      <div class="hero-copy-block">
+        <p class="hero-kicker">EST. 2026 · NEW JERSEY</p>
+        <h1>Lower Raritan<br />Athletic Club</h1>
+        <p class="hero-copy">Independent endurance athletes training, racing, and documenting the work beyond collegiate competition.</p>
+      </div>
 
-    <div class="hero-inner">
-      <p class="hero-kicker">EST. 2026 · NEW JERSEY</p>
-      <h1>Lower Raritan<br />Athletic Club</h1>
-      <div class="hero-bottom">
-        <p>Independent endurance athletes training and competing beyond collegiate competition.</p>
+      <div class="hero-photo-wrap">
+        <img src="/images/hero.jpg" alt="Lower Raritan Athletic Club" />
+        <div class="photo-caption"><span>LRAC</span><span>New Jersey</span></div>
       </div>
     </div>
   </section>
@@ -35,29 +41,20 @@ const latestPosts = [...posts]
   <section class="athletes-section">
     <div class="section-inner">
       <div class="section-header">
-        <div>
-          <p class="section-label">THE CLUB</p>
-          <h2>Athletes</h2>
-        </div>
+        <div><p class="section-label">THE CLUB</p><h2>Athletes</h2></div>
         <a class="text-link" href="/athletes">Full roster →</a>
       </div>
 
       <div class="athlete-grid">
         {athletes.slice(0, 3).map((athlete) => (
           <a class="athlete-card" href={`/athletes/${athlete.slug}`}>
-            <div class="athlete-image">
-              <img src={athlete.image} alt={athlete.name} />
-            </div>
-            <div class="athlete-meta">
-              <p class="athlete-sport">{athlete.sport}</p>
-              <h3>{athlete.name}</h3>
-              <p class="athlete-location">{athlete.location}</p>
-              <div class="athlete-details">
-                <p>{athlete.background}</p>
-                {athlete.prs.slice(0, 3).map(([event, time]) => (
-                  <p><strong>{time}</strong><span>{event}</span></p>
-                ))}
-              </div>
+            <div class="athlete-image"><img src={athlete.image} alt={athlete.name} /></div>
+            <div class="athlete-topline"><span>{athlete.sport}</span><span>{athlete.location}</span></div>
+            <h3>{athlete.name}</h3>
+            <div class="pr-strip">
+              {athlete.prs.slice(0, 3).map(([event, time]) => (
+                <div><strong>{time}</strong><span>{event}</span></div>
+              ))}
             </div>
           </a>
         ))}
@@ -68,25 +65,15 @@ const latestPosts = [...posts]
   <section class="racing-section">
     <div class="section-inner">
       <div class="section-header">
-        <div>
-          <p class="section-label">UPCOMING</p>
-          <h2>Racing</h2>
-        </div>
+        <div><p class="section-label">NEXT ON THE CALENDAR</p><h2>Racing</h2></div>
         <a class="text-link light-link" href="/racing">All racing →</a>
       </div>
 
       <div class="race-list">
         {upcomingRaces.map((race) => (
           <article class="race-row">
-            <div class="race-date">
-              <strong>{race.date}</strong>
-              <span>{race.year}</span>
-            </div>
-            <div class="race-event">
-              <p>{race.discipline}</p>
-              <h3>{race.event}</h3>
-              <span>{race.location}</span>
-            </div>
+            <div class="race-date"><strong>{race.date}</strong><span>{race.year}</span></div>
+            <div class="race-event"><p>{race.discipline}</p><h3>{race.event}</h3><span>{race.location}</span></div>
             <div class="race-athletes">{race.athletes.join(" · ")}</div>
           </article>
         ))}
@@ -96,26 +83,19 @@ const latestPosts = [...posts]
 
   <section class="training-section">
     <div class="section-inner">
-      <div class="section-header">
-        <div>
-          <p class="section-label">FROM LRAC</p>
-          <h2>Training</h2>
-        </div>
-        <a class="text-link" href="/training">All training →</a>
+      <div class="section-header training-heading">
+        <div><p class="section-label">WRITING & TRAINING</p><h2>From the Club</h2></div>
+        <a class="text-link" href="/training">All posts →</a>
       </div>
 
-      <div class="training-grid">
-        {latestPosts.map((post) => (
-          <article class="training-card">
-            <p class="training-type">{post.data.category}</p>
+      <div class="content-grid">
+        {featuredPosts.map((post, index) => (
+          <a class:list={["content-card", { lead: index === 0 }]} href={`/training/${post.id}`}>
+            <p class="content-type">{post.data.category}</p>
             <h3>{post.data.title}</h3>
-            <p class="training-description">{post.data.description}</p>
-            <div class="training-meta">
-              <span>{post.data.athlete}</span>
-              <span>{post.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
-            </div>
-            <a class="training-link" href={`/training/${post.id}`}>Read →</a>
-          </article>
+            <p class="content-description">{post.data.description}</p>
+            <div class="content-meta"><span>{post.data.athlete}</span><span>{post.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span></div>
+          </a>
         ))}
       </div>
     </div>
@@ -123,78 +103,86 @@ const latestPosts = [...posts]
 
   <section class="about-section">
     <div class="section-inner about-grid">
-      <div><p class="section-label">ABOUT</p></div>
+      <p class="section-label">ABOUT LRAC</p>
       <div>
-        <p class="about-copy">
-          Lower Raritan Athletic Club is an independent endurance club with roots in New Jersey, built around athletes continuing to train, race, and improve beyond collegiate competition.
-        </p>
-        <a class="text-link" href="/about">About LRAC →</a>
+        <p class="about-copy">A small independent athletic club with New Jersey roots, built around serious training, competition, and the athletes doing the work.</p>
+        <a class="text-link" href="/about">About the club →</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .hero { position: relative; min-height: 100vh; overflow: hidden; background: var(--black); color: var(--white); border-bottom: 1px solid var(--black); }
-  .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.78) contrast(1.06); }
-  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.08), rgba(0,0,0,0.68)); }
-  .hero-inner { position: relative; z-index: 2; width: 100%; max-width: var(--max-width); min-height: 100vh; margin: 0 auto; padding: 110px var(--page-padding) 48px; display: flex; flex-direction: column; justify-content: flex-end; }
-  .hero-kicker { margin: 0 0 25px; font-size: 11px; font-weight: 900; letter-spacing: 2.4px; text-transform: uppercase; }
-  .hero h1 { max-width: 1200px; margin: 0; font-size: clamp(72px, 10vw, 145px); line-height: 0.82; letter-spacing: -7px; text-transform: uppercase; }
-  .hero-bottom { max-width: 680px; margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.65); }
-  .hero-bottom p { margin: 0; font-size: 19px; line-height: 1.5; }
-  .athletes-section, .racing-section, .training-section, .about-section { padding: 100px 0 120px; }
-  .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; margin-bottom: 45px; }
-  .section-header h2 { margin: 10px 0 0; font-size: clamp(58px, 8vw, 100px); line-height: 0.86; letter-spacing: -5px; text-transform: uppercase; }
+  .hero { background: var(--mint); border-bottom: 1px solid var(--black); padding: 112px 0 54px; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .55fr); gap: 56px; align-items: end; }
+  .hero-kicker { margin: 0 0 28px; font-size: 10px; font-weight: 900; letter-spacing: 2.3px; text-transform: uppercase; }
+  .hero h1 { margin: 0; font-size: clamp(92px, 11vw, 164px); line-height: .74; letter-spacing: -6px; text-transform: uppercase; }
+  .hero-copy { max-width: 620px; margin: 38px 0 0; padding-top: 18px; border-top: 1px solid var(--black); font-size: 17px; line-height: 1.5; }
+  .hero-photo-wrap { border: 1px solid var(--black); background: var(--beige-light); }
+  .hero-photo-wrap img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: saturate(.75) contrast(1.05); }
+  .photo-caption { display: flex; justify-content: space-between; padding: 10px 12px; font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+
+  .athletes-section, .racing-section, .training-section, .about-section { padding: 92px 0 108px; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 38px; }
+  .section-header h2 { margin: 8px 0 0; font-size: clamp(60px, 7vw, 98px); line-height: .8; letter-spacing: -4px; text-transform: uppercase; }
+
   .athletes-section { background: var(--beige-light); }
-  .athlete-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .athlete-card { color: var(--black); text-decoration: none; }
-  .athlete-image { aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--black); background: var(--black); }
-  .athlete-image img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85) contrast(1.04); transition: transform 0.25s ease; }
-  .athlete-card:hover .athlete-image img { transform: scale(1.02); }
-  .athlete-meta { padding-top: 16px; }
-  .athlete-sport { margin: 0 0 7px; color: var(--mint-dark); font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
-  .athlete-meta h3 { margin: 0; font-size: 30px; line-height: 1; letter-spacing: -1.5px; text-transform: uppercase; }
-  .athlete-location { margin: 7px 0 0; color: var(--gray); font-size: 13px; }
-  .athlete-details { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--black); }
-  .athlete-details p { display: flex; justify-content: space-between; gap: 16px; margin: 5px 0; font-size: 13px; }
-  .athlete-details span { color: var(--gray); }
+  .athlete-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .athlete-card { text-decoration: none; color: var(--black); }
+  .athlete-image { overflow: hidden; border: 1px solid var(--black); }
+  .athlete-image img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: saturate(.82); transition: transform .2s ease; }
+  .athlete-card:hover .athlete-image img { transform: scale(1.018); }
+  .athlete-topline { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; font-size: 9px; font-weight: 900; letter-spacing: 1.25px; text-transform: uppercase; }
+  .athlete-card h3 { margin: 7px 0 12px; font-size: 34px; line-height: .92; letter-spacing: -1.5px; text-transform: uppercase; }
+  .pr-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--black); }
+  .pr-strip div { padding: 9px 8px 0 0; border-right: 1px solid var(--black); }
+  .pr-strip div:last-child { border-right: 0; padding-left: 8px; }
+  .pr-strip div:nth-child(2) { padding-left: 8px; }
+  .pr-strip strong, .pr-strip span { display: block; }
+  .pr-strip strong { font-size: 13px; }
+  .pr-strip span { margin-top: 3px; color: var(--gray); font-size: 8px; text-transform: uppercase; letter-spacing: .7px; }
+
   .racing-section { background: var(--black); color: var(--white); }
-  .light-link { color: var(--white); border-color: var(--white); }
-  .race-list { border-top: 1px solid rgba(255,255,255,0.45); }
-  .race-row { display: grid; grid-template-columns: 140px 1fr 300px; gap: 30px; align-items: center; padding: 30px 0; border-bottom: 1px solid rgba(255,255,255,0.35); }
+  .light-link { color: var(--white); }
+  .race-list { border-top: 1px solid rgba(255,255,255,.45); }
+  .race-row { display: grid; grid-template-columns: 130px 1fr 280px; gap: 28px; align-items: center; padding: 27px 0; border-bottom: 1px solid rgba(255,255,255,.3); }
   .race-date strong { display: block; font-size: 18px; }
-  .race-date span { display: block; margin-top: 4px; color: #999; font-size: 11px; }
-  .race-event p { margin: 0 0 7px; color: var(--mint); font-size: 10px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
-  .race-event h3 { margin: 0; font-size: 30px; line-height: 1; text-transform: uppercase; }
-  .race-event span { display: block; margin-top: 7px; color: #aaa; font-size: 12px; }
-  .race-athletes { font-size: 13px; font-weight: 700; }
+  .race-date span { display: block; margin-top: 4px; color: #888; font-size: 10px; }
+  .race-event p { margin: 0 0 5px; color: var(--mint); font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+  .race-event h3 { margin: 0; font-size: 31px; line-height: .94; letter-spacing: -1px; text-transform: uppercase; }
+  .race-event span { display: block; margin-top: 6px; color: #aaa; font-size: 11px; }
+  .race-athletes { font-size: 12px; font-weight: 700; }
+
   .training-section { background: var(--beige); }
-  .training-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .training-card { min-height: 390px; padding: 28px; background: var(--white); border: 1px solid var(--black); display: flex; flex-direction: column; }
-  .training-type { margin: 0; color: var(--mint-dark); font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
-  .training-card h3 { margin: 48px 0 0; font-size: 40px; line-height: 0.98; letter-spacing: -2px; text-transform: uppercase; }
-  .training-description { margin: 18px 0 0; color: var(--gray); font-size: 16px; line-height: 1.6; }
-  .training-meta { display: flex; justify-content: space-between; gap: 20px; margin-top: 28px; font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-  .training-link { margin-top: auto; padding-top: 30px; color: var(--black); text-decoration: none; text-transform: uppercase; font-size: 11px; font-weight: 900; letter-spacing: 1.4px; }
-  .training-card:hover { background: var(--mint); }
+  .training-heading h2 { max-width: 780px; }
+  .content-grid { display: grid; grid-template-columns: 1.35fr .825fr .825fr; border-top: 1px solid var(--black); border-left: 1px solid var(--black); }
+  .content-card { min-height: 360px; padding: 24px; display: flex; flex-direction: column; color: var(--black); text-decoration: none; border-right: 1px solid var(--black); border-bottom: 1px solid var(--black); background: var(--beige-light); }
+  .content-card.lead { min-height: 430px; background: var(--mint); }
+  .content-type { margin: 0; font-size: 9px; font-weight: 900; letter-spacing: 1.8px; text-transform: uppercase; }
+  .content-card h3 { margin: 48px 0 12px; font-size: 38px; line-height: .92; letter-spacing: -1.8px; text-transform: uppercase; }
+  .content-card.lead h3 { font-size: clamp(48px, 5vw, 72px); }
+  .content-description { margin: 0; max-width: 600px; color: var(--gray); font-size: 14px; line-height: 1.55; }
+  .content-card.lead .content-description { color: var(--black); }
+  .content-meta { margin-top: auto; padding-top: 36px; display: flex; justify-content: space-between; gap: 18px; font-size: 9px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+  .content-card:hover { background: var(--mint); }
+
   .about-section { background: var(--mint); border-top: 1px solid var(--black); }
-  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 80px; }
-  .about-copy { max-width: 950px; margin: 0 0 45px; font-size: clamp(32px, 5vw, 62px); line-height: 1.02; letter-spacing: -3px; }
+  .about-grid { display: grid; grid-template-columns: 180px 1fr; gap: 72px; }
+  .about-copy { max-width: 960px; margin: 0 0 36px; font-family: var(--display-font); font-size: clamp(38px, 5vw, 66px); line-height: .98; letter-spacing: -2.5px; text-transform: uppercase; }
+
   @media (max-width: 850px) {
-    .hero { min-height: calc(100vh - 70px); }
-    .hero-inner { min-height: calc(100vh - 70px); padding: 60px var(--page-padding) 38px; }
-    .hero-kicker { margin-bottom: 18px; }
-    .hero h1 { font-size: clamp(55px, 16vw, 76px); line-height: 0.85; letter-spacing: -4px; }
-    .hero-bottom { margin-top: 30px; }
-    .hero-bottom p { font-size: 16px; }
-    .athletes-section, .racing-section, .training-section, .about-section { padding: 75px 0 85px; }
-    .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
-    .section-header h2 { font-size: 58px; letter-spacing: -3px; }
-    .athlete-grid, .training-grid { grid-template-columns: 1fr; }
-    .race-row { grid-template-columns: 80px 1fr; gap: 20px; }
+    .hero { padding: 58px 0 36px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero h1 { font-size: clamp(64px, 19vw, 88px); letter-spacing: -3px; }
+    .hero-copy { margin-top: 28px; font-size: 15px; }
+    .hero-photo-wrap { max-width: 320px; }
+    .athletes-section, .racing-section, .training-section, .about-section { padding: 68px 0 78px; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .section-header h2 { font-size: 58px; letter-spacing: -2.5px; }
+    .athlete-grid, .content-grid { grid-template-columns: 1fr; }
+    .race-row { grid-template-columns: 82px 1fr; gap: 18px; }
     .race-athletes { grid-column: 2; }
-    .about-grid { grid-template-columns: 1fr; gap: 35px; }
-    .about-copy { font-size: 36px; letter-spacing: -2px; }
+    .about-grid { grid-template-columns: 1fr; gap: 28px; }
+    .about-copy { font-size: 38px; letter-spacing: -1.5px; }
   }
 </style>
