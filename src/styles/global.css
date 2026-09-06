@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&display=swap');
+
 :root {
   --mint: #a8e6cf;
   --mint-dark: #4f8f78;
@@ -10,8 +12,8 @@
   --max-width: 1380px;
   --page-padding: 34px;
   --border: 1px solid var(--black);
-  --display-font: "Archivo", Arial, sans-serif;
-  --body-font: "Source Sans 3", Arial, sans-serif;
+  --display-font: "Roboto Mono", monospace;
+  --body-font: "Roboto Mono", monospace;
 }
 
 * { box-sizing: border-box; }
@@ -31,8 +33,7 @@ a { color: inherit; }
 
 h1, h2, h3, .brand-mark, .page-hero h1 {
   font-family: var(--display-font);
-  font-weight: 800;
-  font-variation-settings: "wdth" 92;
+  font-weight: 700;
 }
 
 .section-inner {
@@ -64,17 +65,17 @@ h1, h2, h3, .brand-mark, .page-hero h1 {
 .eyebrow, .section-label {
   margin: 0;
   font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 2.1px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
 }
 
 .page-hero h1 {
   margin: 24px 0 0;
   max-width: 100%;
-  font-size: clamp(68px, 9vw, 132px);
-  line-height: .92;
-  letter-spacing: -3.5px;
+  font-size: clamp(62px, 8vw, 118px);
+  line-height: .94;
+  letter-spacing: -3px;
   text-transform: uppercase;
 }
 
@@ -86,8 +87,8 @@ h1, h2, h3, p { max-width: 100%; }
   text-decoration: none;
   text-transform: uppercase;
   font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.3px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
   border-bottom: 1px solid currentColor;
   padding-bottom: 3px;
 }
@@ -101,8 +102,8 @@ h1, h2, h3, p { max-width: 100%; }
   text-decoration: none;
   text-transform: uppercase;
   font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.3px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
 }
 .button-dark { background: var(--black); color: var(--white); }
 .button:hover { background: var(--mint); color: var(--black); }
@@ -112,8 +113,8 @@ h1, h2, h3, p { max-width: 100%; }
   .page-hero { padding: 54px 0 46px; overflow: hidden; }
   .page-hero h1 {
     margin-top: 18px;
-    font-size: clamp(46px, 12.5vw, 64px);
-    line-height: .95;
-    letter-spacing: -2px;
+    font-size: clamp(42px, 11vw, 56px);
+    line-height: .98;
+    letter-spacing: -1.8px;
   }
 }
