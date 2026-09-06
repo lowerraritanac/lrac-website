@@ -1,25 +1,20 @@
 :root {
   --mint: #a8e6cf;
   --mint-dark: #4f8f78;
-
   --black: #111111;
   --white: #ffffff;
-
   --beige: #eee8dc;
   --beige-light: #f8f5ef;
-
   --gray: #666666;
   --gray-light: #999999;
-
   --max-width: 1380px;
   --page-padding: 34px;
-
   --border: 1px solid var(--black);
+  --display-font: "Arial Narrow", "Roboto Condensed", Impact, Arial, sans-serif;
+  --body-font: Arial, Helvetica, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
@@ -31,37 +26,31 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-
   background: var(--beige);
   color: var(--black);
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: var(--body-font);
 }
 
-img {
-  max-width: 100%;
-}
+img { max-width: 100%; }
+a { color: inherit; }
 
-a {
-  color: inherit;
+h1, h2, h3,
+.brand-mark,
+.page-hero h1 {
+  font-family: var(--display-font);
+  font-stretch: condensed;
 }
 
 .section-inner {
   width: 100%;
   max-width: var(--max-width);
-
-  margin-left: auto;
-  margin-right: auto;
-
+  margin: 0 auto;
   padding-left: var(--page-padding);
   padding-right: var(--page-padding);
 }
 
 .page-hero {
-  padding: 90px 0 70px;
+  padding: 72px 0 58px;
   background: var(--mint);
   border-bottom: var(--border);
 }
@@ -69,101 +58,61 @@ a {
 .eyebrow,
 .section-label {
   margin: 0;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
-  letter-spacing: 2.4px;
+  letter-spacing: 2.2px;
   text-transform: uppercase;
 }
 
 .page-hero h1 {
-  margin: 32px 0 0;
+  margin: 26px 0 0;
   max-width: 100%;
-
-  font-size: clamp(80px, 12vw, 170px);
-  line-height: 0.8;
-  letter-spacing: -8px;
+  font-size: clamp(76px, 12vw, 166px);
+  line-height: 0.78;
+  letter-spacing: -5px;
   text-transform: uppercase;
 }
 
-h1,
-h2,
-h3,
-p {
-  max-width: 100%;
-}
+h1, h2, h3, p { max-width: 100%; }
 
 .text-link {
   display: inline-block;
-
   color: var(--black);
-
   text-decoration: none;
   text-transform: uppercase;
-
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
-  letter-spacing: 1.3px;
-
-  border-bottom: 1px solid var(--black);
+  letter-spacing: 1.35px;
+  border-bottom: 1px solid currentColor;
   padding-bottom: 3px;
 }
 
-.text-link:hover {
-  opacity: 0.5;
-}
+.text-link:hover { opacity: 0.5; }
 
 .button {
   display: inline-block;
-
-  padding: 14px 20px;
-
+  padding: 13px 18px;
   border: 1px solid var(--black);
-
   color: var(--black);
-
   text-decoration: none;
   text-transform: uppercase;
-
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
   letter-spacing: 1.3px;
 }
 
-.button-dark {
-  background: var(--black);
-  color: var(--white);
-}
-
-.button:hover {
-  background: var(--mint);
-  color: var(--black);
-}
+.button-dark { background: var(--black); color: var(--white); }
+.button:hover { background: var(--mint); color: var(--black); }
 
 @media (max-width: 850px) {
-  :root {
-    --page-padding: 20px;
-  }
-
-  .section-inner {
-    width: 100%;
-    padding-left: var(--page-padding);
-    padding-right: var(--page-padding);
-  }
-
-  .page-hero {
-    padding: 65px 0 55px;
-    overflow: hidden;
-  }
-
+  :root { --page-padding: 20px; }
+  .section-inner { padding-left: var(--page-padding); padding-right: var(--page-padding); }
+  .page-hero { padding: 56px 0 46px; overflow: hidden; }
   .page-hero h1 {
-    margin-top: 24px;
-
+    margin-top: 20px;
     font-size: clamp(52px, 17vw, 76px);
-    line-height: 0.88;
-    letter-spacing: -4px;
-
+    line-height: 0.84;
+    letter-spacing: -3px;
     white-space: normal;
-    overflow-wrap: normal;
-    word-break: normal;
   }
 }
