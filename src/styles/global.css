@@ -10,8 +10,8 @@
   --max-width: 1380px;
   --page-padding: 34px;
   --border: 1px solid var(--black);
-  --display-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --display-font: "Archivo", Arial, sans-serif;
+  --body-font: "Source Sans 3", Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -31,8 +31,8 @@ a { color: inherit; }
 
 h1, h2, h3, .brand-mark, .page-hero h1 {
   font-family: var(--display-font);
-  font-weight: 900;
-  font-stretch: normal;
+  font-weight: 800;
+  font-variation-settings: "wdth" 92;
 }
 
 .section-inner {
@@ -65,16 +65,16 @@ h1, h2, h3, .brand-mark, .page-hero h1 {
   margin: 0;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 2.15px;
+  letter-spacing: 2.1px;
   text-transform: uppercase;
 }
 
 .page-hero h1 {
   margin: 24px 0 0;
   max-width: 100%;
-  font-size: clamp(72px, 10vw, 146px);
-  line-height: .86;
-  letter-spacing: -5px;
+  font-size: clamp(68px, 9vw, 132px);
+  line-height: .92;
+  letter-spacing: -3.5px;
   text-transform: uppercase;
 }
 
@@ -87,7 +87,7 @@ h1, h2, h3, p { max-width: 100%; }
   text-transform: uppercase;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 1.35px;
+  letter-spacing: 1.3px;
   border-bottom: 1px solid currentColor;
   padding-bottom: 3px;
 }
@@ -111,9 +111,9 @@ h1, h2, h3, p { max-width: 100%; }
   :root { --page-padding: 20px; }
   .page-hero { padding: 54px 0 46px; overflow: hidden; }
   .page-hero h1 {
-    margin-top: 19px;
-    font-size: clamp(48px, 14vw, 68px);
-    line-height: .9;
-    letter-spacing: -2.8px;
+    margin-top: 18px;
+    font-size: clamp(46px, 12.5vw, 64px);
+    line-height: .95;
+    letter-spacing: -2px;
   }
 }
