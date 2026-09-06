@@ -3,8 +3,7 @@ export const site = {
   name: "Lower Raritan Athletic Club",
   founded: "2026",
   location: "New Jersey",
-  description:
-    "Independent endurance athletes training, racing, and documenting the work beyond collegiate competition.",
+  description: "Work in progress.",
   nav: [
     { label: "Athletes", href: "/athletes" },
     { label: "Racing", href: "/racing" },
