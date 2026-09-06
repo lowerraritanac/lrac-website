@@ -29,13 +29,69 @@ import { site } from "../../data/site.js";
     </div>
   </section>
 
-  <section class="contact-section">
-    <div class="section-inner contact-grid">
-      <p class="section-label">Coaching Inquiries</p>
-      <a href={`mailto:${site.email}`}>{site.email} ↗</a>
+  <section class="interest-section" id="interest">
+    <div class="section-inner interest-grid">
+      <div class="interest-heading">
+        <p class="section-label">Coaching Inquiries</p>
+        <h2>Interested in coaching?</h2>
+        <a class="email-fallback" href={`mailto:${site.email}`}>{site.email} ↗</a>
+      </div>
+
+      <form class="interest-form" id="coaching-form">
+        <div class="field-row two-up">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label>
+            <span>Phone <small>Optional</small></span>
+            <input type="tel" name="phone" autocomplete="tel" />
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="6" required></textarea>
+          </label>
+        </div>
+
+        <button type="submit">Send inquiry →</button>
+      </form>
     </div>
   </section>
 </BaseLayout>
+
+<script define:vars={{ coachingEmail: site.email }}>
+  const form = document.getElementById("coaching-form");
+
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get("name") || "");
+    const email = String(data.get("email") || "");
+    const phone = String(data.get("phone") || "");
+    const message = String(data.get("message") || "");
+
+    const subject = `LRAC coaching inquiry — ${name}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Phone: ${phone || "Not provided"}`,
+      "",
+      message,
+    ].join("\n");
+
+    window.location.href = `mailto:${coachingEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+</script>
 
 <style>
   .coaching-hero { background: var(--paper); }
@@ -52,9 +108,22 @@ import { site } from "../../data/site.js";
   .detail-row strong { font-family: var(--editorial); font-size: 30px; font-weight: 600; line-height: 1; }
   .detail-row p { margin: 0; color: var(--gray); font-size: 9px; text-transform: uppercase; }
 
-  .contact-section { padding: 30px 0; background: var(--mint); border-top: 1px solid var(--ink); }
-  .contact-grid { display: flex; justify-content: space-between; gap: 24px; align-items: center; }
-  .contact-grid a { font-family: var(--mono); font-size: 10px; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .interest-section { padding: 72px 0 82px; background: var(--beige); border-top: 1px solid var(--ink); }
+  .interest-grid { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 64px; align-items: start; }
+  .interest-heading h2 { margin: 16px 0 20px; max-width: 290px; font-size: clamp(42px, 5vw, 66px); line-height: .92; letter-spacing: -.04em; }
+  .email-fallback { display: inline-block; font-family: var(--mono); font-size: 9px; font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+
+  .interest-form { border-top: 1px solid var(--ink); }
+  .field-row { padding: 18px 0 20px; border-bottom: 1px solid var(--ink); }
+  .field-row.two-up { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  label, label span { display: block; }
+  label span { margin-bottom: 8px; font-family: var(--mono); font-size: 8px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+  label small { color: var(--gray); font-size: 7px; font-weight: 400; }
+  input, textarea { width: 100%; border: 0; border-radius: 0; padding: 4px 0 7px; background: transparent; color: var(--ink); font: inherit; font-family: var(--editorial); font-size: 22px; outline: none; }
+  textarea { min-height: 140px; resize: vertical; line-height: 1.35; }
+  input:focus, textarea:focus { box-shadow: inset 0 -2px 0 var(--mint-dark); }
+  button { margin-top: 22px; padding: 13px 17px; border: 1px solid var(--ink); border-radius: 0; background: var(--ink); color: var(--white); font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+  button:hover { background: var(--mint); color: var(--ink); }
 
   @media (max-width: 850px) {
     .hero-grid { display: block; }
@@ -65,6 +134,14 @@ import { site } from "../../data/site.js";
     .detail-row { grid-template-columns: 34px 1fr; gap: 8px 14px; padding: 18px 0; }
     .detail-row strong { font-size: 27px; }
     .detail-row p { grid-column: 2; }
-    .contact-grid { align-items: flex-start; flex-direction: column; gap: 12px; }
+
+    .interest-section { padding: 48px 0 58px; }
+    .interest-grid { grid-template-columns: 1fr; gap: 30px; }
+    .interest-heading h2 { margin-bottom: 16px; max-width: 330px; font-size: 42px; }
+    .field-row.two-up { grid-template-columns: 1fr; gap: 18px; }
+    .field-row { padding: 14px 0 16px; }
+    input, textarea { font-size: 20px; }
+    textarea { min-height: 120px; }
+    button { width: 100%; }
   }
 </style>
