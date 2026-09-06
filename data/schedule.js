@@ -36,6 +36,18 @@ export const races = [
   },
 
   {
+    date: "AUG 30",
+    year: "2026",
+    event: "Stewartsville 5K",
+    location: "Stewartsville, NJ",
+    athletes: ["Aaron Wysocki"],
+    athleteSlugs: ["aaron-wysocki"],
+    discipline: "5K",
+    status: "Completed",
+    result: "15:05 — 1st",
+  },
+
+  {
     date: "AUG 22",
     year: "2026",
     event: "Reykjavik Half Marathon",
