@@ -46,8 +46,14 @@ const featuredPosts = [...posts]
       <div class="athlete-grid">
         {athletes.slice(0, 3).map((athlete) => <AthleteCard athlete={athlete} />)}
         <a class="roster-tile" href="/athletes">
-          <span>Full roster</span>
-          <strong>→</strong>
+          <div class="roster-tile-top">
+            <span class="roster-count">03</span>
+            <span class="roster-arrow">↗</span>
+          </div>
+          <div class="roster-tile-bottom">
+            <span class="roster-label">View all</span>
+            <strong>ATHLETES</strong>
+          </div>
         </a>
       </div>
     </div>
@@ -164,23 +170,51 @@ const featuredPosts = [...posts]
     .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
     .section-header h2 { font-size: 42px; line-height: 1; letter-spacing: -1.5px; }
     .desktop-roster-link { display: none; }
-    .athlete-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
+    .athlete-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; align-items: start; }
+    .athlete-grid > * { min-width: 0; }
     .roster-tile {
       display: flex;
-      min-height: 100%;
-      aspect-ratio: 4 / 5;
-      padding: 14px;
-      align-items: flex-end;
+      flex-direction: column;
       justify-content: space-between;
-      gap: 12px;
+      aspect-ratio: 4 / 5;
+      min-width: 0;
+      padding: 14px;
       border: 1px solid var(--black);
       background: var(--mint);
       color: var(--black);
       text-decoration: none;
       text-transform: uppercase;
     }
-    .roster-tile span { font-size: 12px; font-weight: 700; line-height: 1.2; }
-    .roster-tile strong { font-size: 24px; font-weight: 500; line-height: 1; }
+    .roster-tile-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--black);
+    }
+    .roster-count,
+    .roster-label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .roster-arrow {
+      font-size: 18px;
+      line-height: 1;
+    }
+    .roster-tile-bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .roster-tile-bottom strong {
+      max-width: 100%;
+      font-size: clamp(18px, 5vw, 24px);
+      line-height: 1;
+      letter-spacing: -.8px;
+      overflow-wrap: anywhere;
+    }
     .race-row, .post-row { grid-template-columns: 78px 1fr; gap: 16px; }
     .race-athletes, .post-meta { grid-column: 2; }
     .post-type { align-self: start; }
