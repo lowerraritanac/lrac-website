@@ -7,8 +7,6 @@ const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.dat
 const writing = sortedPosts.filter((post) => post.data.category === "Writing");
 const trainingReports = sortedPosts.filter((post) => post.data.category === "Training Report");
 const raceReports = sortedPosts.filter((post) => post.data.category === "Race Report");
-const lead = writing[0];
-const moreWriting = writing.slice(1);
 ---
 
 <BaseLayout title="Training | LRAC" description="Writing, training reports, and race reports from Lower Raritan Athletic Club.">
@@ -21,28 +19,12 @@ const moreWriting = writing.slice(1);
     </div>
   </section>
 
-  {lead && (
-    <section class="lead-section">
-      <div class="section-inner lead-grid">
-        <div class="lead-meta">
-          <p class="section-label">Featured Essay</p>
-          <div><span>{lead.data.athlete}</span><span>{lead.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span></div>
-        </div>
-        <a class="lead-story" href={`/training/${lead.id}`}>
-          <h2>{lead.data.title}</h2>
-          {lead.data.description && <p>{lead.data.description}</p>}
-          <span>Read essay →</span>
-        </a>
-      </div>
-    </section>
-  )}
-
-  {moreWriting.length > 0 && (
+  {writing.length > 0 && (
     <section class="index-section">
       <div class="section-inner index-grid">
         <div class="index-heading"><p class="section-label">01 / Writing</p><h2>Essays</h2></div>
         <div class="entries">
-          {moreWriting.map((post) => (
+          {writing.map((post) => (
             <a class="entry" href={`/training/${post.id}`}>
               <div class="entry-date">{post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</div>
               <div><h3>{post.data.title}</h3>{post.data.description && <p>{post.data.description}</p>}</div>
@@ -57,7 +39,7 @@ const moreWriting = writing.slice(1);
   {trainingReports.length > 0 && (
     <section class="index-section alt">
       <div class="section-inner index-grid">
-        <div class="index-heading"><p class="section-label">02 / Training Reports</p><h2>The Work</h2></div>
+        <div class="index-heading"><p class="section-label">02 / Training Reports</p><h2>Training Reports</h2></div>
         <div class="entries">
           {trainingReports.map((post) => (
             <a class="entry" href={`/training/${post.id}`}>
@@ -74,7 +56,7 @@ const moreWriting = writing.slice(1);
   {raceReports.length > 0 && (
     <section class="index-section dark">
       <div class="section-inner index-grid">
-        <div class="index-heading"><p class="section-label">03 / Race Reports</p><h2>Competition</h2></div>
+        <div class="index-heading"><p class="section-label">03 / Race Reports</p><h2>Race Reports</h2></div>
         <div class="entries">
           {raceReports.map((post) => (
             <a class="entry" href={`/training/${post.id}`}>
@@ -94,15 +76,6 @@ const moreWriting = writing.slice(1);
   .intro-grid { display: grid; grid-template-columns: 1fr; }
   .journal-intro h1 { margin: 16px 0 0; max-width: 820px; font-size: clamp(54px, 7vw, 96px); line-height: .92; letter-spacing: -.045em; }
 
-  .lead-section { padding: 72px 0 82px; background: var(--beige); border-bottom: 1px solid var(--ink); }
-  .lead-grid { display: grid; grid-template-columns: 200px 1fr; gap: 58px; }
-  .lead-meta { display: flex; flex-direction: column; justify-content: space-between; min-height: 260px; }
-  .lead-meta div { display: flex; flex-direction: column; gap: 5px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-  .lead-story { color: var(--ink); text-decoration: none; }
-  .lead-story h2 { margin: -7px 0 20px; max-width: 930px; font-size: clamp(56px, 7vw, 94px); line-height: .9; letter-spacing: -.045em; }
-  .lead-story p { max-width: 670px; margin: 0; font-size: 18px; line-height: 1.5; }
-  .lead-story > span { display: inline-block; margin-top: 28px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
-
   .index-section { padding: 66px 0 78px; }
   .index-section.alt { background: var(--beige); border-top: 1px solid var(--ink); }
   .index-section.dark { background: var(--ink); color: var(--white); }
@@ -120,11 +93,9 @@ const moreWriting = writing.slice(1);
 
   @media (max-width: 850px) {
     .journal-intro { padding: 44px 0 42px; }
-    .lead-grid, .index-grid { grid-template-columns: 1fr; gap: 30px; }
+    .index-grid { grid-template-columns: 1fr; gap: 30px; }
     .journal-intro h1 { font-size: clamp(46px, 13vw, 64px); }
-    .lead-section, .index-section { padding: 52px 0 60px; }
-    .lead-meta { min-height: 0; gap: 22px; }
-    .lead-story h2 { font-size: clamp(46px, 13vw, 64px); }
+    .index-section { padding: 52px 0 60px; }
     .entry { grid-template-columns: 1fr auto; gap: 16px; }
     .entry-date { grid-column: 1 / -1; }
   }
