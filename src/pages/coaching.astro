@@ -5,27 +5,9 @@ import { site } from "../../data/site.js";
 
 <BaseLayout title="Coaching | LRAC" description="Coaching from Lower Raritan Athletic Club.">
   <section class="page-hero coaching-hero">
-    <div class="section-inner hero-grid">
-      <div>
-        <p class="eyebrow">Lower Raritan Athletic Club</p>
-        <h1>Coaching</h1>
-      </div>
-      <span class="hero-note">Details in progress.</span>
-    </div>
-  </section>
-
-  <section class="coaching-section">
-    <div class="section-inner coaching-grid">
-      <div class="section-heading">
-        <p class="section-label">Coaching</p>
-        <h2>Work in progress.</h2>
-      </div>
-
-      <div class="detail-list">
-        <div class="detail-row"><span>01</span><strong>Approach</strong><p>Work in progress.</p></div>
-        <div class="detail-row"><span>02</span><strong>Athletes</strong><p>Work in progress.</p></div>
-        <div class="detail-row"><span>03</span><strong>Format</strong><p>Work in progress.</p></div>
-      </div>
+    <div class="section-inner">
+      <p class="eyebrow">Lower Raritan Athletic Club</p>
+      <h1>Coaching</h1>
     </div>
   </section>
 
@@ -95,18 +77,6 @@ import { site } from "../../data/site.js";
 
 <style>
   .coaching-hero { background: var(--paper); }
-  .hero-grid { display: flex; justify-content: space-between; gap: 40px; align-items: flex-end; }
-  .hero-note { padding-bottom: 8px; color: var(--gray); font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-
-  .coaching-section { padding: 72px 0 86px; background: var(--paper); }
-  .coaching-grid { display: grid; grid-template-columns: 240px 1fr; gap: 58px; }
-  .section-heading h2 { margin: 16px 0 0; font-size: clamp(38px, 4.5vw, 58px); line-height: .96; letter-spacing: -.035em; }
-  .detail-list { border-top: 1px solid var(--ink); }
-  .detail-row { display: grid; grid-template-columns: 50px 220px 1fr; gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--ink); }
-  .detail-row > span, .detail-row p { font-family: var(--mono); }
-  .detail-row > span { font-size: 8px; }
-  .detail-row strong { font-family: var(--editorial); font-size: 30px; font-weight: 600; line-height: 1; }
-  .detail-row p { margin: 0; color: var(--gray); font-size: 9px; text-transform: uppercase; }
 
   .interest-section { padding: 72px 0 82px; background: var(--beige); border-top: 1px solid var(--ink); }
   .interest-grid { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 64px; align-items: start; }
@@ -126,15 +96,6 @@ import { site } from "../../data/site.js";
   button:hover { background: var(--mint); color: var(--ink); }
 
   @media (max-width: 850px) {
-    .hero-grid { display: block; }
-    .hero-note { display: block; margin-top: 18px; padding: 0; }
-    .coaching-section { padding: 48px 0 58px; }
-    .coaching-grid { grid-template-columns: 1fr; gap: 28px; }
-    .section-heading h2 { font-size: 34px; }
-    .detail-row { grid-template-columns: 34px 1fr; gap: 8px 14px; padding: 18px 0; }
-    .detail-row strong { font-size: 27px; }
-    .detail-row p { grid-column: 2; }
-
     .interest-section { padding: 48px 0 58px; }
     .interest-grid { grid-template-columns: 1fr; gap: 30px; }
     .interest-heading h2 { margin-bottom: 16px; max-width: 330px; font-size: 42px; }
