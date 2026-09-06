@@ -15,6 +15,22 @@ export const weeklyMileage = [
   { weekEnding: "2026-09-06", miles: 123.1, hours: 14.28 },
 ];
 
+export const plannedMileage = [
+  { weekEnding: "2026-09-13", miles: 112 },
+  { weekEnding: "2026-09-20", miles: 85 },
+  { weekEnding: "2026-09-27", miles: 105 },
+  { weekEnding: "2026-10-04", miles: 117 },
+  { weekEnding: "2026-10-11", miles: 117 },
+  { weekEnding: "2026-10-18", miles: 117 },
+  { weekEnding: "2026-10-25", miles: 115 },
+  { weekEnding: "2026-11-01", miles: 120 },
+  { weekEnding: "2026-11-08", miles: 120 },
+  { weekEnding: "2026-11-15", miles: 120 },
+  { weekEnding: "2026-11-22", miles: 100 },
+  { weekEnding: "2026-11-29", miles: 85 },
+  { weekEnding: "2026-12-06", miles: 70 },
+];
+
 export const latestWeek = {
   label: "Week of August 31",
   weekEnding: "2026-09-06",
