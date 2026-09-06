@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AthleteCard from "../components/AthleteCard.astro";
 import { athletes } from "../../data/athletes.js";
 import { races } from "../../data/schedule.js";
+import { site } from "../../data/site.js";
 import { getCollection } from "astro:content";
 
 const upcomingRaces = races
@@ -9,55 +11,45 @@ const upcomingRaces = races
   .slice(0, 3);
 
 const posts = await getCollection("training");
-const latestPosts = [...posts]
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-
-const writing = latestPosts.filter((post) => post.data.category === "Writing").slice(0, 1);
-const trainingReports = latestPosts.filter((post) => post.data.category === "Training Report").slice(0, 1);
-const raceReports = latestPosts.filter((post) => post.data.category === "Race Report").slice(0, 1);
-const featuredPosts = [...writing, ...trainingReports, ...raceReports];
+const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featuredPosts = [
+  ...sortedPosts.filter((post) => post.data.category === "Writing").slice(0, 1),
+  ...sortedPosts.filter((post) => post.data.category === "Training Report").slice(0, 1),
+  ...sortedPosts.filter((post) => post.data.category === "Race Report").slice(0, 1),
+];
 ---
 
-<BaseLayout
-  title="Lower Raritan Athletic Club"
-  description="Lower Raritan Athletic Club — independent endurance athletes training and competing beyond collegiate sport."
-  transparentHeader={true}
->
+<BaseLayout title={site.name} description={site.description}>
   <section class="hero">
-    <div class="section-inner hero-grid">
-      <div class="hero-copy-block">
-        <p class="hero-kicker">EST. 2026 · NEW JERSEY</p>
-        <h1>Lower Raritan<br />Athletic Club</h1>
-        <p class="hero-copy">Independent endurance athletes training, racing, and documenting the work beyond collegiate competition.</p>
+    <div class="section-inner hero-copy">
+      <div class="hero-kicker">
+        <span>EST. {site.founded}</span>
+        <span>{site.location}</span>
       </div>
+      <h1>Lower Raritan<br />Athletic Club</h1>
+      <div class="hero-footer">
+        <p>{site.description}</p>
+        <span class="hero-mark">LRAC</span>
+      </div>
+    </div>
 
-      <div class="hero-photo-wrap">
-        <img src="/images/hero.jpg" alt="Lower Raritan Athletic Club" />
-        <div class="photo-caption"><span>LRAC</span><span>New Jersey</span></div>
-      </div>
+    <div class="hero-image">
+      <img src="/images/hero.jpg" alt="Lower Raritan Athletic Club" />
     </div>
   </section>
 
   <section class="athletes-section">
     <div class="section-inner">
       <div class="section-header">
-        <div><p class="section-label">THE CLUB</p><h2>Athletes</h2></div>
+        <div>
+          <p class="section-label">THE CLUB</p>
+          <h2>Athletes</h2>
+        </div>
         <a class="text-link" href="/athletes">Full roster →</a>
       </div>
 
       <div class="athlete-grid">
-        {athletes.slice(0, 3).map((athlete) => (
-          <a class="athlete-card" href={`/athletes/${athlete.slug}`}>
-            <div class="athlete-image"><img src={athlete.image} alt={athlete.name} /></div>
-            <div class="athlete-topline"><span>{athlete.sport}</span><span>{athlete.location}</span></div>
-            <h3>{athlete.name}</h3>
-            <div class="pr-strip">
-              {athlete.prs.slice(0, 3).map(([event, time]) => (
-                <div><strong>{time}</strong><span>{event}</span></div>
-              ))}
-            </div>
-          </a>
-        ))}
+        {athletes.slice(0, 3).map((athlete) => <AthleteCard athlete={athlete} />)}
       </div>
     </div>
   </section>
@@ -65,7 +57,10 @@ const featuredPosts = [...writing, ...trainingReports, ...raceReports];
   <section class="racing-section">
     <div class="section-inner">
       <div class="section-header">
-        <div><p class="section-label">NEXT ON THE CALENDAR</p><h2>Racing</h2></div>
+        <div>
+          <p class="section-label">NEXT ON THE CALENDAR</p>
+          <h2>Racing</h2>
+        </div>
         <a class="text-link light-link" href="/racing">All racing →</a>
       </div>
 
@@ -83,8 +78,11 @@ const featuredPosts = [...writing, ...trainingReports, ...raceReports];
 
   <section class="training-section">
     <div class="section-inner">
-      <div class="section-header training-heading">
-        <div><p class="section-label">WRITING & TRAINING</p><h2>From the Club</h2></div>
+      <div class="section-header">
+        <div>
+          <p class="section-label">WRITING & TRAINING</p>
+          <h2>From the Club</h2>
+        </div>
         <a class="text-link" href="/training">All posts →</a>
       </div>
 
@@ -94,7 +92,10 @@ const featuredPosts = [...writing, ...trainingReports, ...raceReports];
             <p class="content-type">{post.data.category}</p>
             <h3>{post.data.title}</h3>
             <p class="content-description">{post.data.description}</p>
-            <div class="content-meta"><span>{post.data.athlete}</span><span>{post.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span></div>
+            <div class="content-meta">
+              <span>{post.data.athlete}</span>
+              <span>{post.data.date.toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span>
+            </div>
           </a>
         ))}
       </div>
@@ -113,34 +114,21 @@ const featuredPosts = [...writing, ...trainingReports, ...raceReports];
 </BaseLayout>
 
 <style>
-  .hero { background: var(--mint); border-bottom: 1px solid var(--black); padding: 112px 0 54px; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(280px, .55fr); gap: 56px; align-items: end; }
-  .hero-kicker { margin: 0 0 28px; font-size: 10px; font-weight: 900; letter-spacing: 2.3px; text-transform: uppercase; }
-  .hero h1 { margin: 0; font-size: clamp(92px, 11vw, 164px); line-height: .74; letter-spacing: -6px; text-transform: uppercase; }
-  .hero-copy { max-width: 620px; margin: 38px 0 0; padding-top: 18px; border-top: 1px solid var(--black); font-size: 17px; line-height: 1.5; }
-  .hero-photo-wrap { border: 1px solid var(--black); background: var(--beige-light); }
-  .hero-photo-wrap img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: saturate(.75) contrast(1.05); }
-  .photo-caption { display: flex; justify-content: space-between; padding: 10px 12px; font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
+  .hero { background: var(--beige-light); border-bottom: 1px solid var(--black); }
+  .hero-copy { padding-top: 82px; padding-bottom: 44px; }
+  .hero-kicker { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 28px; font-size: 10px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .hero h1 { max-width: 1180px; margin: 0; font-size: clamp(88px, 12vw, 172px); line-height: .72; letter-spacing: -6px; text-transform: uppercase; }
+  .hero-footer { display: grid; grid-template-columns: minmax(0, 620px) 1fr; gap: 40px; align-items: end; margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--black); }
+  .hero-footer p { margin: 0; font-size: 16px; line-height: 1.5; }
+  .hero-mark { justify-self: end; font-family: var(--display-font); font-size: clamp(42px, 6vw, 84px); line-height: .8; letter-spacing: -2px; }
+  .hero-image { width: 100%; height: min(38vw, 460px); overflow: hidden; background: var(--black); }
+  .hero-image img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 48%; filter: saturate(.78) contrast(1.05); }
 
   .athletes-section, .racing-section, .training-section, .about-section { padding: 92px 0 108px; }
   .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 38px; }
   .section-header h2 { margin: 8px 0 0; font-size: clamp(60px, 7vw, 98px); line-height: .8; letter-spacing: -4px; text-transform: uppercase; }
-
   .athletes-section { background: var(--beige-light); }
-  .athlete-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .athlete-card { text-decoration: none; color: var(--black); }
-  .athlete-image { overflow: hidden; border: 1px solid var(--black); }
-  .athlete-image img { display: block; width: 100%; aspect-ratio: 4/5; object-fit: cover; filter: saturate(.82); transition: transform .2s ease; }
-  .athlete-card:hover .athlete-image img { transform: scale(1.018); }
-  .athlete-topline { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; font-size: 9px; font-weight: 900; letter-spacing: 1.25px; text-transform: uppercase; }
-  .athlete-card h3 { margin: 7px 0 12px; font-size: 34px; line-height: .92; letter-spacing: -1.5px; text-transform: uppercase; }
-  .pr-strip { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--black); }
-  .pr-strip div { padding: 9px 8px 0 0; border-right: 1px solid var(--black); }
-  .pr-strip div:last-child { border-right: 0; padding-left: 8px; }
-  .pr-strip div:nth-child(2) { padding-left: 8px; }
-  .pr-strip strong, .pr-strip span { display: block; }
-  .pr-strip strong { font-size: 13px; }
-  .pr-strip span { margin-top: 3px; color: var(--gray); font-size: 8px; text-transform: uppercase; letter-spacing: .7px; }
+  .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 
   .racing-section { background: var(--black); color: var(--white); }
   .light-link { color: var(--white); }
@@ -154,7 +142,6 @@ const featuredPosts = [...writing, ...trainingReports, ...raceReports];
   .race-athletes { font-size: 12px; font-weight: 700; }
 
   .training-section { background: var(--beige); }
-  .training-heading h2 { max-width: 780px; }
   .content-grid { display: grid; grid-template-columns: 1.35fr .825fr .825fr; border-top: 1px solid var(--black); border-left: 1px solid var(--black); }
   .content-card { min-height: 360px; padding: 24px; display: flex; flex-direction: column; color: var(--black); text-decoration: none; border-right: 1px solid var(--black); border-bottom: 1px solid var(--black); background: var(--beige-light); }
   .content-card.lead { min-height: 430px; background: var(--mint); }
@@ -171,11 +158,11 @@ const featuredPosts = [...writing, ...trainingReports, ...raceReports];
   .about-copy { max-width: 960px; margin: 0 0 36px; font-family: var(--display-font); font-size: clamp(38px, 5vw, 66px); line-height: .98; letter-spacing: -2.5px; text-transform: uppercase; }
 
   @media (max-width: 850px) {
-    .hero { padding: 58px 0 36px; }
-    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-    .hero h1 { font-size: clamp(64px, 19vw, 88px); letter-spacing: -3px; }
-    .hero-copy { margin-top: 28px; font-size: 15px; }
-    .hero-photo-wrap { max-width: 320px; }
+    .hero-copy { padding-top: 54px; padding-bottom: 32px; }
+    .hero h1 { font-size: clamp(62px, 19vw, 90px); letter-spacing: -3px; }
+    .hero-footer { grid-template-columns: 1fr; gap: 22px; margin-top: 28px; }
+    .hero-mark { justify-self: start; }
+    .hero-image { height: 260px; }
     .athletes-section, .racing-section, .training-section, .about-section { padding: 68px 0 78px; }
     .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
     .section-header h2 { font-size: 58px; letter-spacing: -2.5px; }
