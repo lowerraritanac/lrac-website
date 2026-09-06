@@ -1,250 +1,68 @@
 ---
-import { trainingPosts } from "../../../data/training.js";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
 
-export function getStaticPaths() {
-  return trainingPosts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
-    props: {
-      post,
-    },
+export async function getStaticPaths() {
+  const posts = await getCollection("training");
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
   }));
 }
 
 const { post } = Astro.props;
+const { Content } = await render(post);
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <meta
-      name="description"
-      content={post.description}
-    />
-
-    <title>{post.title} | LRAC</title>
-  </head>
-
-  <body>
-<Header />
-
-    <main>
-      <section class="article-hero">
-        <div class="section-inner">
-          <p class="type">{post.type}</p>
-
-          <h1>{post.title}</h1>
-
-          <p class="description">{post.description}</p>
+<BaseLayout
+  title={`${post.data.title} | LRAC`}
+  description={post.data.description}
+>
+  <article>
+    <section class="article-hero">
+      <div class="section-inner">
+        <p class="category">{post.data.category}</p>
+        <h1>{post.data.title}</h1>
+        <div class="article-meta">
+          <span>{post.data.athlete}</span>
+          <span>
+            {post.data.date.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </span>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="article-body">
-        <div class="section-inner article-grid">
-          <div class="article-label">
-            TRAINING NOTES
-          </div>
-
-          <div class="article-content">
-            <p>
-              This article is being built as part of the LRAC training archive.
-            </p>
-
-            <p>
-              Longer-form workout notes, training context, session breakdowns,
-              and athlete observations will live here.
-            </p>
-
-            <p>
-              For now, this page confirms that individual training posts are
-              working correctly.
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-<Footer />
-  </body>
-</html>
+    <section class="article-body">
+      <div class="article-inner">
+        <Content />
+      </div>
+    </section>
+  </article>
+</BaseLayout>
 
 <style>
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    background: #eee8dc;
-    color: #111;
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  a {
-    color: inherit;
-  }
-
-  .section-inner,
-  .nav-wrap {
-    max-width: 1380px;
-    margin: auto;
-    padding-left: 34px;
-    padding-right: 34px;
-  }
-
-  .site-header {
-    background: #eee8dc;
-    border-bottom: 1px solid #111;
-  }
-
-  .nav-wrap {
-    min-height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .brand {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    text-decoration: none;
-  }
-
-  .brand-mark {
-    font-size: 26px;
-    font-weight: 900;
-    letter-spacing: -1.5px;
-  }
-
-  .brand-name {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
-  nav {
-    display: flex;
-    gap: 30px;
-  }
-
-  nav a {
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 1.3px;
-  }
-
-  .article-hero {
-    background: #a8e6cf;
-    padding: 100px 0 90px;
-    border-bottom: 1px solid #111;
-  }
-
-  .type {
-    margin: 0 0 30px;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 2.4px;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    max-width: 1100px;
-    margin: 0;
-    font-size: clamp(64px, 10vw, 140px);
-    line-height: 0.84;
-    letter-spacing: -6px;
-    text-transform: uppercase;
-  }
-
-  .description {
-    max-width: 760px;
-    margin: 40px 0 0;
-    font-size: 20px;
-    line-height: 1.55;
-  }
-
-  .article-body {
-    padding: 100px 0 120px;
-  }
-
-  .article-grid {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 70px;
-  }
-
-  .article-label {
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 2px;
-  }
-
-  .article-content {
-    max-width: 760px;
-  }
-
-  .article-content p {
-    margin: 0 0 28px;
-    font-size: 19px;
-    line-height: 1.75;
-  }
-
-  footer {
-    background: #111;
-    color: #fff;
-    padding: 48px 0;
-  }
-
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  footer strong {
-    font-size: 34px;
-  }
-
-  footer p {
-    margin: 7px 0 0;
-    color: #999;
-  }
-
-  footer a {
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-  }
-
+  .article-hero { padding: 100px 0 80px; background: var(--mint); border-bottom: 1px solid var(--black); }
+  .category { margin: 0; font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+  .article-hero h1 { max-width: 1100px; margin: 25px 0 40px; font-size: clamp(60px, 9vw, 125px); line-height: 0.88; letter-spacing: -6px; text-transform: uppercase; }
+  .article-meta { display: flex; gap: 30px; font-size: 11px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+  .article-body { padding: 90px 0 130px; background: var(--beige-light); }
+  .article-inner { width: calc(100% - 40px); max-width: 760px; margin: 0 auto; }
+  .article-inner :global(p) { margin: 0 0 28px; font-size: 18px; line-height: 1.7; }
+  .article-inner :global(h2) { margin: 70px 0 24px; font-size: 42px; line-height: 1; letter-spacing: -2px; text-transform: uppercase; }
+  .article-inner :global(h3) { margin: 50px 0 18px; font-size: 27px; }
+  .article-inner :global(hr) { margin: 60px 0; border: 0; border-top: 1px solid var(--black); }
+  .article-inner :global(strong) { font-weight: 900; }
   @media (max-width: 850px) {
-    .brand-name,
-    nav {
-      display: none;
-    }
-
-    h1 {
-      letter-spacing: -4px;
-    }
-
-    .article-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .footer-inner {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 30px;
-    }
+    .article-hero { padding: 70px 0 60px; }
+    .article-hero h1 { font-size: 58px; letter-spacing: -4px; }
+    .article-meta { flex-direction: column; gap: 8px; }
+    .article-body { padding: 65px 0 90px; }
+    .article-inner :global(p) { font-size: 17px; }
+    .article-inner :global(h2) { font-size: 34px; }
   }
 </style>
