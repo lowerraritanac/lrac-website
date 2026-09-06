@@ -12,11 +12,7 @@ const upcomingRaces = races
 
 const posts = await getCollection("training");
 const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const writing = sortedPosts.filter((post) => post.data.category === "Writing");
-const featuredEssay = writing[0];
-const recentReports = sortedPosts
-  .filter((post) => post.id !== featuredEssay?.id)
-  .slice(0, 3);
+const recentReports = sortedPosts.slice(0, 3);
 ---
 
 <BaseLayout title={site.name} description={site.description}>
@@ -50,25 +46,6 @@ const recentReports = sortedPosts
     </div>
   </section>
 
-  {featuredEssay && (
-    <section class="feature-section">
-      <div class="section-inner feature-grid">
-        <div class="feature-meta">
-          <p class="section-label">Writing / Featured</p>
-          <div class="feature-byline">
-            <span>{featuredEssay.data.athlete}</span>
-            <span>{featuredEssay.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}</span>
-          </div>
-        </div>
-        <a class="feature-story" href={`/training/${featuredEssay.id}`}>
-          <h2>{featuredEssay.data.title}</h2>
-          {featuredEssay.data.description && <p>{featuredEssay.data.description}</p>}
-          <span>Read →</span>
-        </a>
-      </div>
-    </section>
-  )}
-
   <section class="racing-section">
     <div class="section-inner">
       <div class="section-topline light-line">
@@ -92,8 +69,7 @@ const recentReports = sortedPosts
     <section class="reports-section">
       <div class="section-inner reports-grid">
         <div class="reports-heading">
-          <p class="section-label">Training Log / 03</p>
-          <h2>The work.</h2>
+          <p class="section-label">Training & Writing / 03</p>
         </div>
         <div class="post-list">
           {recentReports.map((post) => (
@@ -151,20 +127,10 @@ const recentReports = sortedPosts
   .hero-links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
   .hero-links a { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .07em; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
 
-  .athletes-section, .feature-section, .racing-section, .reports-section { padding: 70px 0 82px; }
+  .athletes-section, .racing-section, .reports-section { padding: 70px 0 82px; }
   .section-topline { display: flex; justify-content: space-between; align-items: baseline; gap: 30px; padding-bottom: 14px; margin-bottom: 30px; border-bottom: 1px solid var(--ink); }
   .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .roster-tile { display: none; }
-
-  .feature-section { background: var(--beige); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-  .feature-grid { display: grid; grid-template-columns: 200px 1fr; gap: 58px; }
-  .feature-meta { display: flex; flex-direction: column; justify-content: space-between; min-height: 250px; }
-  .feature-byline { display: flex; flex-direction: column; gap: 5px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-  .feature-story { color: var(--ink); text-decoration: none; }
-  .feature-story h2 { margin: -5px 0 18px; max-width: 860px; font-size: clamp(52px, 6.8vw, 92px); line-height: .92; letter-spacing: -.04em; }
-  .feature-story p { max-width: 660px; margin: 0; font-size: 18px; line-height: 1.5; }
-  .feature-story > span { display: inline-block; margin-top: 26px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
-  .feature-story:hover h2 { color: var(--mint-dark); }
 
   .racing-section { background: var(--ink); color: var(--white); }
   .light-line { border-color: rgba(255,255,255,.45); }
@@ -179,8 +145,7 @@ const recentReports = sortedPosts
   .race-event span { display: block; margin-top: 7px; color: #aaa; }
 
   .reports-section { background: var(--paper); }
-  .reports-grid { display: grid; grid-template-columns: 260px 1fr; gap: 58px; }
-  .reports-heading h2 { margin: 18px 0 0; font-size: clamp(46px, 5vw, 68px); line-height: .95; letter-spacing: -.035em; }
+  .reports-grid { display: grid; grid-template-columns: 220px 1fr; gap: 58px; }
   .post-list { border-top: 1px solid var(--ink); }
   .post-row { display: grid; grid-template-columns: 130px 1fr auto; gap: 28px; align-items: start; padding: 24px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
   .post-meta { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
@@ -204,7 +169,7 @@ const recentReports = sortedPosts
     .hero-inner { display: block; padding-top: 34px; padding-bottom: 34px; }
     .hero h1 { margin-top: 10px; font-size: clamp(30px, 8.5vw, 40px); line-height: 1.04; }
     .hero-links { justify-content: flex-start; margin-top: 22px; }
-    .athletes-section, .feature-section, .racing-section, .reports-section { padding: 52px 0 60px; }
+    .athletes-section, .racing-section, .reports-section { padding: 52px 0 60px; }
     .desktop-roster-link { display: none; }
     .athlete-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
     .athlete-grid > * { min-width: 0; }
@@ -213,10 +178,7 @@ const recentReports = sortedPosts
     .roster-tile-bottom { display: flex; flex-direction: column; gap: 3px; }
     .roster-tile-bottom small { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
     .roster-tile-bottom strong { font-family: var(--editorial); font-size: clamp(24px, 7vw, 34px); font-weight: 600; line-height: .95; }
-    .feature-grid, .reports-grid { grid-template-columns: 1fr; gap: 30px; }
-    .feature-meta { min-height: 0; gap: 22px; }
-    .feature-story h2 { font-size: clamp(44px, 13vw, 64px); }
-    .feature-story p { font-size: 16px; }
+    .reports-grid { grid-template-columns: 1fr; gap: 24px; }
     .race-row { grid-template-columns: 78px 1fr; gap: 16px; }
     .race-athletes { grid-column: 2; }
     .post-row { grid-template-columns: 1fr auto; gap: 16px; }
