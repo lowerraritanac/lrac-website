@@ -60,41 +60,50 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
     </div>
   </section>
 
-  <section class="results-section">
-    <div class="section-inner">
-      <div class="section-heading">
-        <p class="section-label">RESULTS</p>
-        <h2>Recent</h2>
-      </div>
+<section class="results-break">
+  <div class="section-inner">
+    <div class="break-line"></div>
 
-      <div class="race-list">
-        {
-          completedRaces.map((race) => (
-            <article class="race-row">
-              <div class="date">
-                <strong>{race.date}</strong>
-                <span>{race.year}</span>
-              </div>
+    <div class="results-intro">
+      <p class="section-label">PREVIOUS RACES</p>
 
-              <div class="event">
-                <p class="discipline">{race.discipline}</p>
-                <h3>{race.event}</h3>
-                <p class="location">{race.location}</p>
-              </div>
-
-              <div class="athlete">
-                {race.athlete}
-              </div>
-
-              <div class="result">
-                {race.result}
-              </div>
-            </article>
-          ))
-        }
-      </div>
+      <h2>
+        Results
+      </h2>
     </div>
-  </section>
+  </div>
+</section>
+
+<section class="results-section">
+  <div class="section-inner">
+    <div class="race-list">
+      {
+        completedRaces.map((race) => (
+          <article class="race-row">
+            <div class="date">
+              <strong>{race.date}</strong>
+              <span>{race.year}</span>
+            </div>
+
+            <div class="event">
+              <p class="discipline">{race.discipline}</p>
+              <h3>{race.event}</h3>
+              <p class="location">{race.location}</p>
+            </div>
+
+            <div class="athlete">
+              {race.athlete}
+            </div>
+
+            <div class="result">
+              {race.result}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
 
   <section class="archive-section">
     <div class="section-inner">
