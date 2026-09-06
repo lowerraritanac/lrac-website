@@ -13,7 +13,7 @@ const upcomingRaces = races
 const posts = await getCollection("training");
 const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const writing = sortedPosts.filter((post) => post.data.category === "Writing");
-const featuredEssay = writing[0] ?? sortedPosts[0];
+const featuredEssay = writing[0];
 const recentReports = sortedPosts
   .filter((post) => post.id !== featuredEssay?.id)
   .slice(0, 3);
@@ -21,18 +21,14 @@ const recentReports = sortedPosts
 
 <BaseLayout title={site.name} description={site.description}>
   <section class="hero">
-    <div class="section-inner hero-grid">
-      <div class="hero-id">
+    <div class="section-inner hero-inner">
+      <div>
         <p class="eyebrow">EST. {site.founded} · {site.location}</p>
-        <p class="club-name">Lower Raritan Athletic Club</p>
+        <h1>{site.name}</h1>
       </div>
-
-      <div class="hero-statement">
-        <p>An independent collective of people with a shared identity of improvement through sport.</p>
-        <div class="hero-links">
-          <a href={site.social.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
-          <a href={site.social.strava} target="_blank" rel="noreferrer">Strava ↗</a>
-        </div>
+      <div class="hero-links">
+        <a href={site.social.instagram} target="_blank" rel="noreferrer">Instagram ↗</a>
+        <a href={site.social.strava} target="_blank" rel="noreferrer">Strava ↗</a>
       </div>
     </div>
   </section>
@@ -66,7 +62,7 @@ const recentReports = sortedPosts
         </div>
         <a class="feature-story" href={`/training/${featuredEssay.id}`}>
           <h2>{featuredEssay.data.title}</h2>
-          <p>{featuredEssay.data.description}</p>
+          {featuredEssay.data.description && <p>{featuredEssay.data.description}</p>}
           <span>Read →</span>
         </a>
       </div>
@@ -92,36 +88,37 @@ const recentReports = sortedPosts
     </div>
   </section>
 
-  <section class="reports-section">
-    <div class="section-inner reports-grid">
-      <div class="reports-heading">
-        <p class="section-label">Training Log / 03</p>
-        <h2>The work.</h2>
+  {recentReports.length > 0 && (
+    <section class="reports-section">
+      <div class="section-inner reports-grid">
+        <div class="reports-heading">
+          <p class="section-label">Training Log / 03</p>
+          <h2>The work.</h2>
+        </div>
+        <div class="post-list">
+          {recentReports.map((post) => (
+            <a class="post-row" href={`/training/${post.id}`}>
+              <div class="post-meta">
+                <span>{post.data.category}</span>
+                <span>{post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+              </div>
+              <div class="post-main">
+                <h3>{post.data.title}</h3>
+                {post.data.description && <p>{post.data.description}</p>}
+              </div>
+              <span class="post-arrow">→</span>
+            </a>
+          ))}
+          <a class="all-writing" href="/training">All writing & training →</a>
+        </div>
       </div>
-      <div class="post-list">
-        {recentReports.map((post) => (
-          <a class="post-row" href={`/training/${post.id}`}>
-            <div class="post-meta">
-              <span>{post.data.category}</span>
-              <span>{post.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
-            </div>
-            <div class="post-main">
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-            </div>
-            <span class="post-arrow">→</span>
-          </a>
-        ))}
-        <a class="all-writing" href="/training">All writing & training →</a>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <section class="activity-section">
     <div class="section-inner activity-grid">
       <div>
         <p class="section-label">Club Activity</p>
-        <p class="activity-copy">Recent work, automatically pulled from the LRAC Strava club.</p>
         <a class="text-link" href={site.social.strava} target="_blank" rel="noreferrer">View club ↗</a>
       </div>
       <div class="strava-frame-wrap">
@@ -149,26 +146,24 @@ const recentReports = sortedPosts
 
 <style>
   .hero { background: var(--paper); border-bottom: 1px solid var(--ink); }
-  .hero-grid { display: grid; grid-template-columns: .75fr 1.25fr; gap: 72px; align-items: end; min-height: 430px; padding-top: 88px; padding-bottom: 74px; }
-  .hero-id { align-self: start; }
-  .club-name { margin: 14px 0 0; max-width: 300px; font-family: var(--mono); font-size: 13px; font-weight: 600; line-height: 1.45; text-transform: uppercase; }
-  .hero-statement p { margin: 0; max-width: 900px; font-family: var(--editorial); font-size: clamp(44px, 5.8vw, 78px); line-height: .98; letter-spacing: -.035em; }
-  .hero-links { display: flex; gap: 18px; margin-top: 36px; }
+  .hero-inner { display: flex; justify-content: space-between; gap: 48px; align-items: flex-end; padding-top: 52px; padding-bottom: 46px; }
+  .hero h1 { margin: 12px 0 0; max-width: 720px; font-size: clamp(34px, 4vw, 58px); line-height: 1; letter-spacing: -.035em; }
+  .hero-links { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
   .hero-links a { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .07em; text-decoration: none; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
 
-  .athletes-section, .feature-section, .racing-section, .reports-section { padding: 78px 0 92px; }
+  .athletes-section, .feature-section, .racing-section, .reports-section { padding: 70px 0 82px; }
   .section-topline { display: flex; justify-content: space-between; align-items: baseline; gap: 30px; padding-bottom: 14px; margin-bottom: 30px; border-bottom: 1px solid var(--ink); }
   .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   .roster-tile { display: none; }
 
   .feature-section { background: var(--beige); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-  .feature-grid { display: grid; grid-template-columns: 220px 1fr; gap: 70px; }
-  .feature-meta { display: flex; flex-direction: column; justify-content: space-between; min-height: 330px; }
+  .feature-grid { display: grid; grid-template-columns: 200px 1fr; gap: 58px; }
+  .feature-meta { display: flex; flex-direction: column; justify-content: space-between; min-height: 250px; }
   .feature-byline { display: flex; flex-direction: column; gap: 5px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
   .feature-story { color: var(--ink); text-decoration: none; }
-  .feature-story h2 { margin: -8px 0 22px; max-width: 900px; font-size: clamp(62px, 8vw, 108px); line-height: .9; letter-spacing: -.045em; }
-  .feature-story p { max-width: 670px; margin: 0; font-size: 19px; line-height: 1.55; }
-  .feature-story > span { display: inline-block; margin-top: 32px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .feature-story h2 { margin: -5px 0 18px; max-width: 860px; font-size: clamp(52px, 6.8vw, 92px); line-height: .92; letter-spacing: -.04em; }
+  .feature-story p { max-width: 660px; margin: 0; font-size: 18px; line-height: 1.5; }
+  .feature-story > span { display: inline-block; margin-top: 26px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
   .feature-story:hover h2 { color: var(--mint-dark); }
 
   .racing-section { background: var(--ink); color: var(--white); }
@@ -184,20 +179,20 @@ const recentReports = sortedPosts
   .race-event span { display: block; margin-top: 7px; color: #aaa; }
 
   .reports-section { background: var(--paper); }
-  .reports-grid { display: grid; grid-template-columns: 300px 1fr; gap: 70px; }
-  .reports-heading h2 { margin: 18px 0 0; font-size: clamp(52px, 6vw, 78px); line-height: .95; letter-spacing: -.04em; }
+  .reports-grid { display: grid; grid-template-columns: 260px 1fr; gap: 58px; }
+  .reports-heading h2 { margin: 18px 0 0; font-size: clamp(46px, 5vw, 68px); line-height: .95; letter-spacing: -.035em; }
   .post-list { border-top: 1px solid var(--ink); }
   .post-row { display: grid; grid-template-columns: 130px 1fr auto; gap: 28px; align-items: start; padding: 24px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
   .post-meta { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-  .post-main h3 { margin: 0; font-size: clamp(30px, 3.4vw, 44px); line-height: 1; letter-spacing: -.025em; }
+  .post-main h3 { margin: 0; font-size: clamp(30px, 3.2vw, 42px); line-height: 1; letter-spacing: -.025em; }
   .post-main p { max-width: 620px; margin: 8px 0 0; color: var(--gray); font-size: 15px; line-height: 1.45; }
   .post-arrow { font-family: var(--mono); font-size: 18px; }
   .post-row:hover h3 { color: var(--mint-dark); }
   .all-writing { display: inline-block; margin-top: 22px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
 
-  .activity-section { padding: 46px 0; background: var(--beige); border-top: 1px solid var(--ink); }
-  .activity-grid { display: grid; grid-template-columns: 1fr 300px; gap: 52px; align-items: start; }
-  .activity-copy { max-width: 440px; margin: 16px 0 22px; font-size: 17px; line-height: 1.45; }
+  .activity-section { padding: 38px 0; background: var(--beige); border-top: 1px solid var(--ink); }
+  .activity-grid { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: start; }
+  .activity-grid .text-link { margin-top: 14px; }
   .strava-frame-wrap { width: 300px; overflow: hidden; border: 1px solid var(--ink); background: var(--white); }
   .strava-frame-wrap iframe { display: block; width: 300px; }
 
@@ -206,10 +201,10 @@ const recentReports = sortedPosts
   .about-strip a { font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; text-decoration: none; }
 
   @media (max-width: 850px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 34px; min-height: 0; padding-top: 52px; padding-bottom: 50px; }
-    .hero-statement p { font-size: clamp(38px, 11vw, 56px); }
-    .hero-links { margin-top: 26px; }
-    .athletes-section, .feature-section, .racing-section, .reports-section { padding: 56px 0 66px; }
+    .hero-inner { display: block; padding-top: 34px; padding-bottom: 34px; }
+    .hero h1 { margin-top: 10px; font-size: clamp(30px, 8.5vw, 40px); line-height: 1.04; }
+    .hero-links { justify-content: flex-start; margin-top: 22px; }
+    .athletes-section, .feature-section, .racing-section, .reports-section { padding: 52px 0 60px; }
     .desktop-roster-link { display: none; }
     .athlete-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 12px; }
     .athlete-grid > * { min-width: 0; }
@@ -218,16 +213,16 @@ const recentReports = sortedPosts
     .roster-tile-bottom { display: flex; flex-direction: column; gap: 3px; }
     .roster-tile-bottom small { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
     .roster-tile-bottom strong { font-family: var(--editorial); font-size: clamp(24px, 7vw, 34px); font-weight: 600; line-height: .95; }
-    .feature-grid, .reports-grid { grid-template-columns: 1fr; gap: 34px; }
-    .feature-meta { min-height: 0; gap: 28px; }
-    .feature-story h2 { font-size: clamp(52px, 15vw, 74px); }
-    .feature-story p { font-size: 17px; }
+    .feature-grid, .reports-grid { grid-template-columns: 1fr; gap: 30px; }
+    .feature-meta { min-height: 0; gap: 22px; }
+    .feature-story h2 { font-size: clamp(44px, 13vw, 64px); }
+    .feature-story p { font-size: 16px; }
     .race-row { grid-template-columns: 78px 1fr; gap: 16px; }
     .race-athletes { grid-column: 2; }
     .post-row { grid-template-columns: 1fr auto; gap: 16px; }
     .post-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
     .post-main p { font-size: 14px; }
-    .activity-grid { grid-template-columns: 1fr; gap: 24px; }
+    .activity-grid { grid-template-columns: 1fr; gap: 20px; }
     .strava-frame-wrap { width: 100%; max-width: 300px; }
     .about-strip-inner { align-items: flex-start; flex-direction: column; }
   }
