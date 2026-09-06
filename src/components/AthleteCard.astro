@@ -11,7 +11,7 @@ const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
   <div class="athlete-meta">
     <div class="athlete-kicker">
       <span>{athlete.sport}</span>
-      <span>{athlete.location}</span>
+      <span class="athlete-location">{athlete.location}</span>
     </div>
 
     <h3>{athlete.name}</h3>
@@ -32,6 +32,7 @@ const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
 <style>
   .athlete-card {
     display: block;
+    min-width: 0;
     color: var(--black);
     text-decoration: none;
   }
@@ -56,6 +57,7 @@ const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
   }
 
   .athlete-meta {
+    min-width: 0;
     padding-top: 12px;
   }
 
@@ -63,18 +65,25 @@ const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
     display: flex;
     justify-content: space-between;
     gap: 16px;
+    min-width: 0;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 1.2px;
     text-transform: uppercase;
   }
 
+  .athlete-kicker span {
+    min-width: 0;
+  }
+
   h3 {
     margin: 7px 0 0;
+    min-width: 0;
     font-size: clamp(30px, 3vw, 40px);
     line-height: 1;
     letter-spacing: -1.2px;
     text-transform: uppercase;
+    overflow-wrap: anywhere;
   }
 
   .background {
@@ -127,11 +136,27 @@ const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
   }
 
   @media (max-width: 850px) {
-    .athlete-meta { padding-top: 9px; }
-    .athlete-kicker { display: block; font-size: 7px; line-height: 1.35; letter-spacing: .8px; }
-    .athlete-kicker span:last-child { display: none; }
-    h3 { margin-top: 5px; font-size: clamp(17px, 4.7vw, 22px); line-height: 1.05; letter-spacing: -.7px; }
-    .mark-row { display: none; }
-    .background { display: none; }
+    .athlete-card { min-width: 0; overflow: hidden; }
+    .athlete-meta { min-width: 0; padding-top: 8px; }
+    .athlete-kicker {
+      display: block;
+      min-width: 0;
+      font-size: 6.5px;
+      line-height: 1.3;
+      letter-spacing: .55px;
+      white-space: normal;
+    }
+    .athlete-location { display: none !important; }
+    h3 {
+      margin-top: 5px;
+      max-width: 100%;
+      font-size: clamp(15px, 4vw, 19px);
+      line-height: 1.08;
+      letter-spacing: -.45px;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+    .mark-row { display: none !important; }
+    .background { display: none !important; }
   }
 </style>
