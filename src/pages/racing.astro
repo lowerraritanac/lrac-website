@@ -1,103 +1,103 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { races } from "../../data/schedule.js";
-import { getCollection } from "astro:content";
 
 const upcomingRaces = races.filter((race) => race.status === "Upcoming" || race.status === "Tentative");
 const completedRaces = races.filter((race) => race.status === "Completed");
 const years = [...new Set(completedRaces.map((race) => race.year))];
-const posts = await getCollection("training");
-const raceReports = posts.filter((post) => post.data.category === "Race Report");
-
-function reportForRace(race) {
-  return raceReports.find((post) => post.data.title.toLowerCase().includes(race.event.toLowerCase().replace(" half marathon", "")));
-}
 ---
 
 <BaseLayout title="Racing | LRAC" description="Upcoming races and competition results from Lower Raritan Athletic Club.">
-  <section class="page-hero"><div class="section-inner"><p class="eyebrow">LOWER RARITAN ATHLETIC CLUB</p><h1>Racing</h1></div></section>
-
-  <section class="racing-section">
+  <section class="page-hero">
     <div class="section-inner">
-      <div class="section-heading"><p class="section-label">UPCOMING</p><h2>Next Races</h2></div>
-      <div class="race-list">
-        {upcomingRaces.map((race) => (
-          <article class="race-row">
-            <div class="date"><strong>{race.date}</strong><span>{race.year}</span></div>
-            <div class="event"><p class="discipline">{race.discipline}</p><h3>{race.event}</h3><p class="location">{race.location}</p></div>
-            <div class="athlete">{race.athletes.join(" · ")}</div>
-            <div class="status">{race.status}</div>
-          </article>
-        ))}
-      </div>
+      <p class="eyebrow">LOWER RARITAN ATHLETIC CLUB</p>
+      <h1>Racing</h1>
     </div>
   </section>
 
-  <section class="results-section">
-    <div class="section-inner">
-      <div class="results-head"><p class="section-label">PREVIOUS RACES</p><h2>Results</h2></div>
-      <div class="race-list result-list">
-        {completedRaces.map((race) => {
-          const report = reportForRace(race);
-          return (
+  {upcomingRaces.length > 0 && (
+    <section class="racing-section">
+      <div class="section-inner">
+        <div class="section-heading"><p class="section-label">UPCOMING</p><h2>Next Races</h2></div>
+        <div class="race-list">
+          {upcomingRaces.map((race) => (
+            <article class="race-row">
+              <div class="date"><strong>{race.date}</strong><span>{race.year}</span></div>
+              <div class="event"><p class="discipline">{race.discipline}</p><h3>{race.event}</h3><p class="location">{race.location}</p></div>
+              <div class="athlete">{race.athletes.join(" · ")}</div>
+              <div class="status">{race.status}</div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {completedRaces.length > 0 && (
+    <section class="results-section">
+      <div class="section-inner">
+        <div class="results-head"><p class="section-label">PREVIOUS RACES</p><h2>Results</h2></div>
+        <div class="race-list result-list">
+          {completedRaces.map((race) => (
             <article class="result-row">
               <div class="date"><strong>{race.date}</strong><span>{race.year}</span></div>
               <div class="event"><p class="discipline">{race.discipline}</p><h3>{race.event}</h3><p class="location">{race.location}</p></div>
               <div class="result-athlete">{race.athletes.join(" · ")}</div>
               <div class="result-mark">{race.result}</div>
-              <div class="report-link">{report ? <a href={`/training/${report.id}`}>Race report →</a> : <span>—</span>}</div>
             </article>
-          );
-        })}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
-  <section class="archive-section">
-    <div class="section-inner">
-      <div class="section-heading"><p class="section-label">ARCHIVE</p><h2>Seasons</h2></div>
-      <div class="archive-list">
-        {years.map((year) => (
-          <div class="archive-row"><span>{year}</span><span>{completedRaces.filter((race) => race.year === year).length} races</span></div>
-        ))}
+  {years.length > 1 && (
+    <section class="archive-section">
+      <div class="section-inner">
+        <div class="section-heading"><p class="section-label">ARCHIVE</p><h2>Seasons</h2></div>
+        <div class="archive-list">
+          {years.map((year) => (
+            <div class="archive-row"><span>{year}</span><span>{completedRaces.filter((race) => race.year === year).length} races</span></div>
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
-  .racing-section, .archive-section { padding: 82px 0 102px; }
-  .section-heading { margin-bottom: 34px; }
-  .section-heading h2, .results-head h2 { margin: 8px 0 0; font-size: clamp(58px, 8vw, 106px); line-height: .8; letter-spacing: -4px; text-transform: uppercase; }
-  .race-list { border-top: 1px solid var(--black); }
-  .race-row { display: grid; grid-template-columns: 130px 1fr 220px 130px; gap: 26px; align-items: center; padding: 26px 0; border-bottom: 1px solid var(--black); }
-  .date strong { display: block; font-size: 17px; }
-  .date span { display: block; margin-top: 4px; color: var(--gray); font-size: 10px; }
-  .discipline { margin: 0 0 5px; color: var(--mint-dark); font-size: 9px; font-weight: 900; letter-spacing: 1.8px; text-transform: uppercase; }
-  .event h3 { margin: 0; font-size: 30px; line-height: .94; letter-spacing: -1px; text-transform: uppercase; }
-  .location { margin: 6px 0 0; color: var(--gray); font-size: 12px; }
-  .athlete, .status { font-size: 12px; font-weight: 700; }
+  .racing-section, .archive-section { padding: 76px 0 90px; }
+  .section-heading { margin-bottom: 30px; }
+  .section-heading h2, .results-head h2 { margin: 8px 0 0; font-size: clamp(52px, 7vw, 92px); line-height: .88; letter-spacing: -.04em; }
+  .race-list { border-top: 1px solid var(--ink); }
+  .race-row { display: grid; grid-template-columns: 120px minmax(0, 1fr) 210px 110px; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--ink); }
+  .date strong { display: block; font-family: var(--mono); font-size: 16px; }
+  .date span { display: block; margin-top: 4px; color: var(--gray); font-family: var(--mono); font-size: 9px; }
+  .discipline { margin: 0 0 5px; color: var(--mint-dark); font-family: var(--mono); font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .event h3 { margin: 0; font-size: clamp(26px, 2.6vw, 36px); line-height: .98; letter-spacing: -.025em; }
+  .location { margin: 6px 0 0; color: var(--gray); font-family: var(--mono); font-size: 9px; }
+  .athlete, .status { font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .status { text-align: right; text-transform: uppercase; }
 
-  .results-section { padding: 96px 0 108px; background: var(--black); color: var(--white); }
-  .results-head { margin-bottom: 38px; }
-  .result-list { border-color: rgba(255,255,255,.45); }
-  .result-row { display: grid; grid-template-columns: 120px 1fr 180px 170px 130px; gap: 24px; align-items: center; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.3); }
-  .results-section .date span, .results-section .location { color: #9b9b9b; }
+  .results-section { padding: 82px 0 94px; background: var(--ink); color: var(--white); }
+  .results-head { margin-bottom: 34px; }
+  .result-list { border-color: rgba(255,255,255,.42); }
+  .result-row { display: grid; grid-template-columns: 120px minmax(0, 1fr) 190px 190px; gap: 24px; align-items: center; padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,.28); }
+  .results-section .date span, .results-section .location { color: #999; }
   .results-section .discipline { color: var(--mint); }
-  .result-athlete { font-size: 12px; font-weight: 700; }
-  .result-mark { font-family: var(--display-font); font-size: 27px; font-weight: 900; letter-spacing: -.5px; text-transform: uppercase; }
-  .report-link a, .report-link span { color: var(--white); font-size: 9px; font-weight: 900; letter-spacing: 1.1px; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
-  .report-link span { border: 0; color: #666; }
+  .result-athlete { font-family: var(--mono); font-size: 10px; font-weight: 600; }
+  .result-mark { font-family: var(--mono); font-size: clamp(20px, 2vw, 27px); font-weight: 700; line-height: 1.25; text-align: right; text-transform: uppercase; }
 
-  .archive-section { background: var(--beige-light); }
-  .archive-list { border-top: 1px solid var(--black); }
-  .archive-row { display: flex; justify-content: space-between; padding: 22px 0; border-bottom: 1px solid var(--black); font-family: var(--display-font); font-size: 24px; font-weight: 900; text-transform: uppercase; }
+  .archive-section { background: var(--paper); }
+  .archive-list { border-top: 1px solid var(--ink); }
+  .archive-row { display: flex; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 14px; text-transform: uppercase; }
 
   @media (max-width: 850px) {
-    .racing-section, .archive-section, .results-section { padding: 66px 0 78px; }
-    .section-heading h2, .results-head h2 { font-size: 58px; letter-spacing: -2.5px; }
-    .race-row, .result-row { grid-template-columns: 82px 1fr; gap: 18px; }
-    .athlete, .status, .result-athlete, .result-mark, .report-link { grid-column: 2; }
-    .result-mark { font-size: 24px; }
+    .racing-section, .archive-section, .results-section { padding: 56px 0 66px; }
+    .section-heading h2, .results-head h2 { font-size: 52px; }
+    .race-row, .result-row { grid-template-columns: 72px minmax(0, 1fr); gap: 14px 16px; align-items: start; }
+    .athlete, .status, .result-athlete, .result-mark { grid-column: 2; }
+    .status, .result-mark { text-align: left; }
+    .result-mark { font-size: 22px; }
   }
 </style>
