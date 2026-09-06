@@ -9,6 +9,10 @@ export const athletes = [
     bio: "Work in progress.",
     accomplishments: ["Work in progress."],
     currentFocus: "Work in progress.",
+    social: {
+      instagram: "https://www.instagram.com/liamtilton/?hl=en",
+      strava: "https://www.strava.com/athletes/57626498",
+    },
     prs: [
       ["Mile", "4:11.0"],
       ["3,000m", "8:05.4"],
@@ -33,6 +37,10 @@ export const athletes = [
     bio: "Work in progress.",
     accomplishments: ["Work in progress."],
     currentFocus: "Work in progress.",
+    social: {
+      instagram: "https://www.instagram.com/lukejt14/?hl=en",
+      strava: "https://www.strava.com/athletes/74199677",
+    },
     prs: [["2K Erg", "5:54"]],
     featuredMarks: [["2K Erg", "5:54"]],
   },
@@ -46,6 +54,10 @@ export const athletes = [
     bio: "Work in progress.",
     accomplishments: ["Work in progress."],
     currentFocus: "Work in progress.",
+    social: {
+      instagram: "https://www.instagram.com/aaron_wysocki03/?hl=en",
+      strava: "https://www.strava.com/athletes/53883334",
+    },
     prs: [
       ["1500m", "3:55"],
       ["5,000m", "14:47"],
