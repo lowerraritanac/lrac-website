@@ -1,18 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { weeklyMileage } from "../../data/training.js";
+import { weeklyMileage, latestWeek } from "../../data/training.js";
 
 const posts = await getCollection("training");
 const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const writing = sortedPosts.filter((post) => post.data.category === "Writing");
 const trainingReports = sortedPosts.filter((post) => post.data.category === "Training Report");
 const raceReports = sortedPosts.filter((post) => post.data.category === "Race Report");
-const rolling4 = weeklyMileage.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
-const highWeek = Math.max(...weeklyMileage.map((week) => week.miles));
+const rolling4Miles = weeklyMileage.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
+const rolling4Hours = weeklyMileage.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
 ---
 
-<BaseLayout title="Training | LRAC" description="Writing, training reports, and race reports from Lower Raritan Athletic Club.">
+<BaseLayout title="Training | LRAC" description="Writing, training reports, and athlete training data from Lower Raritan Athletic Club.">
   <section class="journal-intro">
     <div class="section-inner intro-grid">
       <div>
@@ -26,15 +26,33 @@ const highWeek = Math.max(...weeklyMileage.map((week) => week.miles));
     <div class="section-inner analytics-grid">
       <div class="analytics-heading">
         <p class="section-label">Training Analytics</p>
-        <h2>Mileage</h2>
+        <h2>Volume</h2>
       </div>
-      <div class="analytics-main">
-        <div class="analytics-stats">
-          <div><strong>{rolling4.toFixed(1)}</strong><span>4-week avg</span></div>
-          <div><strong>{weeklyMileage.at(-1)?.miles}</strong><span>Latest week</span></div>
-          <div><strong>{highWeek}</strong><span>High week</span></div>
+
+      <div class="athlete-training-list">
+        <a class="athlete-training" href="/training/liam-tilton">
+          <div class="athlete-number">01</div>
+          <div class="athlete-name">
+            <h3>Liam Tilton</h3>
+            <span>Distance Running</span>
+          </div>
+          <div class="athlete-stats">
+            <div><strong>{latestWeek.totalMiles}</strong><span>Latest miles</span></div>
+            <div><strong>{latestWeek.totalHours.toFixed(1)}</strong><span>Latest hours</span></div>
+            <div><strong>{rolling4Miles.toFixed(1)}</strong><span>4-week mi avg</span></div>
+            <div><strong>{rolling4Hours.toFixed(1)}</strong><span>4-week hr avg</span></div>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+
+        <div class="athlete-training pending">
+          <div class="athlete-number">02</div>
+          <div class="athlete-name">
+            <h3>Aaron Wysocki</h3>
+            <span>Distance Running</span>
+          </div>
+          <div class="pending-copy">Training data pending</div>
         </div>
-        <a class="analytics-link" href="/training/analytics">View training analytics →</a>
       </div>
     </div>
   </section>
@@ -99,13 +117,18 @@ const highWeek = Math.max(...weeklyMileage.map((week) => week.miles));
   .analytics-section { padding: 56px 0 62px; background: var(--paper); border-bottom: 1px solid var(--ink); }
   .analytics-grid { display: grid; grid-template-columns: 260px 1fr; gap: 58px; }
   .analytics-heading h2 { margin: 18px 0 0; font-size: clamp(44px, 5vw, 66px); line-height: .95; letter-spacing: -.035em; }
-  .analytics-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-  .analytics-stats > div { padding: 18px 18px 16px 0; }
-  .analytics-stats > div + div { padding-left: 18px; border-left: 1px solid var(--ink); }
-  .analytics-stats strong, .analytics-stats span { display: block; }
-  .analytics-stats strong { font-family: var(--mono); font-size: clamp(24px, 3vw, 36px); line-height: 1; }
-  .analytics-stats span { margin-top: 7px; color: var(--gray); font-family: var(--mono); font-size: 8px; line-height: 1.35; text-transform: uppercase; }
-  .analytics-link { display: inline-block; margin-top: 22px; font-family: var(--mono); font-size: 10px; font-weight: 600; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
+  .athlete-training-list { border-top: 1px solid var(--ink); }
+  .athlete-training { display: grid; grid-template-columns: 44px 220px 1fr auto; gap: 24px; align-items: center; padding: 22px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .athlete-number, .athlete-name span, .pending-copy, .arrow { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
+  .athlete-name h3 { margin: 0 0 5px; font-size: clamp(27px, 2.8vw, 38px); line-height: 1; }
+  .athlete-name span, .pending-copy { color: var(--gray); }
+  .athlete-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .athlete-stats > div { padding: 0 16px; border-left: 1px solid var(--ink); }
+  .athlete-stats strong, .athlete-stats span { display: block; font-family: var(--mono); }
+  .athlete-stats strong { font-size: 18px; line-height: 1; }
+  .athlete-stats span { margin-top: 5px; color: var(--gray); font-size: 7px; text-transform: uppercase; }
+  .athlete-training:hover h3 { color: var(--mint-dark); }
+  .pending { opacity: .5; }
 
   .index-section { padding: 66px 0 78px; }
   .index-section.alt { background: var(--beige); border-top: 1px solid var(--ink); }
@@ -127,9 +150,10 @@ const highWeek = Math.max(...weeklyMileage.map((week) => week.miles));
     .analytics-grid, .index-grid { grid-template-columns: 1fr; gap: 30px; }
     .journal-intro h1 { font-size: clamp(46px, 13vw, 64px); }
     .analytics-section, .index-section { padding: 52px 0 60px; }
-    .analytics-stats { grid-template-columns: 1fr; }
-    .analytics-stats > div, .analytics-stats > div + div { padding: 14px 0; border-left: 0; border-bottom: 1px solid var(--ink); }
-    .analytics-stats > div:last-child { border-bottom: 0; }
+    .athlete-training { grid-template-columns: 34px 1fr auto; gap: 14px; align-items: start; }
+    .athlete-stats { grid-column: 2 / -1; grid-template-columns: repeat(2, 1fr); gap: 14px 0; }
+    .athlete-stats > div:nth-child(odd) { border-left: 0; padding-left: 0; }
+    .pending-copy { grid-column: 2 / -1; }
     .entry { grid-template-columns: 1fr auto; gap: 16px; }
     .entry-date { grid-column: 1 / -1; }
   }
