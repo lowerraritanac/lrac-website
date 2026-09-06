@@ -10,8 +10,8 @@
   --max-width: 1380px;
   --page-padding: 34px;
   --border: 1px solid var(--black);
-  --display-font: "Arial Narrow", "Roboto Condensed", Impact, Arial, sans-serif;
-  --body-font: Arial, Helvetica, sans-serif;
+  --display-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -31,7 +31,8 @@ a { color: inherit; }
 
 h1, h2, h3, .brand-mark, .page-hero h1 {
   font-family: var(--display-font);
-  font-stretch: condensed;
+  font-weight: 900;
+  font-stretch: normal;
 }
 
 .section-inner {
@@ -63,16 +64,16 @@ h1, h2, h3, .brand-mark, .page-hero h1 {
 .eyebrow, .section-label {
   margin: 0;
   font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 2.25px;
+  font-weight: 800;
+  letter-spacing: 2.15px;
   text-transform: uppercase;
 }
 
 .page-hero h1 {
   margin: 24px 0 0;
   max-width: 100%;
-  font-size: clamp(76px, 12vw, 166px);
-  line-height: .77;
+  font-size: clamp(72px, 10vw, 146px);
+  line-height: .86;
   letter-spacing: -5px;
   text-transform: uppercase;
 }
@@ -85,8 +86,8 @@ h1, h2, h3, p { max-width: 100%; }
   text-decoration: none;
   text-transform: uppercase;
   font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 1.4px;
+  font-weight: 800;
+  letter-spacing: 1.35px;
   border-bottom: 1px solid currentColor;
   padding-bottom: 3px;
 }
@@ -100,8 +101,8 @@ h1, h2, h3, p { max-width: 100%; }
   text-decoration: none;
   text-transform: uppercase;
   font-size: 9px;
-  font-weight: 900;
-  letter-spacing: 1.35px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
 }
 .button-dark { background: var(--black); color: var(--white); }
 .button:hover { background: var(--mint); color: var(--black); }
@@ -111,8 +112,8 @@ h1, h2, h3, p { max-width: 100%; }
   .page-hero { padding: 54px 0 46px; overflow: hidden; }
   .page-hero h1 {
     margin-top: 19px;
-    font-size: clamp(52px, 17vw, 76px);
-    line-height: .84;
-    letter-spacing: -3px;
+    font-size: clamp(48px, 14vw, 68px);
+    line-height: .9;
+    letter-spacing: -2.8px;
   }
 }
