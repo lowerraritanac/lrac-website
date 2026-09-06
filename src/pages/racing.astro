@@ -47,7 +47,7 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
               </div>
 
               <div class="athlete">
-                {race.athlete}
+                {race.athletes.join(" · ")}
               </div>
 
               <div class="status">
@@ -60,50 +60,47 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
     </div>
   </section>
 
-<section class="results-break">
-  <div class="section-inner">
-    <div class="break-line"></div>
+  <section class="results-break">
+    <div class="section-inner">
+      <div class="break-line"></div>
 
-    <div class="results-intro">
-      <p class="section-label">PREVIOUS RACES</p>
-
-      <h2>
-        Results
-      </h2>
+      <div class="results-intro">
+        <p class="section-label">PREVIOUS RACES</p>
+        <h2>Results</h2>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="results-section">
-  <div class="section-inner">
-    <div class="race-list">
-      {
-        completedRaces.map((race) => (
-          <article class="race-row">
-            <div class="date">
-              <strong>{race.date}</strong>
-              <span>{race.year}</span>
-            </div>
+  <section class="results-section">
+    <div class="section-inner">
+      <div class="race-list">
+        {
+          completedRaces.map((race) => (
+            <article class="race-row">
+              <div class="date">
+                <strong>{race.date}</strong>
+                <span>{race.year}</span>
+              </div>
 
-            <div class="event">
-              <p class="discipline">{race.discipline}</p>
-              <h3>{race.event}</h3>
-              <p class="location">{race.location}</p>
-            </div>
+              <div class="event">
+                <p class="discipline">{race.discipline}</p>
+                <h3>{race.event}</h3>
+                <p class="location">{race.location}</p>
+              </div>
 
-            <div class="athlete">
-              {race.athlete}
-            </div>
+              <div class="athlete">
+                {race.athletes.join(" · ")}
+              </div>
 
-            <div class="result">
-              {race.result}
-            </div>
-          </article>
-        ))
-      }
+              <div class="result">
+                {race.result}
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="archive-section">
     <div class="section-inner">
@@ -117,7 +114,13 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
           years.map((year) => (
             <div class="archive-row">
               <span>{year}</span>
-              <span>{completedRaces.filter((race) => race.year === year).length} races</span>
+              <span>
+                {
+                  completedRaces.filter(
+                    (race) => race.year === year
+                  ).length
+                } races
+              </span>
             </div>
           ))
         }
@@ -127,61 +130,8 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
 </BaseLayout>
 
 <style>
-  .racing-section,
-  .results-section,
-  .archive-section {
-    padding: 90px 0 110px;
-  }
-
-.results-break {
-  padding: 120px 0 45px;
-  background: var(--black);
-  color: var(--white);
-}
-
-.break-line {
-  width: 100%;
-  height: 1px;
-  margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.4);
-}
-
-.results-intro h2 {
-  margin: 12px 0 0;
-
-  font-size: clamp(58px, 9vw, 120px);
-  line-height: 0.86;
-  letter-spacing: -5px;
-
-  text-transform: uppercase;
-}
-
-.results-section {
-  padding: 0 0 110px;
-
-  background: var(--black);
-  color: var(--white);
-}
-
-.results-section .race-list {
-  border-top: 1px solid rgba(255, 255, 255, 0.45);
-}
-
-.results-section .race-row {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
-}
-
-.results-section .date span,
-.results-section .location {
-  color: #aaaaaa;
-}
-
-.results-section .discipline {
-  color: var(--mint);
-}
-
-  .archive-section {
-    background: var(--beige-light);
+  .racing-section {
+    padding: 90px 0 120px;
   }
 
   .section-heading {
@@ -253,6 +203,57 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
     font-weight: 700;
   }
 
+  .results-break {
+    padding: 120px 0 45px;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .break-line {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .results-intro h2 {
+    margin: 12px 0 0;
+
+    font-size: clamp(58px, 9vw, 120px);
+    line-height: 0.86;
+    letter-spacing: -5px;
+
+    text-transform: uppercase;
+  }
+
+  .results-section {
+    padding: 0 0 110px;
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .results-section .race-list {
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+  }
+
+  .results-section .race-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .results-section .date span,
+  .results-section .location {
+    color: #aaaaaa;
+  }
+
+  .results-section .discipline {
+    color: var(--mint);
+  }
+
+  .archive-section {
+    padding: 90px 0 110px;
+    background: var(--beige-light);
+  }
+
   .archive-list {
     border-top: 1px solid var(--black);
   }
@@ -270,6 +271,10 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
   }
 
   @media (max-width: 850px) {
+    .racing-section {
+      padding: 70px 0 80px;
+    }
+
     .race-row {
       grid-template-columns: 90px 1fr;
       gap: 20px;
@@ -285,15 +290,18 @@ const years = [...new Set(completedRaces.map((race) => race.year))];
       font-size: 52px;
       letter-spacing: -3px;
     }
-  }
-@media (max-width: 850px) {
-  .results-break {
-    padding: 80px 0 35px;
-  }
 
-  .results-intro h2 {
-    font-size: 58px;
-    letter-spacing: -3px;
+    .results-break {
+      padding: 80px 0 35px;
+    }
+
+    .results-intro h2 {
+      font-size: 58px;
+      letter-spacing: -3px;
+    }
+
+    .archive-section {
+      padding: 70px 0 80px;
+    }
   }
-}
 </style>
