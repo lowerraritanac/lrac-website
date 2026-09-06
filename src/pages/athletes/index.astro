@@ -5,7 +5,7 @@ import { athletes } from "../../../data/athletes.js";
 import { site } from "../../../data/site.js";
 ---
 
-<BaseLayout title="Athletes | LRAC" description={`Athletes of ${site.name}.`}>
+<BaseLayout title="Athletes | LRAC" description="Work in progress.">
   <section class="page-hero athletes-hero">
     <div class="section-inner">
       <p class="eyebrow">{site.name}</p>
@@ -18,7 +18,7 @@ import { site } from "../../../data/site.js";
 
   <section class="athletes-section">
     <div class="section-inner athlete-grid">
-      {athletes.map((athlete) => <AthleteCard athlete={athlete} showBackground={true} />)}
+      {athletes.map((athlete) => <AthleteCard athlete={athlete} />)}
     </div>
   </section>
 </BaseLayout>
@@ -26,9 +26,9 @@ import { site } from "../../../data/site.js";
 <style>
   .athletes-hero { background: var(--beige-light); }
   .hero-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
-  .hero-row span { font-size: 13px; font-weight: 900; letter-spacing: 2px; }
-  .athletes-section { padding: 82px 0 110px; background: var(--beige-light); }
-  .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .hero-row span { padding-bottom: 7px; font-size: 11px; font-weight: 900; letter-spacing: 2px; }
+  .athletes-section { padding: 74px 0 104px; background: var(--beige-light); }
+  .athlete-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
 
   @media (max-width: 850px) {
     .athlete-grid { grid-template-columns: 1fr; gap: 48px; }
