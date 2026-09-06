@@ -49,6 +49,7 @@ const athletePosts = trainingPosts
   <section class="details-section">
     <div class="section-inner details-grid">
       <div class="detail-block"><p class="section-label">Current Focus</p><p>{athlete.currentFocus}</p></div>
+      {athlete.targetRace && <div class="detail-block"><p class="section-label">Target Race</p><p>{athlete.targetRace}</p></div>}
       <div class="detail-block"><p class="section-label">Selected Accomplishments</p><ul>{athlete.accomplishments.map((item) => <li>{item}</li>)}</ul></div>
     </div>
   </section>
@@ -110,7 +111,7 @@ const athletePosts = trainingPosts
   .pr-row span, .pr-row strong { font-family: var(--mono); }
   .pr-row span { font-size: 10px; text-transform: uppercase; }
   .pr-row strong { font-size: 24px; }
-  .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 54px; }
+  .details-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
   .detail-block { padding-top: 12px; border-top: 1px solid var(--ink); }
   .detail-block > p:last-child, .detail-block li { font-size: 17px; line-height: 1.5; }
   .detail-block > p:last-child { margin: 18px 0 0; }
