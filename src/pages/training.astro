@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { weeklyMileage as liamWeekly, latestWeek as liamLatest } from "../../data/training.js";
+import { weeklyMileage as liamWeekly, plannedMileage as liamPlanned, latestWeek as liamLatest } from "../../data/training.js";
 import { weeklyMileage as aaronWeekly, latestWeek as aaronLatest } from "../../data/training-aaron.js";
 
 const posts = await getCollection("training");
@@ -13,6 +13,7 @@ const liamRolling4Miles = liamWeekly.slice(-4).reduce((sum, week) => sum + week.
 const liamRolling4Hours = liamWeekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
 const aaronRolling4Miles = aaronWeekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
 const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
+const liamNextPlan = liamPlanned[0];
 ---
 
 <BaseLayout title="Training | LRAC" description="Writing, training reports, and athlete training data from Lower Raritan Athletic Club.">
@@ -35,7 +36,7 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
       <div class="athlete-training-list">
         <a class="athlete-training" href="/training/liam-tilton">
           <div class="athlete-number">01</div>
-          <div class="athlete-name"><h3>Liam Tilton</h3><span>Distance Running</span></div>
+          <div class="athlete-name"><h3>Liam Tilton</h3><span>Distance Running</span>{liamNextPlan && <small>Next week · {liamNextPlan.miles} planned mi</small>}</div>
           <div class="athlete-stats">
             <div><strong>{liamLatest.totalMiles}</strong><span>Latest miles</span></div>
             <div><strong>{liamLatest.totalHours.toFixed(1)}</strong><span>Latest hours</span></div>
@@ -121,9 +122,10 @@ const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + wee
   .analytics-heading h2 { margin: 18px 0 0; font-size: clamp(44px, 5vw, 66px); line-height: .95; letter-spacing: -.035em; }
   .athlete-training-list { border-top: 1px solid var(--ink); }
   .athlete-training { display: grid; grid-template-columns: 44px 220px 1fr auto; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
-  .athlete-number, .athlete-name span, .arrow { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
+  .athlete-number, .athlete-name span, .athlete-name small, .arrow { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
   .athlete-name h3 { margin: 0 0 5px; font-size: clamp(27px, 2.8vw, 38px); line-height: 1; }
   .athlete-name span { color: var(--gray); }
+  .athlete-name small { display: block; margin-top: 7px; color: var(--mint-dark); font-size: 7px; font-weight: 600; }
   .athlete-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .athlete-stats > div { padding: 2px 16px; border-left: 1px solid var(--ink); }
   .athlete-stats strong, .athlete-stats span { display: block; font-family: var(--mono); }
