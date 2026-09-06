@@ -54,6 +54,7 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
         {weeklyMileage.map((week) => (
           <div class="week-column" title={`${formatWeek(week.weekEnding)}: ${week.miles} miles`}>
             <div class="bar-area">
+              <span class="bar-value">{week.miles} mi</span>
               <div class="bar" style={`height:${(week.miles / maxMiles) * 100}%`}></div>
             </div>
             <strong>{week.miles}</strong>
@@ -76,6 +77,7 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
         {weeklyMileage.map((week) => (
           <div class="week-column" title={`${formatWeek(week.weekEnding)}: ${week.hours.toFixed(1)} hours`}>
             <div class="bar-area hours-bar-area">
+              <span class="bar-value">{week.hours.toFixed(1)} hr</span>
               <div class="bar hours-bar" style={`height:${(week.hours / maxHours) * 100}%`}></div>
             </div>
             <strong>{week.hours.toFixed(1)}</strong>
@@ -129,10 +131,13 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
   .chart-heading h2 { margin: 16px 0 12px; font-size: clamp(48px, 5vw, 68px); line-height: .94; }
   .chart-note { margin: 0; color: var(--gray); font-family: var(--mono); font-size: 9px; line-height: 1.45; text-transform: uppercase; }
   .weekly-chart { display: grid; grid-template-columns: repeat(var(--week-count), minmax(52px, 1fr)); gap: 12px; align-items: end; overflow-x: auto; padding: 0 2px 4px; }
-  .week-column { min-width: 52px; text-align: center; }
-  .bar-area { display: flex; align-items: flex-end; justify-content: center; height: 280px; border-bottom: 1px solid var(--ink); }
+  .week-column { min-width: 52px; text-align: center; cursor: default; }
+  .bar-area { position: relative; display: flex; align-items: flex-end; justify-content: center; height: 280px; border-bottom: 1px solid var(--ink); }
   .bar { width: 62%; max-width: 34px; min-height: 2px; background: var(--mint-dark); }
   .hours-bar { background: var(--ink); }
+  .bar-value { position: absolute; top: 10px; left: 50%; z-index: 2; padding: 5px 7px; background: var(--ink); color: var(--white) !important; font-family: var(--mono) !important; font-size: 9px !important; line-height: 1; text-transform: uppercase; white-space: nowrap; opacity: 0; transform: translateX(-50%) translateY(4px); transition: opacity .14s ease, transform .14s ease; pointer-events: none; }
+  .hours-section .bar-value { background: var(--mint-dark); }
+  .week-column:hover .bar-value, .week-column:focus-within .bar-value { opacity: 1; transform: translateX(-50%) translateY(0); }
   .week-column strong { display: block; margin-top: 8px; font-family: var(--mono); font-size: 9px; }
   .week-column span { display: block; margin-top: 4px; color: var(--gray); font-family: var(--mono); font-size: 7px; text-transform: uppercase; }
 
