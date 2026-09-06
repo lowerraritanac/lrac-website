@@ -1,0 +1,150 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { weeklyMileage, latestWeek } from "../../../data/training.js";
+
+const maxMiles = Math.max(...weeklyMileage.map((week) => week.miles));
+const totalMiles = weeklyMileage.reduce((sum, week) => sum + week.miles, 0);
+const rolling4 = weeklyMileage.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
+const rolling8 = weeklyMileage.slice(-8).reduce((sum, week) => sum + week.miles, 0) / 8;
+const highWeek = weeklyMileage.reduce((best, week) => week.miles > best.miles ? week : best, weeklyMileage[0]);
+
+const formatWeek = (dateString) => new Date(`${dateString}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+---
+
+<BaseLayout title="Training Analytics | LRAC" description="Training volume and mileage analytics for Lower Raritan Athletic Club.">
+  <section class="analytics-hero">
+    <div class="section-inner hero-grid">
+      <div>
+        <p class="eyebrow">Liam Tilton / Running</p>
+        <h1>Training Analytics</h1>
+      </div>
+      <div class="hero-meta">
+        <span>Preview dataset</span>
+        <span>Jun 7 — Aug 30, 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="summary-section">
+    <div class="section-inner summary-grid">
+      <div class="summary-label">
+        <p class="section-label">Volume</p>
+        <h2>13 weeks</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><strong>{latestWeek.totalMiles}</strong><span>Latest week</span></div>
+        <div class="stat"><strong>{rolling4.toFixed(1)}</strong><span>4-week avg</span></div>
+        <div class="stat"><strong>{rolling8.toFixed(1)}</strong><span>8-week avg</span></div>
+        <div class="stat"><strong>{totalMiles.toLocaleString()}</strong><span>Total miles</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chart-section">
+    <div class="section-inner chart-grid">
+      <div class="chart-heading">
+        <p class="section-label">Weekly Mileage</p>
+        <h2>Build</h2>
+        <p class="chart-note">High week: {highWeek.miles} miles · {formatWeek(highWeek.weekEnding)}</p>
+      </div>
+
+      <div class="weekly-chart" aria-label="Weekly running mileage">
+        {weeklyMileage.map((week) => (
+          <div class="week-column" title={`${formatWeek(week.weekEnding)}: ${week.miles} miles`}>
+            <div class="bar-area">
+              <div class="bar" style={`height:${(week.miles / maxMiles) * 100}%`}></div>
+            </div>
+            <strong>{week.miles}</strong>
+            <span>{formatWeek(week.weekEnding)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="latest-section">
+    <div class="section-inner latest-grid">
+      <div>
+        <p class="section-label">Latest Week</p>
+        <h2>{latestWeek.label}</h2>
+      </div>
+
+      <div class="daily-grid">
+        {latestWeek.dailyMiles.map(([day, miles]) => (
+          <div class="day-row">
+            <span>{day}</span>
+            <div class="day-bar-wrap"><div class="day-bar" style={`width:${(miles / 24) * 100}%`}></div></div>
+            <strong>{miles}</strong>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="source-section">
+    <div class="section-inner source-grid">
+      <p class="section-label">Data Source</p>
+      <div>
+        <strong>Preview</strong>
+        <p>Formatting is live now. The Strava export will replace this preview dataset when it arrives.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .analytics-hero { padding: 62px 0 54px; border-bottom: 1px solid var(--ink); }
+  .hero-grid { display: flex; justify-content: space-between; gap: 48px; align-items: flex-end; }
+  .analytics-hero h1 { margin: 14px 0 0; max-width: 860px; font-size: clamp(58px, 7vw, 96px); line-height: .92; letter-spacing: -.045em; }
+  .hero-meta { display: flex; flex-direction: column; gap: 5px; padding-bottom: 4px; text-align: right; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
+
+  .summary-section { padding: 54px 0 60px; background: var(--beige); border-bottom: 1px solid var(--ink); }
+  .summary-grid { display: grid; grid-template-columns: 240px 1fr; gap: 58px; }
+  .summary-label h2 { margin: 16px 0 0; font-size: 46px; line-height: .95; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .stat { padding: 18px 18px 16px 0; }
+  .stat + .stat { padding-left: 18px; border-left: 1px solid var(--ink); }
+  .stat strong, .stat span { display: block; font-family: var(--mono); }
+  .stat strong { font-size: clamp(24px, 3vw, 38px); line-height: 1; }
+  .stat span { margin-top: 8px; color: var(--gray); font-size: 8px; text-transform: uppercase; }
+
+  .chart-section { padding: 70px 0 82px; background: var(--paper); }
+  .chart-grid { display: grid; grid-template-columns: 240px 1fr; gap: 58px; align-items: end; }
+  .chart-heading h2 { margin: 16px 0 12px; font-size: clamp(48px, 5vw, 68px); line-height: .94; }
+  .chart-note { margin: 0; color: var(--gray); font-family: var(--mono); font-size: 9px; line-height: 1.45; text-transform: uppercase; }
+  .weekly-chart { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); gap: 7px; align-items: end; overflow-x: auto; padding-bottom: 4px; }
+  .week-column { min-width: 38px; text-align: center; }
+  .bar-area { display: flex; align-items: flex-end; height: 280px; border-bottom: 1px solid var(--ink); }
+  .bar { width: 100%; min-height: 2px; background: var(--mint-dark); }
+  .week-column strong { display: block; margin-top: 8px; font-family: var(--mono); font-size: 9px; }
+  .week-column span { display: block; margin-top: 4px; color: var(--gray); font-family: var(--mono); font-size: 7px; text-transform: uppercase; }
+
+  .latest-section { padding: 68px 0 76px; background: var(--ink); color: var(--white); }
+  .latest-grid { display: grid; grid-template-columns: 320px 1fr; gap: 58px; }
+  .latest-grid h2 { margin: 16px 0 0; font-size: clamp(46px, 5.5vw, 72px); line-height: .94; }
+  .daily-grid { border-top: 1px solid rgba(255,255,255,.4); }
+  .day-row { display: grid; grid-template-columns: 54px 1fr 44px; gap: 16px; align-items: center; padding: 13px 0; border-bottom: 1px solid rgba(255,255,255,.28); }
+  .day-row > span, .day-row > strong { font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
+  .day-row > strong { text-align: right; font-size: 11px; }
+  .day-bar-wrap { height: 8px; background: rgba(255,255,255,.12); }
+  .day-bar { height: 100%; background: var(--mint); }
+
+  .source-section { padding: 42px 0 48px; background: var(--beige); border-bottom: 1px solid var(--ink); }
+  .source-grid { display: grid; grid-template-columns: 240px 1fr; gap: 58px; }
+  .source-grid strong { font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
+  .source-grid p:last-child { max-width: 620px; margin: 8px 0 0; color: var(--gray); font-size: 15px; line-height: 1.45; }
+
+  @media (max-width: 850px) {
+    .analytics-hero { padding: 44px 0 42px; }
+    .hero-grid { display: block; }
+    .analytics-hero h1 { font-size: clamp(48px, 13vw, 68px); }
+    .hero-meta { margin-top: 22px; text-align: left; }
+    .summary-grid, .chart-grid, .latest-grid, .source-grid { grid-template-columns: 1fr; gap: 30px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(3) { border-left: 0; border-top: 1px solid var(--ink); padding-left: 0; }
+    .stat:nth-child(4) { border-top: 1px solid var(--ink); }
+    .weekly-chart { grid-template-columns: repeat(13, 40px); }
+    .bar-area { height: 210px; }
+    .latest-section { padding: 54px 0 62px; }
+  }
+</style>
