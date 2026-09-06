@@ -9,8 +9,9 @@ import { site } from "../../data/site.js";
       <p>Lower Raritan Athletic Club<br />New Jersey · Est. {site.founded}</p>
     </div>
 
-    <div class="footer-copy">
-      <p>An independent collective of people with a shared identity of improvement through sport.</p>
+    <div class="footer-contact">
+      <span>Contact</span>
+      <a href={`mailto:${site.email}`}>{site.email}</a>
     </div>
 
     <div class="footer-links">
@@ -26,14 +27,15 @@ import { site } from "../../data/site.js";
   .footer-inner { max-width: var(--max-width); margin: auto; padding: 0 var(--page-padding); display: grid; grid-template-columns: 220px 1fr auto; gap: 58px; align-items: end; }
   footer strong { font-family: var(--mono); font-size: 26px; }
   .footer-brand p { margin: 10px 0 0; color: #aaa; font-family: var(--mono); font-size: 9px; line-height: 1.6; text-transform: uppercase; }
-  .footer-copy p { max-width: 520px; margin: 0; font-family: var(--editorial); font-size: 24px; line-height: 1.15; }
+  .footer-contact { display: flex; flex-direction: column; gap: 8px; }
+  .footer-contact span { color: #888; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
+  .footer-contact a { width: fit-content; color: var(--white); font-family: var(--mono); font-size: 11px; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 3px; }
   .footer-links { display: grid; gap: 8px; justify-items: start; }
   .footer-links a { color: var(--white); text-decoration: none; font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
   .footer-links a:nth-last-child(-n+2) { color: var(--mint); }
-  .footer-links a:hover { opacity: .55; }
+  .footer-links a:hover, .footer-contact a:hover { opacity: .55; }
 
   @media (max-width: 850px) {
     .footer-inner { grid-template-columns: 1fr; gap: 34px; }
-    .footer-copy p { font-size: 22px; }
   }
 </style>
