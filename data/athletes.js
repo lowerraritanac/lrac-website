@@ -7,8 +7,13 @@ export const athletes = [
     background: "Work in progress.",
     image: "/images/athletes/liam-tilton.jpg",
     bio: "Work in progress.",
-    accomplishments: ["Work in progress."],
-    currentFocus: "Work in progress.",
+    accomplishments: [
+      "Rutgers Track former team captain",
+      "2nd place US U20 5000m, 2023",
+      "Future Clydesdale Running",
+    ],
+    currentFocus: "Training to qualify for the 2028 US Olympic Trials.",
+    targetRace: "12/6 CIM Marathon — Goal: 2:15:59",
     social: {
       instagram: "https://www.instagram.com/liamtilton/?hl=en",
       strava: "https://www.strava.com/athletes/57626498",
@@ -35,8 +40,11 @@ export const athletes = [
     background: "Work in progress.",
     image: "/images/athletes/luke-tilton.jpg",
     bio: "Work in progress.",
-    accomplishments: ["Work in progress."],
-    currentFocus: "Work in progress.",
+    accomplishments: [
+      "Former Rutgers Crew Captain",
+      "3:35 marathon",
+    ],
+    currentFocus: "Training to qualify for the 2028 US Olympic Team.",
     social: {
       instagram: "https://www.instagram.com/lukejt14/?hl=en",
       strava: "https://www.strava.com/athletes/74199677",
@@ -52,8 +60,11 @@ export const athletes = [
     background: "Work in progress.",
     image: "/images/athletes/aaron-wysocki.jpg",
     bio: "Work in progress.",
-    accomplishments: ["Work in progress."],
-    currentFocus: "Work in progress.",
+    accomplishments: [
+      "78 VO2 Max",
+      "15:46 to 14:47 in a year",
+    ],
+    currentFocus: "Building towards the 2027 Boston Marathon, then aiming for the Olympic Marathon Trials.",
     social: {
       instagram: "https://www.instagram.com/aaron_wysocki03/?hl=en",
       strava: "https://www.strava.com/athletes/53883334",
