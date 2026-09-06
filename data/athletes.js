@@ -6,7 +6,7 @@ export const athletes = [
     location: "New Jersey",
     background: "Work in progress.",
     image: "/images/athletes/liam-tilton.jpg",
-    bio: "Work in progress.",
+    bio: "Entering his Junior year of High School, Liam had a personal best of 5:15 in the mile. Leaving his Senior year, he had run 4:18. In the four years since, Liam has moved up in distance just about every step of the way while competing for Rutgers at 12 Big Ten Championships. A sane person may believe that most of the juice has been squeezed out of this aerobic orange; however, Liam believes he will qualify for the 2028 US Olympic Marathon Trials this December in California. With a tolerance for abnormally high training volumes, the vision is to become one of the youngest qualifiers for the Trials.",
     accomplishments: [
       "Rutgers Track former team captain",
       "2nd place US U20 5000m, 2023",
@@ -39,7 +39,7 @@ export const athletes = [
     location: "Oakland, California",
     background: "Work in progress.",
     image: "/images/athletes/luke-tilton.jpg",
-    bio: "Work in progress.",
+    bio: "Crew is a sport dominated by Ivy-educated, Winklevoss-esque characters. Luke is not that. Starting in 2021 by walking on at Rutgers Crew, he set the program records on the erg and developed steadily on the water. Graduating in 2025, Luke moved west for the summer. Rowing with the elite California Rowing Club in Oakland before returning east to train mostly solo for a year. A year of gritty sessions, graduate studies, and work revealed that the dream was alive and well. So, Luke has decided to chase it. Moving back to Oakland, CA, Luke will gain the experience and fitness to challenge for US Team camps and the 2028 dream.",
     accomplishments: [
       "Former Rutgers Crew Captain",
       "3:35 marathon",
@@ -59,7 +59,7 @@ export const athletes = [
     location: "New Jersey",
     background: "Work in progress.",
     image: "/images/athletes/aaron-wysocki.jpg",
-    bio: "Work in progress.",
+    bio: "While spending his first 2 years of college overcoming numerous stress fractures, reactions, and many other injuries you can think of, Aaron refused to do what a reasonable person would do. Give up, that is. Then, finally healthy as a Junior at Rutgers, Aaron left with a 5k PB of 15:46. Again, he refused to do what a “reasonable” person would do; instead, Aaron trained harder. As a Senior at Rutgers, Aaron pieced together massive PB’s at every distance from 1500 to the Marathon, running 14:47 for 5k and 3:55 for 1500m to cap the year. Currently focused on the roads, Aaron has meticulously built his mileage towards the Half-Marathon distance, but don’t be surprised to catch him in a sub-4-minute mile in the coming years.",
     accomplishments: [
       "78 VO2 Max",
       "15:46 to 14:47 in a year",
