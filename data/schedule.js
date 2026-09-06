@@ -7,6 +7,7 @@ export const races = [
     athlete: "Liam Tilton",
     discipline: "Half Marathon",
     status: "Upcoming",
+    result: "",
   },
   {
     date: "NOV 07",
@@ -16,6 +17,7 @@ export const races = [
     athlete: "Liam Tilton",
     discipline: "Half Marathon",
     status: "Tentative",
+    result: "",
   },
   {
     date: "DEC 06",
@@ -25,5 +27,17 @@ export const races = [
     athlete: "Liam Tilton",
     discipline: "Marathon",
     status: "Upcoming",
+    result: "",
+  },
+
+  {
+    date: "AUG 22",
+    year: "2026",
+    event: "Reykjavik Half Marathon",
+    location: "Reykjavik, Iceland",
+    athlete: "Liam Tilton",
+    discipline: "Half Marathon",
+    status: "Completed",
+    result: "1:07:49 — 1st",
   },
 ];
