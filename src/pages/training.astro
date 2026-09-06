@@ -1,37 +1,118 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { trainingPosts } from "../../data/training.js";
+
+const writing = trainingPosts.filter(
+  (post) => post.category === "Writing"
+);
+
+const trainingReports = trainingPosts.filter(
+  (post) => post.category === "Training Report"
+);
+
+const raceReports = trainingPosts.filter(
+  (post) => post.category === "Race Report"
+);
 ---
 
 <BaseLayout
   title="Training | LRAC"
-  description="Training notes and sessions from Lower Raritan Athletic Club."
+  description="Training, writing, and race reports from Lower Raritan Athletic Club."
 >
   <section class="page-hero">
     <div class="section-inner">
-      <p class="eyebrow">FROM THE CLUB</p>
+      <p class="eyebrow">LOWER RARITAN ATHLETIC CLUB</p>
       <h1>Training</h1>
     </div>
   </section>
 
   <section class="training-section">
     <div class="section-inner">
-      <div class="training-grid">
+      <div class="section-heading">
+        <p class="section-label">WRITING</p>
+        <h2>Ideas & Notes</h2>
+      </div>
+
+      <div class="post-list">
         {
-          trainingPosts.map((post) => (
-            <article class="training-card">
-              <p class="type">{post.type}</p>
+          writing.map((post) => (
+            <a class="post-row" href={`/training/${post.slug}`}>
+              <div>
+                <p class="meta">
+                  {post.athlete} · {post.date}
+                </p>
 
-              <h2>{post.title}</h2>
+                <h3>{post.title}</h3>
 
-              <p class="description">
-                {post.description}
-              </p>
+                <p class="description">
+                  {post.description}
+                </p>
+              </div>
 
-              <a href={`/training/${post.slug}`}>
-                Read →
-              </a>
-            </article>
+              <span class="arrow">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="training-section alt">
+    <div class="section-inner">
+      <div class="section-heading">
+        <p class="section-label">TRAINING REPORTS</p>
+        <h2>The Work</h2>
+      </div>
+
+      <div class="post-list">
+        {
+          trainingReports.map((post) => (
+            <a class="post-row" href={`/training/${post.slug}`}>
+              <div>
+                <p class="meta">
+                  {post.athlete} · {post.date}
+                </p>
+
+                <h3>{post.title}</h3>
+
+                <p class="description">
+                  {post.description}
+                </p>
+              </div>
+
+              <span class="arrow">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="training-section dark">
+    <div class="section-inner">
+      <div class="section-heading">
+        <p class="section-label">RACE REPORTS</p>
+        <h2>Competition</h2>
+      </div>
+
+      <div class="post-list">
+        {
+          raceReports.map((post) => (
+            <a class="post-row" href={`/training/${post.slug}`}>
+              <div>
+                <p class="meta">
+                  {post.athlete} · {post.date}
+                </p>
+
+                <h3>{post.title}</h3>
+
+                <p class="description">
+                  {post.description}
+                </p>
+              </div>
+
+              <span class="arrow">→</span>
+            </a>
           ))
         }
       </div>
@@ -44,61 +125,106 @@ import { trainingPosts } from "../../data/training.js";
     padding: 90px 0 110px;
   }
 
-  .training-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
+  .training-section.alt {
+    background: var(--beige-light);
+    border-top: 1px solid var(--black);
   }
 
-  .training-card {
-    min-height: 420px;
-    padding: 28px;
-    background: var(--white);
-    border: 1px solid var(--black);
-    display: flex;
-    flex-direction: column;
+  .training-section.dark {
+    background: var(--black);
+    color: var(--white);
   }
 
-  .type {
-    margin: 0;
-    color: var(--mint-dark);
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: 2px;
+  .section-heading {
+    margin-bottom: 42px;
+  }
+
+  .section-heading h2 {
+    margin: 10px 0 0;
+
+    font-size: clamp(48px, 7vw, 86px);
+    line-height: 0.9;
+    letter-spacing: -4px;
+
     text-transform: uppercase;
   }
 
-  .training-card h2 {
-    margin: 50px 0 18px;
-    font-size: 40px;
-    line-height: 0.98;
+  .post-list {
+    border-top: 1px solid currentColor;
+  }
+
+  .post-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+
+    padding: 30px 0;
+
+    border-bottom: 1px solid currentColor;
+
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .meta {
+    margin: 0 0 8px;
+
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.7px;
+
+    text-transform: uppercase;
+  }
+
+  .post-row h3 {
+    margin: 0;
+
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1;
     letter-spacing: -2px;
+
     text-transform: uppercase;
   }
 
   .description {
-    margin: 0;
+    max-width: 700px;
+    margin: 12px 0 0;
+
     color: var(--gray);
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.5;
   }
 
-  .training-card a {
-    margin-top: auto;
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
+  .dark .description {
+    color: #aaa;
   }
 
-  .training-card a:hover {
-    opacity: 0.5;
+  .arrow {
+    font-size: 30px;
+  }
+
+  .post-row:hover {
+    opacity: 0.55;
   }
 
   @media (max-width: 850px) {
-    .training-grid {
-      grid-template-columns: 1fr;
+    .training-section {
+      padding: 70px 0 80px;
+    }
+
+    .section-heading h2 {
+      font-size: 52px;
+      letter-spacing: -3px;
+    }
+
+    .post-row {
+      gap: 18px;
+    }
+
+    .post-row h3 {
+      font-size: 30px;
+      letter-spacing: -1.5px;
     }
   }
 </style>
