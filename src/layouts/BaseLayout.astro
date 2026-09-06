@@ -6,7 +6,11 @@ import "../styles/global.css";
 const {
   title = "Lower Raritan Athletic Club",
   description = "Lower Raritan Athletic Club.",
+  image = "/images/hero.jpg",
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, "https://lowerraritanac.com");
+const socialImage = new URL(image, "https://lowerraritanac.com");
 ---
 
 <html lang="en">
@@ -14,9 +18,22 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="description" content={description} />
-
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Lower Raritan Athletic Club" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="Lower Raritan Athletic Club" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
   </head>
 
   <body>
@@ -29,4 +46,3 @@ const {
     <Footer />
   </body>
 </html>
-
