@@ -1,0 +1,132 @@
+---
+const { athlete, showBackground = false } = Astro.props;
+const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
+---
+
+<a class="athlete-card" href={`/athletes/${athlete.slug}`}>
+  <div class="athlete-image">
+    <img src={athlete.image} alt={athlete.name} loading="lazy" />
+  </div>
+
+  <div class="athlete-meta">
+    <div class="athlete-kicker">
+      <span>{athlete.sport}</span>
+      <span>{athlete.location}</span>
+    </div>
+
+    <h3>{athlete.name}</h3>
+
+    {showBackground && <p class="background">{athlete.background}</p>}
+
+    <div class:list={["mark-row", { single: marks.length === 1 }]}>
+      {marks.map(([event, mark]) => (
+        <div class="mark-item">
+          <strong>{mark}</strong>
+          <span>{event}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</a>
+
+<style>
+  .athlete-card {
+    display: block;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .athlete-image {
+    overflow: hidden;
+    background: #d8d2c5;
+    border-bottom: 1px solid var(--black);
+  }
+
+  .athlete-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(.76) contrast(1.04);
+    transition: filter .18s ease;
+  }
+
+  .athlete-card:hover .athlete-image img {
+    filter: saturate(.95) contrast(1.03);
+  }
+
+  .athlete-meta {
+    padding-top: 12px;
+  }
+
+  .athlete-kicker {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin: 7px 0 0;
+    font-size: clamp(32px, 3vw, 42px);
+    line-height: .9;
+    letter-spacing: -1.8px;
+    text-transform: uppercase;
+  }
+
+  .background {
+    margin: 12px 0 0;
+    color: var(--gray);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .mark-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 14px;
+    border-top: 1px solid var(--black);
+  }
+
+  .mark-row.single {
+    grid-template-columns: 1fr;
+  }
+
+  .mark-item {
+    min-width: 0;
+    padding: 10px 12px 0 0;
+  }
+
+  .mark-item + .mark-item {
+    padding-left: 12px;
+    border-left: 1px solid var(--black);
+  }
+
+  .mark-item strong,
+  .mark-item span {
+    display: block;
+  }
+
+  .mark-item strong {
+    font-family: var(--display-font);
+    font-size: 17px;
+    line-height: 1;
+    letter-spacing: -.4px;
+  }
+
+  .mark-item span {
+    margin-top: 3px;
+    color: var(--gray);
+    font-size: 8px;
+    line-height: 1.1;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 850px) {
+    h3 { font-size: 36px; }
+  }
+</style>
