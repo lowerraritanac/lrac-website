@@ -34,7 +34,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 img { display: block; max-width: 100%; }
-a { color: inherit; }
+a { color: inherit; cursor: pointer; }
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--mint-dark);
+  outline-offset: 3px;
+}
 
 h1, h2, h3, .brand-mark, .page-hero h1 {
   font-family: var(--editorial);
@@ -106,6 +110,10 @@ h1, h2, h3, .brand-mark, .page-hero h1 {
 .button:hover { background: var(--mint); color: var(--ink); }
 
 ::selection { background: var(--mint); color: var(--ink); }
+
+@media (hover: hover) and (pointer: fine) {
+  a { transition: color .15s ease, opacity .15s ease, background-color .15s ease, border-color .15s ease; }
+}
 
 @media (max-width: 850px) {
   :root { --page-padding: 20px; }
