@@ -1,23 +1,31 @@
 export const trainingPosts = [
   {
     slug: "half-marathon-build",
-    type: "RUNNING",
+    category: "Writing",
+    athlete: "Liam Tilton",
     title: "Half Marathon Build",
     description:
-      "Workouts, long runs, threshold sessions, and race preparation from the current fall training block.",
+      "Thoughts, workouts, and lessons from the current half marathon training block.",
+    date: "September 2026",
   },
+
   {
-    slug: "oakland-training",
-    type: "ROWING",
-    title: "Oakland Training",
+    slug: "week-of-september-7",
+    category: "Training Report",
+    athlete: "Liam Tilton",
+    title: "Week of September 7",
     description:
-      "A look at Luke's training with Cal Rowing Club and the work behind a 5:54 2K erg.",
+      "Weekly mileage, workouts, long run, and notes from the current training block.",
+    date: "September 2026",
   },
+
   {
-    slug: "training-notes",
-    type: "CLUB",
-    title: "Training Notes",
+    slug: "reykjavik-half-marathon",
+    category: "Race Report",
+    athlete: "Liam Tilton",
+    title: "Reykjavik Half Marathon",
     description:
-      "Selected sessions, race notes, and observations from athletes across the club.",
+      "A solo 1:07:49 win in difficult wind and rain conditions in Iceland.",
+    date: "August 2026",
   },
 ];
