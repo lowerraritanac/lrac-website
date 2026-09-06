@@ -9,6 +9,7 @@ export const site = {
     { label: "Athletes", href: "/athletes" },
     { label: "Racing", href: "/racing" },
     { label: "Training", href: "/training" },
+    { label: "Coaching", href: "/coaching" },
     { label: "About", href: "/about" },
   ],
   social: {
