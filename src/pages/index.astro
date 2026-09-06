@@ -31,10 +31,6 @@ const featuredPosts = [...posts]
         <span>LRAC / 2026</span>
       </div>
     </div>
-
-    <div class="hero-photo">
-      <img src="/images/hero.jpg" alt="Lower Raritan Athletic Club" />
-    </div>
   </section>
 
   <section class="athletes-section">
@@ -116,15 +112,12 @@ const featuredPosts = [...posts]
 
 <style>
   .hero { background: var(--beige-light); border-bottom: 1px solid var(--black); }
-  .hero-inner { padding-top: 86px; padding-bottom: 46px; }
+  .hero-inner { padding-top: 86px; padding-bottom: 70px; }
   .hero-kicker { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 26px; font-size: 9px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
   .hero h1 { max-width: 1220px; margin: 0; font-size: clamp(94px, 12vw, 178px); line-height: .72; letter-spacing: -6px; text-transform: uppercase; }
   .hero-bottom { display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; margin-top: 38px; padding-top: 14px; border-top: 1px solid var(--black); }
   .hero-bottom p { margin: 0; font-size: 14px; }
   .hero-bottom span { font-size: 9px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; }
-  .hero-photo { height: min(42vw, 520px); overflow: hidden; border-top: 1px solid var(--black); position: relative; }
-  .hero-photo::before { content: ""; position: absolute; inset: 0; z-index: 1; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); pointer-events: none; }
-  .hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.72) contrast(1.05); }
 
   .athletes-section, .racing-section, .training-section, .about-section { padding: 86px 0 100px; }
   .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
@@ -158,10 +151,9 @@ const featuredPosts = [...posts]
   .about-copy { margin: 0 0 30px; font-family: var(--display-font); font-size: clamp(44px, 6vw, 82px); line-height: .9; letter-spacing: -3px; text-transform: uppercase; }
 
   @media (max-width: 850px) {
-    .hero-inner { padding-top: 52px; padding-bottom: 34px; }
+    .hero-inner { padding-top: 52px; padding-bottom: 50px; }
     .hero h1 { font-size: clamp(62px, 19vw, 90px); letter-spacing: -3px; }
     .hero-bottom { grid-template-columns: 1fr; gap: 14px; margin-top: 28px; }
-    .hero-photo { height: 270px; }
     .athletes-section, .racing-section, .training-section, .about-section { padding: 64px 0 74px; }
     .section-header { flex-direction: column; align-items: flex-start; gap: 14px; }
     .section-header h2 { font-size: 56px; letter-spacing: -2.5px; }
