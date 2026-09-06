@@ -63,16 +63,16 @@ const recentReports = sortedPosts.slice(0, 3);
   </section>
 
   <section class="training-gateway">
-    <div class="section-inner training-grid">
-      <div>
+    <div class="section-inner training-bar">
+      <div class="training-title">
         <p class="section-label">Training / 03</p>
-        <h2>Volume</h2>
+        <strong>Volume</strong>
       </div>
-      <div class="training-links">
-        <a href="/training/liam-tilton"><span>Liam Tilton</span><strong>Training data</strong><b>→</b></a>
-        <a href="/training/aaron-wysocki"><span>Aaron Wysocki</span><strong>Training data</strong><b>→</b></a>
-        <a href="/training"><span>Journal</span><strong>Writing & Training</strong><b>→</b></a>
+      <div class="training-athletes">
+        <a href="/training/liam-tilton">Liam Tilton →</a>
+        <a href="/training/aaron-wysocki">Aaron Wysocki →</a>
       </div>
+      <a class="training-all" href="/training">All training & writing →</a>
     </div>
   </section>
 
@@ -134,15 +134,13 @@ const recentReports = sortedPosts.slice(0, 3);
   .race-athletes a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
   .race-athletes a:hover { border-color: currentColor; }
 
-  .training-gateway { padding: 64px 0 72px; background: var(--beige); border-bottom: 1px solid var(--ink); }
-  .training-grid { display: grid; grid-template-columns: 220px 1fr; gap: 58px; }
-  .training-grid h2 { margin: 16px 0 0; font-size: clamp(44px, 5vw, 66px); line-height: .95; }
-  .training-links { border-top: 1px solid var(--ink); }
-  .training-links a { display: grid; grid-template-columns: 150px 1fr auto; gap: 24px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
-  .training-links span, .training-links b { font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
-  .training-links strong { font-family: var(--editorial); font-size: clamp(26px, 3vw, 38px); font-weight: 600; line-height: 1; }
-  .training-links b { font-size: 14px; }
-  .training-links a:hover strong, .training-links a:hover b { color: var(--mint-dark); }
+  .training-gateway { padding: 22px 0; background: var(--beige); border-bottom: 1px solid var(--ink); }
+  .training-bar { display: grid; grid-template-columns: 190px 1fr auto; gap: 28px; align-items: center; }
+  .training-title { display: flex; align-items: baseline; gap: 14px; }
+  .training-title strong { font-family: var(--editorial); font-size: 28px; line-height: 1; }
+  .training-athletes { display: flex; gap: 22px; flex-wrap: wrap; }
+  .training-athletes a, .training-all { color: var(--ink); font-family: var(--mono); font-size: 9px; font-weight: 600; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+  .training-athletes a:hover, .training-all:hover { border-color: currentColor; }
 
   .reports-section { background: var(--paper); }
   .reports-grid { display: grid; grid-template-columns: 220px 1fr; gap: 58px; }
@@ -173,9 +171,11 @@ const recentReports = sortedPosts.slice(0, 3);
     .athlete-grid { grid-template-columns: 1fr; gap: 42px; }
     .race-row { grid-template-columns: 78px 1fr; gap: 16px; }
     .race-athletes { grid-column: 2; }
-    .training-grid, .reports-grid { grid-template-columns: 1fr; gap: 24px; }
-    .training-links a { grid-template-columns: 1fr auto; gap: 8px 16px; }
-    .training-links span { grid-column: 1 / -1; }
+    .training-bar { grid-template-columns: 1fr; gap: 12px; }
+    .training-title { justify-content: space-between; }
+    .training-athletes { gap: 16px; }
+    .training-all { width: fit-content; }
+    .reports-grid { grid-template-columns: 1fr; gap: 24px; }
     .post-row { grid-template-columns: 1fr auto; gap: 16px; }
     .post-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; }
     .post-main p { font-size: 14px; }
