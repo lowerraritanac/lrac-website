@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { athletes } from "../../../data/athletes.js";
 import { races } from "../../../data/schedule.js";
+import { weeklyMileage, latestWeek } from "../../../data/training.js";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -15,6 +16,10 @@ const athletePosts = trainingPosts
   .filter((post) => post.data.athleteSlug === athlete.slug)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
   .slice(0, 4);
+
+const hasTrainingData = athlete.slug === "liam-tilton";
+const rolling4Miles = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4 : null;
+const rolling4Hours = hasTrainingData ? weeklyMileage.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4 : null;
 ---
 
 <BaseLayout title={`${athlete.name} | LRAC`} description="Work in progress.">
@@ -23,6 +28,15 @@ const athletePosts = trainingPosts
       <div class="photo-wrap"><img src={athlete.image} alt={athlete.name} /></div>
       <div class="identity">
         <div class="identity-meta"><span>{athlete.sport}</span><span>{athlete.location}</span></div>
+        {hasTrainingData && (
+          <a class="training-strip" href={`/training/${athlete.slug}`}>
+            <div><span>Latest volume</span><strong>{latestWeek.totalMiles} mi</strong></div>
+            <div><span>Latest time</span><strong>{latestWeek.totalHours.toFixed(1)} hr</strong></div>
+            <div><span>4-week avg</span><strong>{rolling4Miles?.toFixed(1)} mi</strong></div>
+            <div><span>4-week avg</span><strong>{rolling4Hours?.toFixed(1)} hr</strong></div>
+            <span class="training-link">Training →</span>
+          </a>
+        )}
         <h1>{athlete.name}</h1>
         <p class="bio">{athlete.bio}</p>
         {athlete.social && (
@@ -94,6 +108,14 @@ const athletePosts = trainingPosts
   .photo-wrap { overflow: hidden; border-bottom: 1px solid var(--ink); }
   .photo-wrap img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.76) contrast(1.03); }
   .identity-meta { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
+  .training-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; align-items: end; gap: 0; margin-top: 18px; padding: 13px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .training-strip > div { padding-right: 14px; }
+  .training-strip > div + div { padding-left: 14px; border-left: 1px solid var(--ink); }
+  .training-strip span, .training-strip strong { display: block; font-family: var(--mono); }
+  .training-strip div span { color: var(--gray); font-size: 7px; text-transform: uppercase; }
+  .training-strip div strong { margin-top: 5px; font-size: 14px; line-height: 1; }
+  .training-link { align-self: center; padding-left: 18px; font-size: 8px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
+  .training-strip:hover .training-link { color: var(--mint-dark); }
   .identity h1 { margin: 18px 0 0; font-size: clamp(68px, 8vw, 112px); line-height: .9; letter-spacing: -.045em; }
   .bio { max-width: 620px; margin: 28px 0 0; color: var(--gray); font-size: 18px; line-height: 1.5; }
   .socials { display: flex; gap: 18px; margin-top: 24px; }
@@ -132,6 +154,12 @@ const athletePosts = trainingPosts
     .athlete-hero { padding: 34px 0 50px; }
     .athlete-grid, .section-grid, .details-grid { grid-template-columns: 1fr; gap: 32px; }
     .photo-wrap { max-width: 520px; }
+    .training-strip { grid-template-columns: repeat(2, 1fr); }
+    .training-strip > div { padding: 10px 12px 10px 0; }
+    .training-strip > div + div { padding-left: 12px; }
+    .training-strip > div:nth-child(3) { border-left: 0; border-top: 1px solid var(--ink); }
+    .training-strip > div:nth-child(4) { border-top: 1px solid var(--ink); }
+    .training-link { grid-column: 1 / -1; padding: 12px 0 0; }
     .identity h1 { font-size: clamp(48px, 14vw, 72px); }
     .marks-section, .details-section, .racing-section, .content-section { padding: 56px 0 66px; }
     .race-row { grid-template-columns: 72px 1fr; gap: 14px; }
