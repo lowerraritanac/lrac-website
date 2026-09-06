@@ -43,8 +43,8 @@ const formatWeek = (dateString) => new Date(`${dateString}T12:00:00`).toLocaleDa
   <section class="chart-section">
     <div class="section-inner chart-grid">
       <div class="chart-heading">
-        <p class="section-label">Weekly Mileage</p>
-        <h2>Build</h2>
+        <p class="section-label">Weekly</p>
+        <h2>Mileage</h2>
         <p class="chart-note">High week: {highWeek.miles} miles · {formatWeek(highWeek.weekEnding)}</p>
       </div>
 
@@ -77,16 +77,6 @@ const formatWeek = (dateString) => new Date(`${dateString}T12:00:00`).toLocaleDa
             <strong>{miles}</strong>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="source-section">
-    <div class="section-inner source-grid">
-      <p class="section-label">Data Source</p>
-      <div>
-        <strong>Preview</strong>
-        <p>Formatting is live now. The Strava export will replace this preview dataset when it arrives.</p>
       </div>
     </div>
   </section>
@@ -129,17 +119,12 @@ const formatWeek = (dateString) => new Date(`${dateString}T12:00:00`).toLocaleDa
   .day-bar-wrap { height: 8px; background: rgba(255,255,255,.12); }
   .day-bar { height: 100%; background: var(--mint); }
 
-  .source-section { padding: 42px 0 48px; background: var(--beige); border-bottom: 1px solid var(--ink); }
-  .source-grid { display: grid; grid-template-columns: 240px 1fr; gap: 58px; }
-  .source-grid strong { font-family: var(--mono); font-size: 11px; text-transform: uppercase; }
-  .source-grid p:last-child { max-width: 620px; margin: 8px 0 0; color: var(--gray); font-size: 15px; line-height: 1.45; }
-
   @media (max-width: 850px) {
     .analytics-hero { padding: 44px 0 42px; }
     .hero-grid { display: block; }
     .analytics-hero h1 { font-size: clamp(48px, 13vw, 68px); }
     .hero-meta { margin-top: 22px; text-align: left; }
-    .summary-grid, .chart-grid, .latest-grid, .source-grid { grid-template-columns: 1fr; gap: 30px; }
+    .summary-grid, .chart-grid, .latest-grid { grid-template-columns: 1fr; gap: 30px; }
     .stat-grid { grid-template-columns: repeat(2, 1fr); }
     .stat:nth-child(3) { border-left: 0; border-top: 1px solid var(--ink); padding-left: 0; }
     .stat:nth-child(4) { border-top: 1px solid var(--ink); }
