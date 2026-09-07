@@ -5,7 +5,9 @@ import { weeklyMileage as liamWeekly, plannedMileage as liamPlanned, latestWeek 
 import { weeklyMileage as aaronWeekly, latestWeek as aaronLatest } from "../../data/training-aaron.js";
 
 const posts = await getCollection("training");
-const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const sortedPosts = [...posts]
+  .filter((post) => post.data.visibility !== "athlete-only")
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const writing = sortedPosts.filter((post) => post.data.category === "Writing");
 const trainingReports = sortedPosts.filter((post) => post.data.category === "Training Report");
 const raceReports = sortedPosts.filter((post) => post.data.category === "Race Report");
