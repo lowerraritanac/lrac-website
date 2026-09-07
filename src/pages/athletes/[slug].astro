@@ -153,6 +153,11 @@ const rolling4Hours = athleteTraining ? athleteTraining.weekly.slice(-4).reduce(
   .post-meta { margin: 0 0 6px; font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
   .post-row h3 { margin: 0; font-size: 30px; line-height: .98; }
   .post-row > span { font-family: var(--mono); }
+  @media (min-width: 851px) and (max-width: 960px) {
+    .section-grid { grid-template-columns: 190px minmax(0, 1fr); gap: 40px; }
+    .race-row { grid-template-columns: 80px minmax(0, 1fr); gap: 14px; }
+    .race-result { grid-column: 2; }
+  }
   @media (max-width: 850px) {
     .athlete-hero { padding: 34px 0 50px; }
     .athlete-grid, .section-grid, .details-grid { grid-template-columns: 1fr; gap: 32px; }
