@@ -1,16 +1,29 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { site } from "../../data/site.js";
 import "../styles/global.css";
 
 const {
   title = "Lower Raritan Athletic Club",
-  description = "Lower Raritan Athletic Club.",
+  description = site.description,
   image = "/images/hero.jpg",
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, "https://lowerraritanac.com");
 const socialImage = new URL(image, "https://lowerraritanac.com");
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SportsOrganization",
+  name: site.name,
+  alternateName: site.shortName,
+  url: "https://lowerraritanac.com",
+  description: site.description,
+  foundingDate: site.founded,
+  areaServed: site.location,
+  email: site.email,
+  sameAs: [site.social.instagram, site.social.strava],
+};
 ---
 
 <html lang="en">
@@ -20,26 +33,26 @@ const socialImage = new URL(image, "https://lowerraritanac.com");
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#f3eee4" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/jpeg" href="/images/hero.jpg" />
     <link rel="apple-touch-icon" href="/images/hero.jpg" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Lower Raritan Athletic Club" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content="Lower Raritan Athletic Club" />
+    <meta property="og:image:alt" content={site.name} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   </head>
 
   <body>
