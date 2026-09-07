@@ -10,7 +10,7 @@ import { site } from "../../data/site.js";
       <nav class="desktop-nav">
         {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
-      <a class="join-nav" href="/athletes#join-lrac">Join LRAC</a>
+      <a class="join-nav" href={`mailto:${site.email}`}>Join LRAC</a>
     </div>
 
     <details class="mobile-menu">
