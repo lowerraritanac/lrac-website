@@ -19,6 +19,7 @@ const training = defineCollection({
     athlete: z.string(),
     athleteSlug: z.string(),
     featured: z.boolean().default(false),
+    visibility: z.enum(["public", "athlete-only"]).default("public"),
   }),
 });
 
