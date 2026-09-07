@@ -155,8 +155,8 @@ const liamNextPlan = liamPlanned[0];
     .journal-intro h1 { font-size: clamp(46px, 13vw, 64px); }
     .analytics-section, .index-section { padding: 52px 0 60px; }
     .athlete-training { grid-template-columns: 34px 1fr auto; gap: 14px; align-items: start; }
-    .athlete-stats { grid-column: 2 / -1; grid-template-columns: repeat(2, 1fr); gap: 14px 0; }
-    .athlete-stats > div:nth-child(odd) { border-left: 0; padding-left: 0; }
+    .athlete-stats { grid-column: 2 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 18px; }
+    .athlete-stats > div { min-width: 0; padding: 9px 0 0; border: 0; border-top: 1px solid var(--ink); }
     .entry { grid-template-columns: 1fr auto; gap: 16px; }
     .entry-date { grid-column: 1 / -1; }
   }
