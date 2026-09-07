@@ -8,7 +8,9 @@ import { getCollection } from "astro:content";
 
 const upcomingRaces = races.filter((race) => race.status === "Upcoming" || race.status === "Tentative").slice(0, 3);
 const posts = await getCollection("training");
-const sortedPosts = [...posts].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const sortedPosts = [...posts]
+  .filter((post) => post.data.visibility !== "athlete-only")
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const recentReports = sortedPosts.slice(0, 3);
 ---
 
