@@ -6,14 +6,18 @@ import { site } from "../../data/site.js";
   <div class="nav-wrap">
     <a class="brand" href="/" aria-label="Lower Raritan Athletic Club home">{site.shortName}</a>
 
-    <nav class="desktop-nav">
-      {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
-    </nav>
+    <div class="desktop-actions">
+      <nav class="desktop-nav">
+        {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+      <a class="join-nav" href="/athletes#join-lrac">Join LRAC</a>
+    </div>
 
     <details class="mobile-menu">
       <summary><span class="menu-open">Menu</span><span class="menu-close">Close</span></summary>
       <nav class="mobile-links">
         {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a class="mobile-join" href="/athletes#join-lrac">Join LRAC</a>
       </nav>
     </details>
   </div>
@@ -21,11 +25,14 @@ import { site } from "../../data/site.js";
 
 <style>
   .site-header { position: sticky; top: 0; z-index: 1000; width: 100%; background: rgba(243,238,228,.96); border-bottom: 1px solid var(--ink); backdrop-filter: blur(8px); }
-  .nav-wrap { width: 100%; max-width: var(--max-width); min-height: 62px; margin: 0 auto; padding: 0 var(--page-padding); display: flex; align-items: center; justify-content: space-between; }
+  .nav-wrap { width: 100%; max-width: var(--max-width); min-height: 62px; margin: 0 auto; padding: 0 var(--page-padding); display: flex; align-items: center; justify-content: space-between; gap: 28px; }
   .brand { font-family: var(--mono); color: var(--ink); text-decoration: none; font-size: 20px; font-weight: 700; letter-spacing: -.04em; }
-  .desktop-nav { display: flex; align-items: center; gap: 26px; }
-  .desktop-nav a, .mobile-menu summary { font-family: var(--mono); color: var(--ink); text-decoration: none; text-transform: uppercase; font-size: 9px; font-weight: 600; letter-spacing: .09em; }
+  .desktop-actions { display: flex; align-items: center; gap: 24px; }
+  .desktop-nav { display: flex; align-items: center; gap: 24px; }
+  .desktop-nav a, .mobile-menu summary, .join-nav { font-family: var(--mono); color: var(--ink); text-decoration: none; text-transform: uppercase; font-size: 9px; font-weight: 600; letter-spacing: .09em; }
   .desktop-nav a:hover { opacity: .5; }
+  .join-nav { padding: 8px 10px; background: var(--mint); border: 1px solid var(--ink); }
+  .join-nav:hover { background: var(--ink); color: var(--white); }
   .mobile-menu { display: none; }
   .mobile-menu summary { cursor: pointer; list-style: none; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
@@ -36,11 +43,12 @@ import { site } from "../../data/site.js";
 
   @media (max-width: 850px) {
     .nav-wrap { min-height: 60px; }
-    .desktop-nav { display: none; }
+    .desktop-actions { display: none; }
     .mobile-menu { display: block; position: static; }
     .mobile-links { position: absolute; top: 60px; left: 0; right: 0; z-index: 2000; width: 100%; display: flex; flex-direction: column; background: var(--paper); border-bottom: 1px solid var(--ink); }
     .mobile-links a { display: flex; align-items: center; min-height: 50px; padding: 0 var(--page-padding); font-family: var(--mono); color: var(--ink); text-decoration: none; text-transform: uppercase; font-size: 10px; font-weight: 600; letter-spacing: .08em; border-bottom: 1px solid var(--ink); }
     .mobile-links a:last-child { border-bottom: none; }
     .mobile-links a:hover { background: var(--mint); }
+    .mobile-links .mobile-join { background: var(--mint); }
   }
 </style>
