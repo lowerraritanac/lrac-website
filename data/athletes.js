@@ -81,4 +81,36 @@ export const athletes = [
       ["Marathon", "2:32"],
     ],
   },
+  {
+    slug: "gavin-rossi",
+    name: "Gavin Rossi",
+    sport: "Distance Running",
+    location: "Slate Hill, N.Y.",
+    status: "Collegiate Athlete",
+    school: "Rutgers University",
+    currentMember: false,
+    featuredOnHomepage: false,
+    background: "Rutgers University",
+    image: "/images/athletes/gavin-rossi.jpg",
+    bio: "Athletically, Rossi has 3 years of collegiate running in the tank. Spiritually, Rossi is ready for the roads. Between grinding out 100-mile weeks and recent breakthroughs on the track, the longer distances would welcome him. However, they will have to wait. The pursuit is the NCAA Cross Country Championships before he pushes towards elite track marks. At his request, Gavin has been added to this site, and if somehow the 100-mile weeks continue beyond 2029, Rossi will rep the LRAC.",
+    accomplishments: [
+      "Rutgers University distance runner",
+    ],
+    currentFocus: "Cross Country; track focus on the steeplechase and Mile–5K distances.",
+    social: {
+      instagram: "https://www.instagram.com/gavrossi/?hl=en",
+      strava: "https://www.strava.com/athletes/103245513",
+    },
+    prs: [
+      ["Mile", "4:10"],
+      ["3,000m", "8:08"],
+      ["3,000m Steeplechase", "8:51"],
+      ["5,000m", "14:07"],
+    ],
+    featuredMarks: [
+      ["Mile", "4:10"],
+      ["3,000m", "8:08"],
+      ["5,000m", "14:07"],
+    ],
+  },
 ];
