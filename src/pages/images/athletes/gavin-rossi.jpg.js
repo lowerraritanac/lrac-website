@@ -1,1 +1,1 @@
-// Placeholder to force branch refresh
+// Removed: Gavin image is served from public/images/athletes/gavin-rossi.jpg
