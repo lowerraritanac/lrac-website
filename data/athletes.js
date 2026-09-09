@@ -91,8 +91,7 @@ export const athletes = [
     currentMember: false,
     featuredOnHomepage: false,
     background: "Rutgers University",
-    image: "/images/athletes/gavin-rossi-fixed.jpg",
-    photoPosition: "42% 45%",
+    image: "/images/athletes/gavin-rossi.jpg",
     bio: "Athletically, Rossi has 3 years of collegiate running in the tank. Spiritually, Rossi is ready for the roads. Between grinding out 100-mile weeks and recent breakthroughs on the track, the longer distances would welcome him. However, they will have to wait. The pursuit is the NCAA Cross Country Championships before he pushes towards elite track marks. At his request, Gavin has been added to this site, and if somehow the 100-mile weeks continue beyond 2029, Rossi will rep the LRAC.",
     accomplishments: [
       "Rutgers University distance runner",
