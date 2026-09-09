@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { athletes } from "../../data/athletes.js";
 import { site } from "../../data/site.js";
+
+const currentMembers = athletes.filter((athlete) => athlete.currentMember !== false);
 ---
 
 <BaseLayout title="About | LRAC" description="Lower Raritan Athletic Club — New Jersey, established 2026.">
@@ -21,7 +23,7 @@ import { site } from "../../data/site.js";
       <div class="identity-facts">
         <div><span>Location</span><strong>{site.location}</strong></div>
         <div><span>Established</span><strong>{site.founded}</strong></div>
-        <div><span>Members</span><strong>{String(athletes.length).padStart(2, "0")}</strong></div>
+        <div><span>Members</span><strong>{String(currentMembers.length).padStart(2, "0")}</strong></div>
         <div><span>Contact</span><a href={`mailto:${site.email}`}>{site.email} ↗</a></div>
       </div>
     </div>
@@ -58,7 +60,7 @@ import { site } from "../../data/site.js";
       </div>
 
       <div class="member-list">
-        {athletes.map((athlete, index) => (
+        {currentMembers.map((athlete, index) => (
           <a class="member-row" href={`/athletes/${athlete.slug}`}>
             <span class="member-number">{String(index + 1).padStart(2, "0")}</span>
             <strong>{athlete.name}</strong>
