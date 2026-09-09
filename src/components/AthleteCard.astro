@@ -5,7 +5,7 @@ const marks = athlete.featuredMarks ?? athlete.prs.slice(0, 3);
 
 <a class="athlete-card" href={`/athletes/${athlete.slug}`}>
   <div class="athlete-image">
-    <img src={athlete.image} alt={athlete.name} loading="lazy" />
+    <img src={athlete.image} alt={athlete.name} loading="lazy" style={`object-position:${athlete.photoPosition ?? "50% 50%"}`} />
     <span class="card-cue">View profile →</span>
   </div>
 
