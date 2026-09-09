@@ -113,4 +113,35 @@ export const athletes = [
       ["5,000m", "14:07"],
     ],
   },
+  {
+    slug: "maan-patel",
+    name: "Maan Patel",
+    sport: "Triathlon, Distance Running",
+    location: "Monroe, NJ",
+    status: "Collegiate Athlete",
+    school: "Rutgers University",
+    currentMember: false,
+    featuredOnHomepage: false,
+    background: "Rutgers University",
+    image: "/images/athletes/maan-patel.webp",
+    bio: "Work in progress.",
+    accomplishments: [
+      "Junior at Rutgers University",
+    ],
+    currentFocus: "Cross Country; track focus on the 5K and 10K.",
+    social: {
+      instagram: "https://www.instagram.com/maanpatel27?stkn=c2o2ZmN6a3M5MnZo",
+      strava: "https://strava.app.link/meRg8P1sh6b",
+    },
+    prs: [
+      ["3,000m", "8:15"],
+      ["5,000m", "14:29"],
+      ["8K", "24:21"],
+    ],
+    featuredMarks: [
+      ["3,000m", "8:15"],
+      ["5,000m", "14:29"],
+      ["8K", "24:21"],
+    ],
+  },
 ];
