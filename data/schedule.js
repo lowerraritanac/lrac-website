@@ -12,14 +12,14 @@ export const races = [
   },
 
   {
-    date: "NOV 07",
+    date: "OCT 04",
     year: "2026",
-    event: "Monumental Half Marathon",
-    location: "Indianapolis, IN",
+    event: "Wineglass Marathon",
+    location: "Corning, NY",
     athletes: ["Liam Tilton"],
     athleteSlugs: ["liam-tilton"],
-    discipline: "Half Marathon",
-    status: "Tentative",
+    discipline: "Marathon",
+    status: "Upcoming",
     result: "",
   },
 
