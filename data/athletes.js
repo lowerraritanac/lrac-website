@@ -124,7 +124,7 @@ export const athletes = [
     featuredOnHomepage: false,
     background: "Rutgers University",
     image: "/images/athletes/maan-patel.webp",
-    bio: "Work in progress.",
+    bio: "Few runners represent Central Jersey like Maan Patel. Maan built a mini dynasty in his hometown of Monroe (or Maanroe) before taking on the same challenge at Rutgers University. Although the story is still building, it's safe to say Maan is doing the same for the Knights, improving to a 69th-place finish at the 2025 Big Ten XC Championships and running pb's over every distance as a sophomore. And once his time in Red is complete, he'll don the mint for his Ironman pursuits.",
     accomplishments: [
       "Junior at Rutgers University",
     ],
