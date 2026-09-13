@@ -1,3 +1,12 @@
+const rutgersCrossCountrySchedule = [
+  { date: "OCT 02", year: "2026", event: "Paul Short Run", location: "Goodman Campus · Bethlehem, PA", discipline: "Cross Country", status: "Upcoming", result: "" },
+  { date: "OCT 09", year: "2026", event: "Nuttycombe Wisconsin Invitational", location: "Zimmer Championship Course · Madison, WI", discipline: "Cross Country", status: "Upcoming", result: "" },
+  { date: "OCT 16", year: "2026", event: "Princeton Fall Classic", location: "Princeton Course · Princeton, NJ", discipline: "Cross Country", status: "Upcoming", result: "" },
+  { date: "OCT 30", year: "2026", event: "Big Ten Championships", location: "Zimmer Championship Course · Madison, WI", discipline: "Cross Country", status: "Upcoming", result: "" },
+  { date: "NOV 13", year: "2026", event: "NCAA Mid Atlantic Regional", location: "Goodman Campus · Bethlehem, PA", discipline: "Cross Country", status: "Upcoming", result: "" },
+  { date: "NOV 21", year: "2026", event: "NCAA Championships", location: "LaVern Gibson Championship Cross Country Course · Terre Haute, IN", discipline: "Cross Country", status: "Upcoming", result: "" },
+];
+
 export const athletes = [
   {
     slug: "liam-tilton",
@@ -92,6 +101,7 @@ export const athletes = [
     featuredOnHomepage: false,
     background: "Rutgers University",
     image: "/images/athletes/gavin-rossi-headshot.jpeg",
+    profileRaces: rutgersCrossCountrySchedule,
     bio: "Athletically, Rossi has 3 years of collegiate running in the tank. Spiritually, Rossi is ready for the roads. Between grinding out 100-mile weeks and recent breakthroughs on the track, the longer distances would welcome him. However, they will have to wait. The pursuit is the NCAA Cross Country Championships before he pushes towards elite track marks. At his request, Gavin has been added to this site, and if somehow the 100-mile weeks continue beyond 2029, Rossi will rep the LRAC.",
     accomplishments: [
       "Rutgers University distance runner",
@@ -124,6 +134,7 @@ export const athletes = [
     featuredOnHomepage: false,
     background: "Rutgers University",
     image: "/images/athletes/maan-patel.webp",
+    profileRaces: rutgersCrossCountrySchedule,
     bio: "Few runners represent Central Jersey like Maan Patel. Maan built a mini dynasty in his hometown of Monroe (or Maanroe) before taking on the same challenge at Rutgers University. Although the story is still building, it's safe to say Maan is doing the same for the Knights, improving to a 69th-place finish at the 2025 Big Ten XC Championships and running pb's over every distance as a sophomore. And once his time in Red is complete, he'll don the mint for his Ironman pursuits.",
     accomplishments: [
       "Junior at Rutgers University",
