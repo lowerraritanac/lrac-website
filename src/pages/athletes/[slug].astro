@@ -12,6 +12,7 @@ export async function getStaticPaths() {
 
 const { athlete } = Astro.props;
 const athleteRaces = races.filter((race) => race.athleteSlugs.includes(athlete.slug)).slice(0, 4);
+const nextRace = races.find((race) => race.status === "Upcoming" && race.athleteSlugs.includes(athlete.slug));
 const trainingPosts = await getCollection("training");
 const athletePosts = trainingPosts
   .filter((post) => post.data.athleteSlug === athlete.slug)
@@ -32,13 +33,12 @@ const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce(
       <div class="photo-wrap"><img src={athlete.image} alt={athlete.name} /></div>
       <div class="identity">
         <div class="identity-meta"><span>{athlete.sport}</span><span>{athlete.location}</span></div>
-        {athleteTraining && (
-          <a class="training-strip" href={`/training/${athlete.slug}`}>
-            <div><span>Latest volume</span><strong>{athleteTraining.latest.totalMiles} mi</strong></div>
-            <div><span>4-week avg</span><strong>{rolling4Miles?.toFixed(1)} mi</strong></div>
-            <span class="training-link">Training →</span>
-          </a>
-        )}
+        <div class:list={["training-strip", !athleteTraining && "race-only"]}>
+          {athleteTraining && <div><span>Latest volume</span><strong>{athleteTraining.latest.totalMiles} mi</strong></div>}
+          {athleteTraining && <div><span>4-week avg</span><strong>{rolling4Miles?.toFixed(1)} mi</strong></div>}
+          <div class="next-race"><span>{nextRace ? `Next race · ${nextRace.date}` : "Next race"}</span><strong>{nextRace?.event || "Schedule TBA"}</strong></div>
+          {athleteTraining && <a class="training-link" href={`/training/${athlete.slug}`}>Training →</a>}
+        </div>
         <h1>{athlete.name}</h1>
         <p class="bio">{athlete.bio}</p>
         {athlete.social && (
@@ -110,14 +110,16 @@ const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce(
   .photo-wrap { overflow: hidden; border-bottom: 1px solid var(--ink); }
   .photo-wrap img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.76) contrast(1.03); }
   .identity-meta { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-  .training-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) auto; align-items: end; gap: 0; margin-top: 18px; padding: 13px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .training-strip { display: grid; grid-template-columns: minmax(90px, .7fr) minmax(90px, .7fr) minmax(180px, 1.4fr) auto; align-items: end; gap: 0; margin-top: 18px; padding: 13px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); color: var(--ink); }
+  .training-strip.race-only { grid-template-columns: 1fr; }
   .training-strip > div { padding-right: 14px; }
   .training-strip > div + div { padding-left: 14px; border-left: 1px solid var(--ink); }
   .training-strip span, .training-strip strong { display: block; font-family: var(--mono); }
   .training-strip div span { color: var(--gray); font-size: 7px; text-transform: uppercase; }
   .training-strip div strong { margin-top: 5px; font-size: 14px; line-height: 1; }
-  .training-link { align-self: center; padding-left: 18px; font-size: 8px; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
-  .training-strip:hover .training-link { color: var(--mint-dark); }
+  .training-strip .next-race strong { font-size: 12px; line-height: 1.2; }
+  .training-link { align-self: center; padding-left: 18px; color: var(--ink); font-family: var(--mono); font-size: 8px; font-weight: 600; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+  .training-link:hover { color: var(--mint-dark); }
   .identity h1 { margin: 18px 0 0; font-size: clamp(68px, 8vw, 112px); line-height: .9; letter-spacing: -.045em; }
   .bio { max-width: 620px; margin: 28px 0 0; color: var(--gray); font-size: 18px; line-height: 1.5; }
   .socials { display: flex; gap: 18px; margin-top: 24px; }
@@ -164,6 +166,8 @@ const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce(
     .training-strip > div { min-width: 0; padding: 12px 12px 12px 0; border: 0 !important; }
     .training-strip > div:nth-child(even) { padding-left: 12px; padding-right: 0; }
     .training-strip > div:nth-child(n+3) { border-top: 1px solid var(--ink) !important; }
+    .training-strip .next-race { grid-column: 1 / -1; padding-left: 0; padding-right: 0; }
+    .training-strip.race-only .next-race { border-top: 0 !important; }
     .training-strip div strong { font-size: 15px; }
     .training-link { grid-column: 1 / -1; padding: 11px 0; border-top: 1px solid var(--ink); }
     .identity h1 { margin-top: 16px; font-size: clamp(48px, 14vw, 72px); }
