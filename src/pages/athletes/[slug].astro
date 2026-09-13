@@ -24,8 +24,6 @@ const trainingByAthlete = {
 };
 const athleteTraining = trainingByAthlete[athlete.slug];
 const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4 : null;
-const athleteWeeksWithHours = athleteTraining ? athleteTraining.weekly.filter((week) => Number.isFinite(week.hours)) : [];
-const rolling4Hours = athleteWeeksWithHours.length ? athleteWeeksWithHours.slice(-4).reduce((sum, week) => sum + week.hours, 0) / Math.min(4, athleteWeeksWithHours.length) : null;
 ---
 
 <BaseLayout title={`${athlete.name} | LRAC`} description="Work in progress.">
@@ -37,9 +35,7 @@ const rolling4Hours = athleteWeeksWithHours.length ? athleteWeeksWithHours.slice
         {athleteTraining && (
           <a class="training-strip" href={`/training/${athlete.slug}`}>
             <div><span>Latest volume</span><strong>{athleteTraining.latest.totalMiles} mi</strong></div>
-            <div><span>Latest time</span><strong>{Number.isFinite(athleteTraining.latest.totalHours) ? `${athleteTraining.latest.totalHours.toFixed(1)} hr` : "—"}</strong></div>
             <div><span>4-week avg</span><strong>{rolling4Miles?.toFixed(1)} mi</strong></div>
-            <div><span>4-week avg</span><strong>{rolling4Hours?.toFixed(1)} hr</strong></div>
             <span class="training-link">Training →</span>
           </a>
         )}
@@ -114,7 +110,7 @@ const rolling4Hours = athleteWeeksWithHours.length ? athleteWeeksWithHours.slice
   .photo-wrap { overflow: hidden; border-bottom: 1px solid var(--ink); }
   .photo-wrap img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.76) contrast(1.03); }
   .identity-meta { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
-  .training-strip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; align-items: end; gap: 0; margin-top: 18px; padding: 13px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .training-strip { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) auto; align-items: end; gap: 0; margin-top: 18px; padding: 13px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
   .training-strip > div { padding-right: 14px; }
   .training-strip > div + div { padding-left: 14px; border-left: 1px solid var(--ink); }
   .training-strip span, .training-strip strong { display: block; font-family: var(--mono); }
