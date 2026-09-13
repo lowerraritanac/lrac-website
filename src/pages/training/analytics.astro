@@ -3,11 +3,12 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { weeklyMileage, latestWeek, trainingDataSource } from "../../../data/training.js";
 
 const maxMiles = Math.max(...weeklyMileage.map((week) => week.miles));
-const maxHours = Math.max(...weeklyMileage.map((week) => week.hours));
+const weeksWithHours = weeklyMileage.filter((week) => Number.isFinite(week.hours));
+const maxHours = Math.max(...weeksWithHours.map((week) => week.hours));
 const rolling4Miles = weeklyMileage.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
-const rolling4Hours = weeklyMileage.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
+const rolling4Hours = weeksWithHours.slice(-4).reduce((sum, week) => sum + week.hours, 0) / Math.min(4, weeksWithHours.length);
 const highMileageWeek = weeklyMileage.reduce((best, week) => week.miles > best.miles ? week : best, weeklyMileage[0]);
-const highHoursWeek = weeklyMileage.reduce((best, week) => week.hours > best.hours ? week : best, weeklyMileage[0]);
+const highHoursWeek = weeksWithHours.reduce((best, week) => week.hours > best.hours ? week : best, weeksWithHours[0]);
 
 const formatWeek = (dateString) => new Date(`${dateString}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
@@ -35,9 +36,9 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
       </div>
       <div class="stat-grid">
         <div class="stat primary"><strong>{latestWeek.totalMiles}</strong><span>Miles · latest week</span></div>
-        <div class="stat primary"><strong>{latestWeek.totalHours.toFixed(1)}</strong><span>Hours · latest week</span></div>
+        <div class="stat primary"><strong>{Number.isFinite(latestWeek.totalHours) ? latestWeek.totalHours.toFixed(1) : "—"}</strong><span>Hours · latest week</span></div>
         <div class="stat"><strong>{rolling4Miles.toFixed(1)}</strong><span>Miles · 4-week avg</span></div>
-        <div class="stat"><strong>{rolling4Hours.toFixed(1)}</strong><span>Hours · 4-week avg</span></div>
+        <div class="stat"><strong>{rolling4Hours.toFixed(1)}</strong><span>Hours · last 4 logged</span></div>
       </div>
     </div>
   </section>
@@ -73,8 +74,8 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
         <p class="chart-note">High week: {highHoursWeek.hours.toFixed(1)} hours · {formatWeek(highHoursWeek.weekEnding)}</p>
       </div>
 
-      <div class="weekly-chart" aria-label="Weekly running hours" style={`--week-count:${weeklyMileage.length}`}>
-        {weeklyMileage.map((week) => (
+      <div class="weekly-chart" aria-label="Weekly running hours" style={`--week-count:${weeksWithHours.length}`}>
+        {weeksWithHours.map((week) => (
           <div class="week-column" title={`${formatWeek(week.weekEnding)}: ${week.hours.toFixed(1)} hours`}>
             <div class="bar-area hours-bar-area">
               <span class="bar-value">{week.hours.toFixed(1)} hr</span>
@@ -96,13 +97,13 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
       </div>
 
       <div class="daily-grid">
-        {latestWeek.dailyMiles.map(([day, miles]) => (
+        {latestWeek.dailyMiles.length > 0 ? latestWeek.dailyMiles.map(([day, miles]) => (
           <div class="day-row">
             <span>{day}</span>
             <div class="day-bar-wrap"><div class="day-bar" style={`width:${(miles / Math.max(...latestWeek.dailyMiles.map(([, value]) => value))) * 100}%`}></div></div>
             <strong>{miles}</strong>
           </div>
-        ))}
+        )) : <p class="daily-pending">115 miles logged. Daily breakdown to come.</p>}
       </div>
     </div>
   </section>
@@ -150,6 +151,7 @@ const formatLongDate = (dateString) => new Date(`${dateString}T12:00:00`).toLoca
   .day-row > strong { text-align: right; font-size: 11px; }
   .day-bar-wrap { height: 8px; background: rgba(255,255,255,.12); }
   .day-bar { height: 100%; background: var(--mint); }
+  .daily-pending { margin: 0; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.28); color: #aaa; font-family: var(--mono); font-size: 9px; text-transform: uppercase; }
 
   @media (max-width: 850px) {
     .analytics-hero { padding: 44px 0 42px; }
