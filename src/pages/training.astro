@@ -12,7 +12,8 @@ const writing = sortedPosts.filter((post) => post.data.category === "Writing");
 const trainingReports = sortedPosts.filter((post) => post.data.category === "Training Report");
 const raceReports = sortedPosts.filter((post) => post.data.category === "Race Report");
 const liamRolling4Miles = liamWeekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
-const liamRolling4Hours = liamWeekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
+const liamWeeksWithHours = liamWeekly.filter((week) => Number.isFinite(week.hours));
+const liamRolling4Hours = liamWeeksWithHours.slice(-4).reduce((sum, week) => sum + week.hours, 0) / Math.min(4, liamWeeksWithHours.length);
 const aaronRolling4Miles = aaronWeekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
 const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
 const liamNextPlan = liamPlanned[0];
@@ -41,7 +42,7 @@ const liamNextPlan = liamPlanned[0];
           <div class="athlete-name"><h3>Liam Tilton</h3><span>Distance Running</span>{liamNextPlan && <small>Next week · {liamNextPlan.miles} planned mi</small>}</div>
           <div class="athlete-stats">
             <div><strong>{liamLatest.totalMiles}</strong><span>Latest miles</span></div>
-            <div><strong>{liamLatest.totalHours.toFixed(1)}</strong><span>Latest hours</span></div>
+            <div><strong>{Number.isFinite(liamLatest.totalHours) ? liamLatest.totalHours.toFixed(1) : "—"}</strong><span>Latest hours</span></div>
             <div><strong>{liamRolling4Miles.toFixed(1)}</strong><span>4-week mi avg</span></div>
             <div><strong>{liamRolling4Hours.toFixed(1)}</strong><span>4-week hr avg</span></div>
           </div>
