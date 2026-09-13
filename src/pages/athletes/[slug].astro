@@ -11,8 +11,11 @@ export async function getStaticPaths() {
 }
 
 const { athlete } = Astro.props;
-const athleteRaces = races.filter((race) => race.athleteSlugs.includes(athlete.slug)).slice(0, 4);
-const nextRace = races.find((race) => race.status === "Upcoming" && race.athleteSlugs.includes(athlete.slug));
+const athleteRaces = [
+  ...races.filter((race) => race.athleteSlugs.includes(athlete.slug)),
+  ...(athlete.profileRaces || []),
+].slice(0, 6);
+const nextRace = athleteRaces.find((race) => race.status === "Upcoming");
 const trainingPosts = await getCollection("training");
 const athletePosts = trainingPosts
   .filter((post) => post.data.athleteSlug === athlete.slug)
