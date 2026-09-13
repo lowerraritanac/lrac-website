@@ -24,7 +24,8 @@ const trainingByAthlete = {
 };
 const athleteTraining = trainingByAthlete[athlete.slug];
 const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4 : null;
-const rolling4Hours = athleteTraining ? athleteTraining.weekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4 : null;
+const athleteWeeksWithHours = athleteTraining ? athleteTraining.weekly.filter((week) => Number.isFinite(week.hours)) : [];
+const rolling4Hours = athleteWeeksWithHours.length ? athleteWeeksWithHours.slice(-4).reduce((sum, week) => sum + week.hours, 0) / Math.min(4, athleteWeeksWithHours.length) : null;
 ---
 
 <BaseLayout title={`${athlete.name} | LRAC`} description="Work in progress.">
@@ -36,7 +37,7 @@ const rolling4Hours = athleteTraining ? athleteTraining.weekly.slice(-4).reduce(
         {athleteTraining && (
           <a class="training-strip" href={`/training/${athlete.slug}`}>
             <div><span>Latest volume</span><strong>{athleteTraining.latest.totalMiles} mi</strong></div>
-            <div><span>Latest time</span><strong>{athleteTraining.latest.totalHours.toFixed(1)} hr</strong></div>
+            <div><span>Latest time</span><strong>{Number.isFinite(athleteTraining.latest.totalHours) ? `${athleteTraining.latest.totalHours.toFixed(1)} hr` : "—"}</strong></div>
             <div><span>4-week avg</span><strong>{rolling4Miles?.toFixed(1)} mi</strong></div>
             <div><span>4-week avg</span><strong>{rolling4Hours?.toFixed(1)} hr</strong></div>
             <span class="training-link">Training →</span>
