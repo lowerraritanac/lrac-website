@@ -7,8 +7,12 @@ export const races = [
     athletes: ["Liam Tilton", "Aaron Wysocki"],
     athleteSlugs: ["liam-tilton", "aaron-wysocki"],
     discipline: "Half Marathon",
-    status: "Upcoming",
-    result: "",
+    status: "Completed",
+    result: "1:06:05 — 14th · 1:11:18 — 36th",
+    results: [
+      { athleteSlug: "liam-tilton", time: "1:06:05", place: "14th" },
+      { athleteSlug: "aaron-wysocki", time: "1:11:18", place: "36th" },
+    ],
   },
 
   {

@@ -32,7 +32,7 @@ export const athletes = [
       ["3,000m", "8:05.4"],
       ["5,000m", "14:07"],
       ["10,000m", "29:51"],
-      ["Half Marathon", "1:07:49"],
+      ["Half Marathon", "1:06:05"],
       ["Marathon", "2:24:29"],
     ],
     featuredMarks: [
@@ -82,6 +82,7 @@ export const athletes = [
       ["1500m", "3:55"],
       ["3,000m", "8:35"],
       ["5,000m", "14:47"],
+      ["Half Marathon", "1:11:18"],
       ["Marathon", "2:32"],
     ],
     featuredMarks: [

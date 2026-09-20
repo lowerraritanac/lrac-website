@@ -28,6 +28,10 @@ const trainingByAthlete = {
 };
 const athleteTraining = trainingByAthlete[athlete.slug];
 const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4 : null;
+const resultForAthlete = (race) => {
+  const result = race.results?.find((entry) => entry.athleteSlug === athlete.slug);
+  return result ? `${result.time} — ${result.place}` : race.result || race.status;
+};
 ---
 
 <BaseLayout title={`${athlete.name} | LRAC`} description="Work in progress.">
@@ -82,7 +86,7 @@ const rolling4Miles = athleteTraining ? athleteTraining.weekly.slice(-4).reduce(
             <div class="race-row">
               <div class="race-date"><strong>{race.date}</strong><span>{race.year}</span></div>
               <div><h3>{race.event}</h3><p>{race.location}</p></div>
-              <div class="race-result">{race.result || race.status}</div>
+              <div class="race-result">{resultForAthlete(race)}</div>
             </div>
           ))}
         </div>
