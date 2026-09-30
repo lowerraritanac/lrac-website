@@ -10,6 +10,8 @@ featured: true
 
 88 miles run. Mon. 10, Tues. 16, Wed. 17, Thurs. 11, Fri. 9, Sat. 16, Sun. 9
 
+**Estimated running time:** 9 hours 47 minutes, assuming 9 mph.
+
 More mundanity, suggesting I’ve found the rhythm needed to progress in an event that requires years of boring work and patience. Sunday, however, I’ll rip the band-aid off by testing myself at the marathon distance in Corning, NY, where I have no gauge of my capabilities. That leaves me with good odds of being exposed by the distance, which is exciting.
 
 Anyways, the challenge is always against oneself, so there is no losing for one who tries. At least that's what I’ll tell myself to have the faith to just *put my foot on the floor and not lift until I see God or a checkered flag.*

@@ -1,3 +1,6 @@
+// Liam’s estimated running time uses 9 mph for this week and future plans.
+export const estimatedAverageMph = 9;
+
 export const weeklyMileage = [
   { weekEnding: "2026-06-07", miles: 50.6, hours: 5.93 },
   { weekEnding: "2026-06-14", miles: 65.3, hours: 7.57 },
@@ -15,7 +18,7 @@ export const weeklyMileage = [
   { weekEnding: "2026-09-06", miles: 123.1, hours: 14.28 },
   { weekEnding: "2026-09-13", miles: 115.0, hours: 13.37 },
   { weekEnding: "2026-09-20", miles: 85.0 },
-  { weekEnding: "2026-09-27", miles: 88.0 },
+  { weekEnding: "2026-09-27", miles: 88.0, hours: 88 / estimatedAverageMph, hoursEstimated: true },
 ];
 
 export const plannedMileage = [
@@ -29,13 +32,14 @@ export const plannedMileage = [
   { weekEnding: "2026-11-22", miles: 100 },
   { weekEnding: "2026-11-29", miles: 85 },
   { weekEnding: "2026-12-06", miles: 70 },
-];
+].map((week) => ({ ...week, hours: week.miles / estimatedAverageMph, hoursEstimated: true }));
 
 export const latestWeek = {
   label: "Week of September 21",
   weekEnding: "2026-09-27",
   totalMiles: 88.0,
-  totalHours: null,
+  totalHours: 88 / estimatedAverageMph,
+  hoursEstimated: true,
   dailyMiles: [
     ["Mon", 10],
     ["Tue", 16],
@@ -49,5 +53,6 @@ export const latestWeek = {
 
 export const trainingDataSource = {
   name: "Strava export & weekly recaps",
+  hoursEstimateNote: "Estimated hours use 9 mph for the week ending September 27 and all future plans.",
   through: "2026-09-27",
 };
