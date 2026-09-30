@@ -4,6 +4,12 @@ import { getCollection } from "astro:content";
 import { weeklyMileage as liamWeekly, plannedMileage as liamPlanned, latestWeek as liamLatest } from "../../data/training.js";
 import { weeklyMileage as aaronWeekly, latestWeek as aaronLatest } from "../../data/training-aaron.js";
 
+import { weeklyMileage as gavinWeekly, latestWeek as gavinLatest } from "../../data/training-gavin.js";
+import { weeklyMileage as maanWeekly, latestWeek as maanLatest } from "../../data/training-maan.js";
+const addedAthletes = [
+  { name: "Gavin Rossi", slug: "gavin-rossi", weekly: gavinWeekly, latest: gavinLatest },
+  { name: "Maan Patel", slug: "maan-patel", weekly: maanWeekly, latest: maanLatest },
+];
 const posts = await getCollection("training");
 const sortedPosts = [...posts]
   .filter((post) => post.data.visibility !== "athlete-only")
@@ -60,6 +66,18 @@ const liamNextPlan = liamPlanned[0];
           </div>
           <span class="arrow">→</span>
         </a>
+        {addedAthletes.map((athlete, index) => (
+          <a class="athlete-training" href={`/training/${athlete.slug}`}>
+            <div class="athlete-number">0{index + 3}</div>
+            <div class="athlete-name"><h3>{athlete.name}</h3><span>Distance Running</span><small>Week of September 21</small></div>
+            <div class="athlete-stats">
+              <div><strong>{athlete.latest.totalMiles}</strong><span>Latest miles</span></div>
+              <div><strong>{(athlete.weekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4).toFixed(1)}</strong><span>4-week mi avg</span></div>
+              <div><strong>{athlete.weekly.length}</strong><span>Weeks logged</span></div>
+            </div>
+            <span class="arrow">→</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>

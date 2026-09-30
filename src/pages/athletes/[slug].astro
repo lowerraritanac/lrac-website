@@ -4,6 +4,8 @@ import { athletes } from "../../../data/athletes.js";
 import { races } from "../../../data/schedule.js";
 import { weeklyMileage as liamWeekly, latestWeek as liamLatest } from "../../../data/training.js";
 import { weeklyMileage as aaronWeekly, latestWeek as aaronLatest } from "../../../data/training-aaron.js";
+import { weeklyMileage as gavinWeekly, latestWeek as gavinLatest } from "../../../data/training-gavin.js";
+import { weeklyMileage as maanWeekly, latestWeek as maanLatest } from "../../../data/training-maan.js";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -23,6 +25,8 @@ const athletePosts = trainingPosts
   .slice(0, 4);
 
 const trainingByAthlete = {
+  "gavin-rossi": { weekly: gavinWeekly, latest: gavinLatest },
+  "maan-patel": { weekly: maanWeekly, latest: maanLatest },
   "liam-tilton": { weekly: liamWeekly, latest: liamLatest },
   "aaron-wysocki": { weekly: aaronWeekly, latest: aaronLatest },
 };

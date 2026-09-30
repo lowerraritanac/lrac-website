@@ -1,0 +1,10 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TrainingDeepDive from "../../components/TrainingDeepDive.astro";
+import { weeklyMileage, latestWeek, trainingDataSource } from "../../../data/training-maan.js";
+import { athletes } from "../../../data/athletes.js";
+const athlete = athletes.find((athlete) => athlete.slug === "maan-patel");
+---
+<BaseLayout title="Maan Patel Training | LRAC" description="Weekly running mileage and cross-training for Maan Patel.">
+  <TrainingDeepDive athleteName="Maan Patel" athleteSlug="maan-patel" {weeklyMileage} {latestWeek} {trainingDataSource} races={athlete?.profileRaces || []} />
+</BaseLayout>

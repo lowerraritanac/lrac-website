@@ -13,6 +13,8 @@ const fixedRoutes = [
   "/training/analytics/",
   "/training/liam-tilton/",
   "/training/aaron-wysocki/",
+  "/training/gavin-rossi/",
+  "/training/maan-patel/",
 ];
 
 const escapeXml = (value) =>
