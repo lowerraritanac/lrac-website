@@ -23,8 +23,8 @@ export const races = [
     athletes: ["Liam Tilton"],
     athleteSlugs: ["liam-tilton"],
     discipline: "Marathon",
-    status: "Upcoming",
-    result: "",
+    status: "Completed",
+    result: "2:17:09 Course Record",
   },
 
   {
