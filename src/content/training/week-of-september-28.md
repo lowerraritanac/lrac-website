@@ -14,7 +14,7 @@ featured: true
 
 Wineglass Marathon - 2:17:09 (1st)
 
-No matter how prepared, obsessed, or intelligent you are towards any pursuit, there is zero guarantee of improvement or realization of it. That truth makes this result an intriguing mix of satisfying, thrilling, and curiosity, Satisfying for the obvious: days, weeks, and months manifested into an undeniable improvement and proof of concept. A thrill by way of cherishing a moment as rare as today. But most is the curiosity of my own limits, or rather, how I have perceived them for some time.
+No matter how prepared, obsessed, or intelligent you are towards any pursuit, there is zero guarantee of improvement or realization of it. That truth makes this result an intriguing mix of satisfying, thrilling, and curiosity. Satisfying for the obvious: days, weeks, and months manifested into an undeniable improvement and proof of concept. A thrill by way of cherishing a moment as rare as today. But most is the curiosity of my own limits, or rather, how I have perceived them for some time.
 
 In my younger years I was in a constant daydream of achieving some unattainable feat in sport, until that creative optimism waned throughout college. While the realization of limits is perfectly fine, the loss of naivety in the pursuit is akin to accepting the dream to be dead. For some reason, that naivety has returned in me since deciding to give these goals a legitimate shot. I am recognizing that my naivety for the roads could be a legitimate strength.
 
