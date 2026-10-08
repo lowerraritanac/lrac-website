@@ -3,7 +3,7 @@ export const site = {
   name: "Lower Raritan Athletic Club",
   founded: "2026",
   location: "New Jersey",
-  description: "Our mission is to prove to ourselves that growing up doesn’t mean killing your dreams.",
+  description: "Lower Raritan Athletic Club — athletes, racing, training, and coaching. Founded in New Jersey in 2026.",
   email: "lowerraritanac@gmail.com",
   nav: [
     { label: "Athletes", href: "/athletes" },
