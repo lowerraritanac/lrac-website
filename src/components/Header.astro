@@ -1,56 +1,35 @@
 ---
 import { site } from "../../data/site.js";
+const links = [
+  { label: "Athletes", href: "/athletes" },
+  { label: "Race Calendar & Results", href: "/racing" },
+  { label: "Training & Writing", href: "/training" },
+  { label: "About", href: "/about" },
+  { label: "Coaching", href: "/coaching" },
+];
+const current = (href) => Astro.url.pathname === href || Astro.url.pathname.startsWith(href + '/');
 ---
-
-<header class="site-header">
-  <div class="nav-wrap">
-    <a class="brand" href="/" aria-label="Lower Raritan Athletic Club home">{site.shortName}</a>
-
-    <div class="desktop-actions">
-      <nav class="desktop-nav">
-        {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
-      </nav>
-      <a class="join-nav" href={`mailto:${site.email}`}>Join LRAC</a>
-    </div>
-
-    <details class="mobile-menu">
-      <summary><span class="menu-open">Menu</span><span class="menu-close">Close</span></summary>
-      <nav class="mobile-links">
-        {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
-        <a class="mobile-join" href="/athletes#join-lrac">Join LRAC</a>
-      </nav>
-    </details>
-  </div>
+<header class="club-header">
+<div class="club-nav-wrap">
+<a class="club-brand" href="/" aria-label="Lower Raritan Athletic Club home"><img src="/images/lr-charcoal.png" alt="" width="36" height="46" /><span>LOWER RARITAN<br/>ATHLETIC CLUB</span></a>
+<nav class="club-desktop" aria-label="Main navigation">{links.map(link => <a class:list={[link.href === '/coaching' && 'club-coaching']} href={link.href} aria-current={current(link.href) ? 'page' : undefined}>{link.label}</a>)}</nav>
+<details class="club-mobile"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation">{links.map(link => <a href={link.href} aria-current={current(link.href) ? 'page' : undefined}>{link.label}<span aria-hidden="true">↗</span></a>)}</nav></details>
+</div>
 </header>
-
 <style>
-  .site-header { position: sticky; top: 0; z-index: 1000; width: 100%; background: rgba(243,238,228,.96); border-bottom: 1px solid var(--ink); backdrop-filter: blur(8px); }
-  .nav-wrap { width: 100%; max-width: var(--max-width); min-height: 62px; margin: 0 auto; padding: 0 var(--page-padding); display: flex; align-items: center; justify-content: space-between; gap: 28px; }
-  .brand { font-family: var(--mono); color: var(--ink); text-decoration: none; font-size: 20px; font-weight: 700; letter-spacing: -.04em; }
-  .desktop-actions { display: flex; align-items: center; gap: 24px; }
-  .desktop-nav { display: flex; align-items: center; gap: 24px; }
-  .desktop-nav a, .mobile-menu summary, .join-nav { font-family: var(--mono); color: var(--ink); text-decoration: none; text-transform: uppercase; font-size: 9px; font-weight: 600; letter-spacing: .09em; }
-  .desktop-nav a:hover { opacity: .5; }
-  .join-nav { padding: 8px 10px; background: var(--mint); border: 1px solid var(--ink); }
-  .join-nav:hover { background: var(--ink); color: var(--white); }
-  .mobile-menu { display: none; }
-  .mobile-menu summary { cursor: pointer; list-style: none; }
-  .mobile-menu summary::-webkit-details-marker { display: none; }
-  .menu-open { display: inline-block; }
-  .menu-close { display: none; }
-  .mobile-menu[open] .menu-open { display: none; }
-  .mobile-menu[open] .menu-close { display: inline-block; }
-
-  @media (max-width: 850px) {
-    .nav-wrap { min-height: 60px; }
-    .brand { display: flex; align-items: center; min-height: 44px; }
-    .desktop-actions { display: none; }
-    .mobile-menu { display: block; position: static; }
-    .mobile-menu summary { display: flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: flex-end; }
-    .mobile-links { position: absolute; top: 60px; left: 0; right: 0; z-index: 2000; width: 100%; display: flex; flex-direction: column; background: var(--paper); border-bottom: 1px solid var(--ink); }
-    .mobile-links a { display: flex; align-items: center; min-height: 50px; padding: 0 var(--page-padding); font-family: var(--mono); color: var(--ink); text-decoration: none; text-transform: uppercase; font-size: 10px; font-weight: 600; letter-spacing: .08em; border-bottom: 1px solid var(--ink); }
-    .mobile-links a:last-child { border-bottom: none; }
-    .mobile-links a:hover { background: var(--mint); }
-    .mobile-links .mobile-join { background: var(--mint); }
-  }
+.club-header{position:sticky;top:0;z-index:1000;background:#f2f3e9;border-bottom:1px solid #bdc5b8;color:#233d2b;font-family:'DM Sans',Arial,sans-serif}
+.club-nav-wrap{max-width:1320px;margin:auto;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;box-sizing:border-box}
+.club-brand{display:flex;align-items:center;gap:12px;font:700 10px/1.5 'DM Sans',Arial,sans-serif;letter-spacing:.06em;color:inherit;text-decoration:none;flex-shrink:0}.club-brand img{width:36px;height:46px;object-fit:contain}
+.club-desktop{display:flex;gap:4px;align-items:center}.club-desktop a{min-height:46px;display:flex;align-items:center;padding:0 13px;color:inherit;text-decoration:none;font-size:12px;font-weight:600;border-bottom:2px solid transparent;box-sizing:border-box}.club-desktop a:hover,.club-desktop a[aria-current=page]{background:#dce9d8;border-bottom-color:#233d2b}.club-desktop .club-coaching{background:#233d2b;color:#f2f3e9;margin-left:8px;padding-inline:20px}.club-desktop .club-coaching:hover,.club-desktop .club-coaching[aria-current=page]{background:#315944;color:#fff}.club-header a:focus-visible,.club-header summary:focus-visible{outline:3px solid #315944;outline-offset:3px}
+.club-mobile{display:none}.club-mobile summary{cursor:pointer;list-style:none;min-height:46px;align-items:center;gap:18px;padding:0 16px;border:1px solid #233d2b;font-size:13px;font-weight:600}.club-mobile summary::-webkit-details-marker{display:none}.club-mobile summary span{font-size:22px}.club-mobile[open] summary span{transform:rotate(45deg)}.club-mobile nav{position:absolute;left:0;right:0;top:100%;background:#f2f3e9;border-bottom:1px solid #233d2b;padding:10px 5% 20px;box-shadow:0 12px 20px #233d2b12}.club-mobile nav a{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:50px;border-bottom:1px solid #bdc5b8;text-decoration:none;color:inherit;font-size:14px;font-weight:600}.club-mobile nav a:hover,.club-mobile nav a[aria-current=page]{background:#a8e6cf}
+@media(max-width:1050px){.club-desktop{display:none}.club-mobile{display:block}.club-mobile summary{display:flex}.club-nav-wrap{padding-block:12px}}
 </style>
+<script>
+const menu = document.querySelector<HTMLDetailsElement>('.club-mobile');
+if (menu) {
+ document.addEventListener('keydown', event => { if(event.key === 'Escape' && menu.open) {menu.open = false; menu.querySelector('summary')?.focus();} });
+ document.addEventListener('click', event => { if (!event.composedPath().includes(menu)) menu.open = false; });
+ menu.querySelector('nav')?.addEventListener('click', event => {if((event.target as Element).closest('a')) menu.open = false;});
+ window.matchMedia('(max-width:1050px)').addEventListener('change', () => {menu.open = false;});
+}
+</script>
