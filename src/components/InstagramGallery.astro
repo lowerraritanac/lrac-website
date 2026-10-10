@@ -4,7 +4,7 @@ const photos = athletes.filter(athlete => athlete.image);
 ---
 <section class="athlete-gallery" id="athlete-gallery" aria-labelledby="athlete-gallery-title">
 <div class="gallery-wrap">
-<div class="gallery-heading"><div><p class="gallery-label">05 / Gallery</p><h2 id="athlete-gallery-title">Athlete photos</h2></div><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Previous club photos" aria-controls="club-photo-track">←</button><button type="button" data-direction="1" aria-label="Next club photos" aria-controls="club-photo-track">→</button></div></div>
+<div class="gallery-heading"><div><p class="gallery-label">05 / Gallery</p><h2 id="athlete-gallery-title">Athlete profiles</h2></div><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Previous club photos" aria-controls="club-photo-track">←</button><button type="button" data-direction="1" aria-label="Next club photos" aria-controls="club-photo-track">→</button></div></div>
 <p class="gallery-description" id="gallery-help">Select a photo to view the athlete’s profile.</p>
 <div class="photo-track" id="club-photo-track" role="region" aria-label="Club photo gallery" aria-describedby="gallery-help" tabindex="0">
 {photos.map(athlete => <a class="gallery-photo" href={`/athletes/${athlete.slug}`} aria-label={`View ${athlete.name}’s profile`}><img src={athlete.image} alt={athlete.name} loading="lazy" class:list={[athlete.slug === 'aaron-wysocki' && 'aaron-gallery-photo']} /><div class="photo-caption"><span>{athlete.name}<small>{athlete.sport}</small></span><span aria-hidden="true">↗</span></div></a>)}
