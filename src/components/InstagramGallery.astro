@@ -1,0 +1,39 @@
+---
+import { athletes } from '../../data/athletes.js';
+import { site } from '../../data/site.js';
+const photos = athletes.filter(athlete => athlete.image);
+---
+<section class="social-gallery" id="instagram" aria-labelledby="instagram-title">
+<div class="gallery-wrap">
+<div class="gallery-heading"><div><p class="gallery-label">05 / Instagram</p><h2 id="instagram-title">Around the club.</h2><a class="gallery-handle" href={site.social.instagram} target="_blank" rel="noopener noreferrer">@lowerraritanathletics ↗</a></div><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Previous club photos" aria-controls="club-photo-track">←</button><button type="button" data-direction="1" aria-label="Next club photos" aria-controls="club-photo-track">→</button></div></div>
+<p class="gallery-description" id="gallery-help">Club photos. More from the team on Instagram.</p>
+<div class="photo-track" id="club-photo-track" role="region" aria-label="Club photo gallery" aria-describedby="gallery-help" tabindex="0">
+{photos.map(athlete => <a class="gallery-photo" href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${athlete.name} — visit Lower Raritan on Instagram (opens in a new tab)`}><img src={athlete.image} alt={athlete.name} loading="lazy" class:list={[athlete.slug === 'aaron-wysocki' && 'aaron-gallery-photo']} /><div class="photo-caption"><span>{athlete.name}<small>{athlete.sport}</small></span><span aria-hidden="true">↗</span></div></a>)}
+</div>
+<div class="gallery-bottom"><span>Scroll to explore <span aria-hidden="true">→</span></span><a href={site.social.instagram} target="_blank" rel="noopener noreferrer">View Instagram ↗</a></div>
+</div>
+</section>
+<style>
+.social-gallery{border-top:1px solid #adb5a5;padding:50px 0 55px;color:#20382e}.gallery-wrap{max-width:1480px;margin:auto;padding:0 5%}.gallery-heading{display:flex;align-items:end;justify-content:space-between;gap:20px}.gallery-label{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:0}.gallery-heading h2{font:400 clamp(36px,4.5vw,62px)/1.08 Georgia,serif;letter-spacing:-.04em;margin:18px 0}.gallery-handle{font-size:15px;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}.gallery-controls{display:flex;gap:10px}.gallery-controls[hidden]{display:none}.gallery-controls button{width:48px;height:48px;border:1px solid #20382e;background:transparent;color:#20382e;font:24px Arial,sans-serif;cursor:pointer}.gallery-controls button:hover:not(:disabled){background:#a8e6cf}.gallery-controls button:disabled{opacity:.3;cursor:default}.gallery-description{font-size:14px;line-height:1.6;margin:22px 0}.photo-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;padding:4px 4px 18px;scrollbar-color:#6a8a73 #dfe7d9;scrollbar-width:thin}.gallery-photo{flex:0 0 31%;min-width:0;scroll-snap-align:start;display:block;text-decoration:none}.gallery-photo img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;background:#dfe7d9}.gallery-photo img.aaron-gallery-photo{object-position:38% 12%}.photo-caption{display:flex;justify-content:space-between;gap:15px;padding:14px 0;font-size:16px;font-weight:600;line-height:1.4}.photo-caption small{display:block;font-size:11px;font-weight:400;margin-top:4px}.gallery-photo:hover{text-decoration:none}.gallery-photo:hover .photo-caption{text-decoration:underline;text-underline-offset:4px}.gallery-photo:focus-visible,.photo-track:focus-visible,.gallery-controls button:focus-visible{outline:3px solid #315944;outline-offset:1px}.gallery-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:16px;font-size:12px}.gallery-bottom>a{text-decoration:underline;text-underline-offset:4px}.gallery-bottom>span{color:#536451}@media(max-width:760px){.social-gallery{padding:35px 0}.gallery-photo{flex-basis:78%}.photo-track{gap:14px}.gallery-controls{gap:6px}.gallery-controls button{width:44px;height:44px}.gallery-heading{align-items:center}.gallery-heading h2{font-size:36px}.gallery-handle{font-size:12px}.gallery-description{font-size:13px}.photo-caption{font-size:15px}.gallery-bottom{font-size:11px}}
+</style>
+<script>
+const track = document.querySelector<HTMLElement>('#club-photo-track');
+const controls = document.querySelector<HTMLElement>('.gallery-controls');
+if(track && controls){
+ const buttons = Array.from(controls.querySelectorAll<HTMLButtonElement>('button'));
+ const update = () => {
+  const max = track.scrollWidth - track.clientWidth;
+  buttons[0].disabled = track.scrollLeft <= 2;
+  buttons[1].disabled = track.scrollLeft >= max - 2;
+ };
+ controls.hidden = false;
+ buttons.forEach(button => button.addEventListener('click', () => {
+  const photo = track.querySelector<HTMLElement>('.gallery-photo');
+  const step = (photo?.getBoundingClientRect().width || track.clientWidth) + parseFloat(getComputedStyle(track).columnGap || '0');
+  track.scrollBy({left: Number(button.dataset.direction) * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+ }));
+ track.addEventListener('scroll', update, {passive:true});
+ new ResizeObserver(update).observe(track);
+ update();
+}
+</script>

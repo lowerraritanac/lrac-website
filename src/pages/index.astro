@@ -1,6 +1,8 @@
 ---
 
 
+import InstagramGallery from "../components/InstagramGallery.astro";
+import ClubActivity from "../components/ClubActivity.astro";
 import Header from "../components/Header.astro";
 import { races } from "../../data/schedule.js";
 import { raceDate } from "../lib/race-date.js";
@@ -96,10 +98,11 @@ const featuredAthletes = athletes.filter((athlete) => athlete.currentMember !== 
 </div></section></div>
 <section class="coaching" id="coaching"><div class="wrap coaching-grid"><div><p class="eyebrow">03 / Coaching</p><span class="number" aria-hidden="true">LRAC</span></div><h2>Coaching</h2><div><p class="intro">Tell us where you are now and where you want to go. Start a conversation about coaching with Lower Raritan.</p><a class="button" href="/coaching">Coaching inquiries</a></div></div></section>
 <section class="about-section" id="about"><div class="wrap about-grid"><div><p class="eyebrow">04</p><h2>About</h2></div><div class="about-copy"><p>Lower Raritan Athletic Club was founded in Central Jersey in 2026. Our name comes from the watershed that encompasses the place we call home.</p><p>The idea is simple: keep the benefits of a team while taking on the responsibilities that come with age. We just want to train really hard and go fast.</p><a class="button" href="/about">About LRAC</a></div></div></section>
-<section class="instagram-section" id="instagram"><div class="wrap instagram-grid"><div class="instagram-heading"><p class="eyebrow">05 / Instagram</p><h2>Instagram</h2><a class="instagram-handle" href="https://www.instagram.com/lowerraritanathletics/" target="_blank" rel="noopener noreferrer">@lowerraritanathletics</a><a class="button" href="https://www.instagram.com/lowerraritanathletics/" target="_blank" rel="noopener noreferrer">View on Instagram</a></div><div class="instagram-content"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/lowerraritanathletics/" data-instgrm-version="14"><a href="https://www.instagram.com/lowerraritanathletics/" target="_blank" rel="noopener noreferrer">View @lowerraritanathletics on Instagram</a></blockquote></div></div></section>
+<InstagramGallery />
 
+<ClubActivity />
 </main><footer><div class="wrap footer-inner"><p>Lower Raritan Athletic Club.</p><a href="/athletes#join-lrac">Join the club</a><a href="mailto:lowerraritanac@gmail.com">Get in touch</a></div></footer>
 
 
-<script is:inline async src="https://www.instagram.com/embed.js"></script>
+
 </body></html>
