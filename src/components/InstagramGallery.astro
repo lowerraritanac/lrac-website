@@ -5,12 +5,12 @@ const photos = athletes.filter(athlete => athlete.image);
 ---
 <section class="social-gallery" id="instagram" aria-labelledby="instagram-title">
 <div class="gallery-wrap">
-<div class="gallery-heading"><div><p class="gallery-label">05 / Instagram</p><h2 id="instagram-title">Around the club.</h2><a class="gallery-handle" href={site.social.instagram} target="_blank" rel="noopener noreferrer">@lowerraritanathletics ↗</a></div><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Previous club photos" aria-controls="club-photo-track">←</button><button type="button" data-direction="1" aria-label="Next club photos" aria-controls="club-photo-track">→</button></div></div>
-<p class="gallery-description" id="gallery-help">Club photos. More from the team on Instagram.</p>
+<div class="gallery-heading"><div><p class="gallery-label">05 / Instagram</p><h2 id="instagram-title">Instagram</h2><a class="gallery-handle" href={site.social.instagram} target="_blank" rel="noopener noreferrer">@lowerraritanathletics ↗</a></div><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Previous club photos" aria-controls="club-photo-track">←</button><button type="button" data-direction="1" aria-label="Next club photos" aria-controls="club-photo-track">→</button></div></div>
+<p class="gallery-description" id="gallery-help">Club photos. Each photo links to our Instagram profile.</p>
 <div class="photo-track" id="club-photo-track" role="region" aria-label="Club photo gallery" aria-describedby="gallery-help" tabindex="0">
 {photos.map(athlete => <a class="gallery-photo" href={site.social.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${athlete.name} — visit Lower Raritan on Instagram (opens in a new tab)`}><img src={athlete.image} alt={athlete.name} loading="lazy" class:list={[athlete.slug === 'aaron-wysocki' && 'aaron-gallery-photo']} /><div class="photo-caption"><span>{athlete.name}<small>{athlete.sport}</small></span><span aria-hidden="true">↗</span></div></a>)}
 </div>
-<div class="gallery-bottom"><span>Scroll to explore <span aria-hidden="true">→</span></span><a href={site.social.instagram} target="_blank" rel="noopener noreferrer">View Instagram ↗</a></div>
+<div class="gallery-bottom"><span>Scroll for more photos <span aria-hidden="true">→</span></span><a href={site.social.instagram} target="_blank" rel="noopener noreferrer">View Instagram ↗</a></div>
 </div>
 </section>
 <style>
