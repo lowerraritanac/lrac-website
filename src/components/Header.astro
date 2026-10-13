@@ -13,7 +13,7 @@ const current = (href) => Astro.url.pathname === href || Astro.url.pathname.star
 <div class="club-nav-wrap">
 <a class="club-brand" href="/" aria-label="Lower Raritan Athletic Club home"><img src="/images/lr-charcoal.png" alt="" width="36" height="46" /><span>LOWER RARITAN<br/>ATHLETIC CLUB</span></a>
 <nav class="club-desktop" aria-label="Main navigation">{links.map(link => <a class:list={[link.href === '/coaching' && 'club-coaching']} href={link.href} aria-current={current(link.href) ? 'page' : undefined}>{link.label}</a>)}</nav>
-<details class="club-mobile"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation">{links.map(link => <a href={link.href} aria-current={current(link.href) ? 'page' : undefined}>{link.label}<span aria-hidden="true">↗</span></a>)}</nav></details>
+<details class="club-mobile"><summary>Menu <span aria-hidden="true">+</span></summary><nav aria-label="Mobile navigation">{links.map(link => <a href={link.href} aria-current={current(link.href) ? 'page' : undefined}>{link.label}</a>)}</nav></details>
 </div>
 </header>
 <style>
