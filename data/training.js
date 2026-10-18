@@ -53,6 +53,6 @@ export const latestWeek = {
 
 export const trainingDataSource = {
   name: "Strava export & weekly recaps",
-  hoursEstimateNote: "Estimated hours use 9 mph for the weeks ending September 27 and October 4 and all future plans.",
+  hoursEstimateNote: "",
   through: "2026-10-04",
 };
