@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
-import { weeklyMileage as liamWeekly, plannedMileage as liamPlanned, latestWeek as liamLatest } from "../../data/training.js";
+import { weeklyMileage as liamWeekly, latestWeek as liamLatest } from "../../data/training.js";
 import { weeklyMileage as aaronWeekly, latestWeek as aaronLatest } from "../../data/training-aaron.js";
 
 import { weeklyMileage as gavinWeekly, latestWeek as gavinLatest } from "../../data/training-gavin.js";
@@ -18,11 +18,7 @@ const writing = sortedPosts.filter((post) => post.data.category === "Writing");
 const trainingReports = sortedPosts.filter((post) => post.data.category === "Training Report");
 const raceReports = sortedPosts.filter((post) => post.data.category === "Race Report");
 const liamRolling4Miles = liamWeekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
-const liamWeeksWithHours = liamWeekly.filter((week) => Number.isFinite(week.hours));
-const liamRolling4Hours = liamWeeksWithHours.slice(-4).reduce((sum, week) => sum + week.hours, 0) / Math.min(4, liamWeeksWithHours.length);
 const aaronRolling4Miles = aaronWeekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4;
-const aaronRolling4Hours = aaronWeekly.slice(-4).reduce((sum, week) => sum + week.hours, 0) / 4;
-const liamNextPlan = liamPlanned[0];
 ---
 
 <BaseLayout title="Training | LRAC" description="Writing, training reports, and athlete training data from Lower Raritan Athletic Club.">
@@ -43,12 +39,12 @@ const liamNextPlan = liamPlanned[0];
 
       <div class="athlete-training-list">
         <a class="athlete-training" href="/training/liam-tilton">
-          <div class="athlete-name"><h3>Liam Tilton</h3>{liamNextPlan && <small>Next week · {liamNextPlan.miles} planned mi</small>}</div>
+          <div class="athlete-name"><h3>Liam Tilton</h3></div>
           <div class="athlete-stats">
             <div><strong>{liamLatest.totalMiles}</strong><span>Latest miles</span></div>
-            <div><strong>{Number.isFinite(liamLatest.totalHours) ? liamLatest.totalHours.toFixed(1) : "—"}</strong><span>Latest hours</span></div>
+
             <div><strong>{liamRolling4Miles.toFixed(1)}</strong><span>4-week mi avg</span></div>
-            <div><strong>{liamRolling4Hours.toFixed(1)}</strong><span>4-week hr avg</span></div>
+
           </div>
           <span class="arrow">→</span>
         </a>
@@ -57,19 +53,19 @@ const liamNextPlan = liamPlanned[0];
           <div class="athlete-name"><h3>Aaron Wysocki</h3></div>
           <div class="athlete-stats">
             <div><strong>{aaronLatest.totalMiles}</strong><span>Latest miles</span></div>
-            <div><strong>{aaronLatest.totalHours.toFixed(1)}</strong><span>Latest hours</span></div>
+
             <div><strong>{aaronRolling4Miles.toFixed(1)}</strong><span>4-week mi avg</span></div>
-            <div><strong>{aaronRolling4Hours.toFixed(1)}</strong><span>4-week hr avg</span></div>
+
           </div>
           <span class="arrow">→</span>
         </a>
         {addedAthletes.map((athlete) => (
           <a class="athlete-training" href={`/training/${athlete.slug}`}>
-            <div class="athlete-name"><h3>{athlete.name}</h3><small>Week of September 21</small></div>
+            <div class="athlete-name"><h3>{athlete.name}</h3></div>
             <div class="athlete-stats">
               <div><strong>{athlete.latest.totalMiles}</strong><span>Latest miles</span></div>
               <div><strong>{(athlete.weekly.slice(-4).reduce((sum, week) => sum + week.miles, 0) / 4).toFixed(1)}</strong><span>4-week mi avg</span></div>
-              <div><strong>{athlete.weekly.length}</strong><span>Weeks logged</span></div>
+
             </div>
             <span class="arrow">→</span>
           </a>
@@ -141,8 +137,7 @@ const liamNextPlan = liamPlanned[0];
   .athlete-training { display: grid; grid-template-columns: minmax(150px, .8fr) minmax(0, 2fr) 20px; gap: 20px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--ink); color: var(--ink); text-decoration: none; }
   .athlete-name { min-width: 0; }
   .athlete-name h3 { margin: 0; font-size: 24px; line-height: 1.15; }
-  .athlete-name small { display: block; margin-top: 5px; color: var(--mint-dark); font-family: var(--mono); font-size: 9px; line-height: 1.4; text-transform: uppercase; }
-  .athlete-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .athlete-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .athlete-stats > div { min-width: 0; }
   .athlete-stats strong, .athlete-stats span { display: block; font-family: var(--mono); }
   .athlete-stats strong { font-size: 19px; line-height: 1.2; }
