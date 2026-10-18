@@ -1,6 +1,6 @@
 ---
 title: "Week of October 5th"
-description: "75 miles run. Renewed optimism and 8 weeks until the California International Marathon."
+description: ""
 date: 2026-10-11T12:00:00-04:00
 category: "Training Report"
 athlete: "Liam Tilton"
