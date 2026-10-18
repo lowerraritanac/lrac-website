@@ -51,15 +51,12 @@ const isTrainingReport = post.data.category === "Training Report";
   aside { padding-top: 9px; border-top: 1px solid var(--ink); font-family: var(--mono); font-size: 8px; text-transform: uppercase; }
   .article-inner { min-width: 0; }
   .article-inner :global(p) { margin: 0 0 26px; font-family: var(--editorial); font-size: 20px; line-height: 1.68; }
-  .training-report .article-inner :global(p:first-child) { margin-bottom: 38px; padding: 15px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); font-family: var(--mono); font-size: 10px; font-weight: 600; line-height: 1.65; }
   .article-inner :global(h2) { margin: 64px 0 22px; padding-top: 18px; border-top: 1px solid var(--ink); font-family: var(--editorial); font-size: 38px; font-weight: 600; line-height: 1; letter-spacing: -.025em; }
-  .article-inner :global(h3) { margin: 44px 0 15px; font-family: var(--mono); font-size: 15px; line-height: 1.25; text-transform: uppercase; }
+  .article-inner :global(h3) { margin: 44px 0 15px; font-family: var(--editorial); font-size: 24px; line-height: 1.25; }
   .article-inner :global(hr) { margin: 50px 0; border: 0; border-top: 1px solid var(--ink); }
   .article-inner :global(strong) { font-weight: 700; }
-  .training-report .article-inner :global(h2 + p),
-  .training-report .article-inner :global(h2 + p + p) { margin-bottom: 12px; font-family: var(--mono); font-size: 10px; line-height: 1.65; }
   .article-inner :global(blockquote) { margin: 38px 0 42px; padding: 18px 20px 19px; border: 1px solid var(--ink); border-left: 5px solid var(--mint-dark); background: var(--beige); }
-  .article-inner :global(blockquote p) { margin: 0; font-family: var(--mono); font-size: 12px; font-weight: 600; line-height: 1.65; }
+  .article-inner :global(blockquote p) { margin: 0; }
 
   @media (max-width: 850px) {
     .article-hero { padding: 46px 0 42px; }
@@ -72,11 +69,7 @@ const isTrainingReport = post.data.category === "Training Report";
     .article-layout { width: calc(100% - 40px); grid-template-columns: 1fr; gap: 24px; }
     aside { max-width: 120px; }
     .article-inner :global(p) { margin-bottom: 22px; font-size: 18px; line-height: 1.64; }
-    .training-report .article-inner :global(p:first-child),
-    .training-report .article-inner :global(h2 + p),
-    .training-report .article-inner :global(h2 + p + p) { font-size: 9px; }
     .article-inner :global(h2) { margin-top: 50px; font-size: 32px; }
     .article-inner :global(blockquote) { margin: 30px 0 34px; padding: 15px 16px; }
-    .article-inner :global(blockquote p) { font-size: 10px; }
   }
 </style>
