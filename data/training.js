@@ -25,32 +25,24 @@ export const weeklyMileage = [
   { weekEnding: "2026-10-25", miles: 123 },
   { weekEnding: "2026-11-01", miles: 125 },
   { weekEnding: "2026-11-08", miles: 126 },
+  { weekEnding: "2026-11-15", miles: 96 },
+  { weekEnding: "2026-11-22", miles: 115 },
 ];
 
 export const plannedMileage = [
-  { weekEnding: "2026-11-15", miles: 125 },
-  { weekEnding: "2026-11-22", miles: 110 },
   { weekEnding: "2026-11-29", miles: 85 },
   { weekEnding: "2026-12-06", miles: 70 },
 ].map((week) => ({ ...week, hours: week.miles / estimatedAverageMph, hoursEstimated: true }));
 
 export const latestWeek = {
-  label: "Week of November 2",
-  weekEnding: "2026-11-08",
-  totalMiles: 126,
-  dailyMiles: [
-    ["Mon", 19],
-    ["Tue", 25],
-    ["Wed", 18],
-    ["Thu", 18],
-    ["Fri", 15],
-    ["Sat", 22],
-    ["Sun", 9],
-  ],
+  label: "Week of November 16",
+  weekEnding: "2026-11-22",
+  totalMiles: 115,
+  dailyMiles: [],
 };
 
 export const trainingDataSource = {
   name: "Strava export & weekly recaps",
   hoursEstimateNote: "",
-  through: "2026-11-08",
+  through: "2026-11-22",
 };
